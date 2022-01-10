@@ -28,6 +28,7 @@ Is the "Mods" folder present? If not, just create a new one with the name "Mods"
 Insert the folder "CoI.Mod.Better" either with or without cheats.
 
 Then start the game and enjoy!
+# 
 
 I wish you a lot of fun!
 Luxgore
