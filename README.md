@@ -44,34 +44,58 @@ Then start the game and enjoy!
 
 # Config
 
-{
     "DisableBigStorage": false,                 => Disables the modded size of the warehouses.
+    
     "DisableVehicleEdicts": false,              => Deactivates the newly added edicts
+    
     "DisableNewRefugeesSystem": false,          => Deactivates the newly Refugees System
+    
     "DisableExtentedMineTowerRange": false,     => Deactivates the modded range of the Mining Tower
+    
     "DisableVehicleCapIncrease": false,         => Disables the modded VehicleCapacity.
+    
     "DisableVoidCrusher": false,                => Disables the Void Crusher
+    
     "DisableCheats": false,                     => Disables the Cheats
+    
     "BeaconRefugeesMin": 1,
+    
     "BeaconRefugeesMax": 20,
+    
     "BeaconDurationMin": 2,
+    
     "BeaconDurationMax": 6,
+    
     "TowerAreaMultiplier": 1.5,
+    
     "StorageCapacitySmall": 540,
+    
     "StorageCapacityLarge": 1080,
+    
     "FluidStorageCapacityMultiplier": 10,
+    
     "NuclearWasteStorageCapacityMultiplier": 5,
+    
     "CheatUpkeepEdicts": -0.5,
+    
     "VehicleEdictsResearchCostT1": 9,
+    
     "VehicleEdictsResearchCostT2": 12,
+    
     "VehicleEdictsResearchCostT3": 15,
+    
     "VehicleEdictsResearchCostT4": 18,
+    
     "VehicleEdictsResearchCostT5": 21,
+    
     "VoidDestroyCheatPowerConsume": 75,
+    
     "VoidDestroyCheatAmountInput": 40,
+    
     "VoidDestroyCheatDuration": 20,
+    
     "VoidDestroyCheatEmission": 0
-}
+    
 
 # 
 I wish you a lot of fun!
