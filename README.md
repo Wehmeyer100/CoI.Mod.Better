@@ -35,4 +35,4 @@ Then start the game and enjoy!
 
 # 
 I wish you a lot of fun!
-Luxgore
+Luxgor
