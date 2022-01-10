@@ -11,12 +11,11 @@ Game Version(Comptability): 0.3.8 + 0.3.8a
 - The range of your mining tower has been increased by 50%.
 
 # Cheats:
-- Die Cheats werden nur im separaten Mod vorhanden sein. 
+- The cheats will only be available in the separate mod. 
 
-- Es gibt nun die Möglichkeit per Forschungen einen Cheat zu aktivieren dass es ermöglicht dein Fahrzeuglimit um 250 zu erhöhen. ACHTUNG: Es kann bei voller Auslastung des Limits zu Performance Probleme kommen.
+- There is now the possibility to activate a cheat via research that allows you to increase your vehicle limit by 250. ATTENTION: There can be performance problems when the limit is fully used.
 
-- Zu dem ist es möglich die Lademenge der LKW, die Wartung und den Dieselverbrauch zu senken/erhöhen. Du musst es aber erst erforschen und es mit dem Kapitänsbüro aktivierten.
-
+- In addition, it is possible to decrease/increase the load amount of the trucks, the maintenance and the diesel consumption. But you have to research it first and activate it with the captain's office.
 
 I wish you a lot of fun!
 Luxgore
