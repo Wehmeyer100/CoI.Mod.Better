@@ -5,6 +5,7 @@ Game Version(Comptability): 0.3.8 + 0.3.8a
 Savegame Comptability: You need to start a new game!
 
 # Current overview of the functions:
+- Void Destroyer - Shreds products(no liquids, no losse), has as output stones. and causes emissions.
 - All vanilla storages have 3x more space. 
 - The liquid stores have 30x more than the vanilla building.
 - The refugee system has been overhauled so that refugees are now arriving forever. However, the rhythm has been changed, the number of refugees varies, the gift amounts are now also randomly generated and it can also happen that you do not receive any gifts. The number of refugees and the gifts increase at the beginning and stop increasing after a certain limit, but these can also fluctuate strongly.
@@ -13,11 +14,19 @@ Savegame Comptability: You need to start a new game!
 - The range of your mining tower has been increased by 50%.
 
 # Cheats:
-- The cheats will only be available in the mod with cheat "CoI.Mod.Better with Cheats". 
 
-- There is now the possibility to activate a cheat via research that allows you to increase your vehicle limit by 250. ATTENTION: There can be performance problems when the limit is fully used.
+- Cheat can be disabled in the config file.
 
-- In addition, it is possible to decrease/increase the load amount of the trucks, the maintenance and the diesel consumption. But you have to research it first and activate it with the captain's office.
+Machine:
+- Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
+
+Research:
+- Vehicle Capacity +250
+
+Edicts: 
+- Maintenance reduce: -30%, -40%, -50%, -60%
+- Fuel consume reduce: -25%, -50%, -75%, -95%
+- Truck load size increase: 100%, 200%, 300%, 400%, 500%
 
 # Bugs
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
@@ -32,6 +41,37 @@ Is the "Mods" folder present? If not, just create a new one with the name "Mods"
 Copy the folder "CoI.Mod.Better" from one of the folders "CoI.Mod.Better with Cheats" or "CoI.Mod.Better without Cheats" and paste it into the "Documents\CaptainOfIndustry\Mods" folder.
 
 Then start the game and enjoy!
+
+# Config
+
+{
+    "DisableBigStorage": false,                 => Disables the modded size of the warehouses.
+    "DisableVehicleEdicts": false,              => Deactivates the newly added edicts
+    "DisableNewRefugeesSystem": false,          => Deactivates the newly Refugees System
+    "DisableExtentedMineTowerRange": false,     => Deactivates the modded range of the Mining Tower
+    "DisableVehicleCapIncrease": false,         => Disables the modded VehicleCapacity.
+    "DisableVoidCrusher": false,                => Disables the Void Crusher
+    "DisableCheats": false,                     => Disables the Cheats
+    "BeaconRefugeesMin": 1,
+    "BeaconRefugeesMax": 20,
+    "BeaconDurationMin": 2,
+    "BeaconDurationMax": 6,
+    "TowerAreaMultiplier": 1.5,
+    "StorageCapacitySmall": 540,
+    "StorageCapacityLarge": 1080,
+    "FluidStorageCapacityMultiplier": 10,
+    "NuclearWasteStorageCapacityMultiplier": 5,
+    "CheatUpkeepEdicts": -0.5,
+    "VehicleEdictsResearchCostT1": 9,
+    "VehicleEdictsResearchCostT2": 12,
+    "VehicleEdictsResearchCostT3": 15,
+    "VehicleEdictsResearchCostT4": 18,
+    "VehicleEdictsResearchCostT5": 21,
+    "VoidDestroyCheatPowerConsume": 75,
+    "VoidDestroyCheatAmountInput": 40,
+    "VoidDestroyCheatDuration": 20,
+    "VoidDestroyCheatEmission": 0
+}
 
 # 
 I wish you a lot of fun!
