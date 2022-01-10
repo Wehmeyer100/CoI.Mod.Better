@@ -13,7 +13,7 @@ Savegame Comptability: You need to start a new game!
 - The range of your mining tower has been increased by 50%.
 
 # Cheats:
-- The cheats will only be available in the separate mod. 
+- The cheats will only be available in the mod with cheat "CoI.Mod.Better with Cheats". 
 
 - There is now the possibility to activate a cheat via research that allows you to increase your vehicle limit by 250. ATTENTION: There can be performance problems when the limit is fully used.
 
