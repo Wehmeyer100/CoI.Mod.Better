@@ -23,7 +23,7 @@ Savegame Comptability: You need to start a new game!
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
-Download this file: #LINK
+Download this file: https://github.com/Wehmeyer100/CoI.Better/releases/tag/0.1.0
 
 Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
 
