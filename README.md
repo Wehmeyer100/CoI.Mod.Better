@@ -16,7 +16,7 @@ Savegame Comptability: You need to start a new game!
 
 # Cheats:
 
-- Cheat can be disabled in the config file.
+- Cheats can be disabled in the config file.
 
 Machine:
 - Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
