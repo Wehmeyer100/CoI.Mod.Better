@@ -45,19 +45,19 @@ Then start the game and enjoy!
 
 # Config
 
-    "DisableBigStorage": false,                 => Disables the modded size of the warehouses.
+    "DisableBigStorage": false,                 => Disables the modded size of the warehouses., Only for new game!!!
     
-    "DisableVehicleEdicts": false,              => Deactivates the newly added edicts
+    "DisableVehicleEdicts": false,              => Deactivates the newly added edicts, Only for new game!!!
     
-    "DisableNewRefugeesSystem": false,          => Deactivates the newly Refugees System
+    "DisableNewRefugeesSystem": false,          => Deactivates the newly Refugees System, Only for new game!!!
     
-    "DisableExtentedMineTowerRange": false,     => Deactivates the modded range of the Mining Tower
+    "DisableExtentedMineTowerRange": false,     => Deactivates the modded range of the Mining Tower, Only for new game!!!
     
-    "DisableVehicleCapIncrease": false,         => Disables the modded VehicleCapacity.
+    "DisableVehicleCapIncrease": false,         => Disables the modded VehicleCapacity., Only for new game!!!
     
-    "DisableVoidCrusher": false,                => Disables the Void Crusher
+    "DisableVoidCrusher": false,                => Disables the Void Crusher, Only for new game!!!
     
-    "DisableCheats": false,                     => Disables the Cheats
+    "DisableCheats": false,                     => Disables the Cheats, Only for new game!!!
     
     "BeaconRefugeesMin": 1,
     
