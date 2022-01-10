@@ -38,7 +38,7 @@ Open your documents folder. Here you should find the "CaptainOfIndustry" folder.
 
 Is the "Mods" folder present? If not, just create a new one with the name "Mods".
 
-Copy the folder "CoI.Mod.Better" from one of the folders "CoI.Mod.Better with Cheats" or "CoI.Mod.Better without Cheats" and paste it into the "Documents\CaptainOfIndustry\Mods" folder.
+Copy the folder "CoI.Mod.Better" and paste it into the "Documents\CaptainOfIndustry\Mods" folder.
 
 Then start the game and enjoy!
 
