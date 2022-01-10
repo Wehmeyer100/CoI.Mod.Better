@@ -1,6 +1,7 @@
 # Captain of Industry mod: Better
 
 Game Version(Comptability): 0.3.8 + 0.3.8a
+Savegame Comptability: You need to start a new game!
 
 # Current overview of the functions:
 - All vanilla storages have 3x more space. 
@@ -16,6 +17,17 @@ Game Version(Comptability): 0.3.8 + 0.3.8a
 - There is now the possibility to activate a cheat via research that allows you to increase your vehicle limit by 250. ATTENTION: There can be performance problems when the limit is fully used.
 
 - In addition, it is possible to decrease/increase the load amount of the trucks, the maintenance and the diesel consumption. But you have to research it first and activate it with the captain's office.
+
+# Install
+Download this file: #LINK
+
+Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
+
+Is the "Mods" folder present? If not, just create a new one with the name "Mods".
+
+Insert the folder "CoI.Mod.Better" either with or without cheats.
+
+Then start the game and enjoy!
 
 I wish you a lot of fun!
 Luxgore
