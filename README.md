@@ -19,6 +19,9 @@ Savegame Comptability: You need to start a new game!
 
 - In addition, it is possible to decrease/increase the load amount of the trucks, the maintenance and the diesel consumption. But you have to research it first and activate it with the captain's office.
 
+# Bugs
+- The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
+
 # Install
 Download this file: #LINK
 
