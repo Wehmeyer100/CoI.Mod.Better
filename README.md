@@ -12,7 +12,7 @@ Savegame Comptability: You need to start a new game!
 - More edict have been added that offer your load amount of trucks, their consumption and their maintenance more slopes.
 - You can now increase your vehicle limit with further research. However, it may happen that the performance suffers. 
 - The range of your mining tower has been increased by 50%.
-- Edit various settings in the Config. It should be noted that this is created only after the load / new game. 
+- Edit various settings in the Config. It should be noted that this is created only after the load / new game. The config is valid for all new and old savegames. So be careful what you change.
 
 # Cheats:
 
