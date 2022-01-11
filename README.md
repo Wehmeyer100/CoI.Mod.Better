@@ -33,15 +33,38 @@ Edicts:
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Better/releases
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.3
 
-Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
+1. Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
 
-Is the "Mods" folder present? If not, just create a new one with the name "Mods".
+2. Is the "Mods" folder present? If not, just create a new one with the name "Mods".
 
-Copy the folder "CoI.Mod.Better" and paste it into the "Documents\CaptainOfIndustry\Mods" folder.
+3. Copy the folder "CoI.Mod.Better" and paste it into the "Documents\CaptainOfIndustry\Mods" folder.
+
+4. Start a new game!
 
 Then start the game and enjoy!
+
+# FAQ
+
+1. May I rename the folder or file ? 
+    No, CoI would otherwise have problems and find the mod.
+
+2. Why is the mod not loaded?
+    There are several reasons.
+    1. in the settings menu the option Mods was not activated.
+    2. is the file/mod path correct? It must look like this: "Documents\CaptainOfIndustry\Mods\CoI.Mod.Better\CoI.Mod.Better.dll".
+
+3. How do I see that the mod is active?
+    Here, too, there are several possibilities.
+    1. You look in the last log and in the log should be the following to find: 
+        Game will start with following 4 mods:
+        Mafi.Core.CoreMod
+        Mafi.Base.BaseMod
+        Mafi.Unity.UnityMod
+        CoI.Mod.Better.MoreRecipes <--- If this is displayed, the mod has been loaded.
+
+    2. In the research tree there should be new research options at the top.
 
 # Config
 
