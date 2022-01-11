@@ -57,10 +57,11 @@ Then start the game and enjoy!
 
 3. How do I see that the mod is active?
     Here, too, there are several possibilities.
+    
     Log Folder: "Documents\CaptainOfIndustry\Logs"
     
     1. You look in the last log and in the log should be the following to find: 
-    2. 
+     
         Game will start with following 4 mods:
         
         Mafi.Core.CoreMod
