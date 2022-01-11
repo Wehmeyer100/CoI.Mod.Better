@@ -63,7 +63,7 @@ Then start the game and enjoy!
         Mafi.Base.BaseMod
         Mafi.Unity.UnityMod
         CoI.Mod.Better.MoreRecipes <--- If this is displayed, the mod has been loaded.
-
+        
     2. In the research tree there should be new research options at the top.
 
 # Config
