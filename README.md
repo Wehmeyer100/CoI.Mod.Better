@@ -58,11 +58,11 @@ Then start the game and enjoy!
 3. How do I see that the mod is active?
     Here, too, there are several possibilities.
     1. You look in the last log and in the log should be the following to find: 
-        Game will start with following 4 mods:
+        "Game will start with following 4 mods:
         Mafi.Core.CoreMod
         Mafi.Base.BaseMod
         Mafi.Unity.UnityMod
-        CoI.Mod.Better.MoreRecipes <--- If this is displayed, the mod has been loaded.
+        CoI.Mod.Better.MoreRecipes <--- If this is displayed, the mod has been loaded."
         
     2. In the research tree there should be new research options at the top.
 
