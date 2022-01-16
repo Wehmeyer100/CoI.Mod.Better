@@ -1,6 +1,6 @@
 # Captain of Industry mod: Better
 
-Game Version(Comptability): 0.3.8 + 0.3.8a
+Game Version(Comptability): 0.3.10
 
 Savegame Comptability: You need to start a new game!
 
@@ -20,6 +20,10 @@ Savegame Comptability: You need to start a new game!
 
 Machine:
 - Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
+- Void Producer Liquids - You can produce all liquids
+- Void Producer Products - You can produce all Products
+- Void Producer Loose - You can produce all Loose
+- Diesel Generators - 1 Diesel per second, produce: 10MW, 50MW, 100MW, 200MW, 1GW
 
 Research:
 - Vehicle Capacity +250
@@ -28,12 +32,13 @@ Edicts:
 - Maintenance reduce: -30%, -40%, -50%, -60%
 - Fuel consume reduce: -25%, -50%, -75%, -95%
 - Truck load size increase: 100%, 200%, 300%, 400%, 500%
-
+- Unity Plus(increase unity produce)): 5%, 10%, 20%, 50%, 100%
+- Reduce all Services: -30%, -40%, -50%, -60%, -75%
 # Bugs
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.3
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.4
 
 1. Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
 
@@ -78,8 +83,10 @@ Then start the game and enjoy!
 # Config
 
     "DisableBigStorage": false,                 => Disables the modded size of the warehouses., Only for new game!!!
+
+    "DisableGenerellEdicts": false,             => Deactivates the added generell edicts, Only for new game!!!
     
-    "DisableVehicleEdicts": false,              => Deactivates the newly added edicts, Only for new game!!!
+    "DisableVehicleEdicts": false,              => Deactivates the added Vehicle edicts, Only for new game!!!
     
     "DisableNewRefugeesSystem": false,          => Deactivates the newly Refugees System, Only for new game!!!
     
@@ -90,6 +97,10 @@ Then start the game and enjoy!
     "DisableVoidCrusher": false,                => Disables the Void Crusher, Only for new game!!!
     
     "DisableCheats": false,                     => Disables the Cheats, Only for new game!!!
+
+    "DisableVoidProducer": false,               => Disables VoidProducer, Only for new game!!!
+
+    "DisableDieselGeneators": false,            => Disables DieselGeneators, Only for new game!!!
     
     "BeaconRefugeesMin": 1,
     
@@ -98,6 +109,32 @@ Then start the game and enjoy!
     "BeaconDurationMin": 2,
     
     "BeaconDurationMax": 6,
+
+    "BeaconRewardBaseValueMultiplier": 1.0,
+
+    "BeaconRewardIronBaseValue": 1.5,
+
+    "BeaconRewardIronChance": 1.0,
+
+    "BeaconRewardCopperBaseValue": 1.0,
+
+    "BeaconRewardCopperChance": 0.8999999761581421,
+
+    "BeaconRewardRubberBaseValue": 0.75,
+
+    "BeaconRewardRubberChance": 0.800000011920929,
+
+    "BeaconRewardOilBaseValue": 0.5,
+
+    "BeaconRewardOilChance": 0.4000000059604645,
+
+    "BeaconRewardDieselBaseValue": 0.25,
+
+    "BeaconRewardDieselChance": 0.4000000059604645,
+
+    "BeaconRewardFoodBaseValue": 1.0,
+
+    "BeaconRewardFoodChance": 0.699999988079071,
     
     "TowerAreaMultiplier": 1.5,
     
@@ -127,7 +164,13 @@ Then start the game and enjoy!
     
     "VoidDestroyCheatDuration": 20,
     
-    "VoidDestroyCheatEmission": 0
+    "VoidDestroyCheatEmission": 0,
+
+    "VoidProducerCheatPowerConsume": 75,
+
+    "VoidProducerCheatAmountInput": 40,
+
+    "VoidProducerCheatDuration": 20
     
 
 # 
