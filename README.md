@@ -23,7 +23,7 @@ Machine:
 - Void Producer Liquids - You can produce all liquids
 - Void Producer Products - You can produce all Products
 - Void Producer Loose - You can produce all Loose
-- Diesel Generators - 1 Diesel per second, produce: 10MW, 50MW, 100MW, 200MW, 1GW
+- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW
 
 Research:
 - Vehicle Capacity +250
