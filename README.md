@@ -23,7 +23,7 @@ Machine:
 - Void Producer Liquids - You can produce all liquids
 - Void Producer Products - You can produce all Products
 - Void Producer Loose - You can produce all Loose
-- Diesel Generators - 1 Diesel per second, produce: 10MW, 50MW, 100MW, 200MW, 1GW
+- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW
 
 Research:
 - Vehicle Capacity +250
@@ -38,7 +38,7 @@ Edicts:
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.4
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.5
 
 1. Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
 
