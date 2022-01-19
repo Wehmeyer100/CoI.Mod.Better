@@ -38,7 +38,7 @@ Edicts:
 - The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.5
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.6
 
 1. Open your documents folder. Here you should find the "CaptainOfIndustry" folder. 
 
@@ -170,7 +170,29 @@ Then start the game and enjoy!
 
     "VoidProducerCheatAmountInput": 40,
 
-    "VoidProducerCheatDuration": 20
+    "VoidProducerCheatDuration": 20,
+
+    "VoidProducerEnergyInputType": 1, # 1 = Diesel, 2 = Water, 3 = Rohöl,
+
+    "VoidProducerEnergy10CheatInKW": 10000,
+
+    "VoidProducerEnergy50CheatInKW": 50000,
+
+    "VoidProducerEnergy100CheatInKW": 100000,
+
+    "VoidProducerEnergy200CheatInKW": 200000,
+
+    "VoidProducerEnergy1000CheatInKW": 1000000,
+
+    "VoidProducerEnergy10CheatBufferCapactiy": 540,
+
+    "VoidProducerEnergy50CheatBufferCapactiy": 1080,
+
+    "VoidProducerEnergy100CheatBufferCapactiy": 1620,
+
+    "VoidProducerEnergy200CheatBufferCapactiy": 2160,
+
+    "VoidProducerEnergy1000CheatBufferCapactiy": 2700
     
 
 # 
