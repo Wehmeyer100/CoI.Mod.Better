@@ -172,7 +172,7 @@ Then start the game and enjoy!
 
     "VoidProducerCheatDuration": 20,
 
-    "VoidProducerEnergyInputType": 1, # 1 = Diesel, 2 = Water, 3 = Rohöl,
+    "VoidProducerEnergyInputType": 1, # 1 = Diesel, 2 = Water, 3 = crude oil,
 
     "VoidProducerEnergy10CheatInKW": 10000,
 
