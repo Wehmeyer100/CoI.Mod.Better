@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\src\\CoI.Mod.More.Recipes.csproj": {}
+  },
+  "projects": {
+    "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\src\\CoI.Mod.More.Recipes.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\src\\CoI.Mod.More.Recipes.csproj",
+        "projectName": "CoI.Mod.More.Recipes",
+        "projectPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\src\\CoI.Mod.More.Recipes.csproj",
+        "packagesPath": "C:\\Users\\k-weh\\.nuget\\packages\\",
+        "outputPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\src\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\k-weh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net46"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://packages.stride3d.net/nuget": {}
+        },
+        "frameworks": {
+          "net46": {
+            "targetAlias": "net46",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net46": {
+          "targetAlias": "net46",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
