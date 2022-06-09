@@ -1,7 +1,6 @@
 # Captain of Industry mod: Better
 
 Game Version(Comptability): 0.4.2
-!!!! Void Producer and Void Crusher currently not working and disabled !!!!!
 
 Savegame Comptability: You need to start a new game!
 
@@ -20,10 +19,10 @@ Savegame Comptability: You need to start a new game!
 - Cheats can be disabled in the config file.
 
 Machine:
-- Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.| Currently disabled
-- Void Producer Liquids - You can produce all liquids| Currently disabled
-- Void Producer Products - You can produce all Products| Currently disabled
-- Void Producer Loose - You can produce all Loose | Currently disabled
+- Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
+- Void Producer Liquids - You can produce all liquids
+- Void Producer Products - You can produce all Products
+- Void Producer Loose - You can produce all Loose
 - Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW | You can customise this setting in the Config file.
 - Power Generators - 500 KwMech per minute, produce: 900KW, 1.8MW, 2.7MW, 3.6MW, 4.5GW | You can customise this setting in the Config file.
 
