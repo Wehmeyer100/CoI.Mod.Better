@@ -28,6 +28,11 @@ namespace CoI.Mod.Better.Toolbars
             {
                 GenerateToolbar(registrator, MyIDs.ToolbarCategories.Storages, "Better mod: Storages", "Assets/Unity/UserInterface/Toolbar/Storages.svg", 211);
             }
+
+            if (!BetterMod.Config.DisableVoidCrusher)
+            {
+                GenerateToolbar(registrator, MyIDs.ToolbarCategories.MachinesMetallurgy, "Better mod: Crusher/Producer", "Assets/Unity/UserInterface/Toolbar/Metallurgy.svg", 21);
+            }
         }
 
         private static void GenerateToolbar(ProtoRegistrator registrator, Proto.ID protoID, string Name, string IconPath, int order)

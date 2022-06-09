@@ -17,6 +17,7 @@ using Mafi.Core.Research;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableVoidProducer || true) return; 
+            if (BetterMod.Config.DisableVoidProducer || BetterMod.Config.DisableCheats) return; 
 
             // Add Cheats
             if (!BetterMod.Config.DisableCheats)
@@ -51,8 +52,15 @@ namespace CoI.Mod.Better
                 .Description("Produce liquids without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
                 .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
-                .SetCategories(Ids.ToolbarCategories.Machines)
-                .SetLayout("[2][7][7][2]   ", "[2][7][7][2]   ", "[2][7][7][2]   ", "[2][4][4]X2> @ ", "   [2][2][2]   ", "   [2][2][2]   ")
+                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+                .SetLayout(
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][4][4]X2> @ ",
+                    "   [2][2][2]   ",
+                    "   [2][2][2]   "
+                )
                 .SetPrefabPath("Assets/Base/Machines/Pump/LandWaterPump.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/Pump/LandWaterPump/LandWaterPump_Sound.prefab")
@@ -66,8 +74,15 @@ namespace CoI.Mod.Better
                 .Description("Produce Products without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
                 .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
-                .SetCategories(Ids.ToolbarCategories.Machines)
-                .SetLayout("[2][7][7][2]   ", "[2][7][7][2]   ", "[2][7][7][2]   ", "[2][4][4]X2> # ", "   [2][2][2]   ", "   [2][2][2]   ")
+                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+                .SetLayout(
+                    "[2][7][7][2]   ", 
+                    "[2][7][7][2]   ", 
+                    "[2][7][7][2]   ", 
+                    "[2][4][4]X2> # ", 
+                    "   [2][2][2]   ", 
+                    "   [2][2][2]   "
+                )
                 .SetPrefabPath("Assets/Base/Machines/Pump/LandWaterPump.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/Pump/LandWaterPump/LandWaterPump_Sound.prefab")
@@ -81,8 +96,15 @@ namespace CoI.Mod.Better
                 .Description("Produce Loose without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
                 .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
-                .SetCategories(Ids.ToolbarCategories.Machines)
-                .SetLayout("[2][7][7][2]   ", "[2][7][7][2]   ", "[2][7][7][2]   ", "[2][4][4]X2> ~ ", "   [2][2][2]   ", "   [2][2][2]   ")
+                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+                .SetLayout(
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][4][4]X2> ~ ",
+                    "   [2][2][2]   ",
+                    "   [2][2][2]   "
+                )
                 .SetPrefabPath("Assets/Base/Machines/Pump/LandWaterPump.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/Pump/LandWaterPump/LandWaterPump_Sound.prefab")
@@ -107,107 +129,50 @@ namespace CoI.Mod.Better
 
             // Add parent to my research T1
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VoidCrusherCheat);
-            research_t1.AddGridPos(master_research);
+            research_t1.AddGridPos(master_research, -BetterMod.UI_StepSize);
+        }
+
+        private void GenerateRecipesByProductFields<T>(ProtoRegistrator registrator, string typeName)
+        {
+            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.Products));
+
+            foreach (FieldInfo field in result)
+            {
+                string fieldName = field.Name;
+                object value = field.GetValue(null);
+                if (field.IsStatic && value != null && value is ProductProto.ID && field.GetCustomAttributes(typeof(T), false).Length > 0)
+                {
+                    ProductProto.ID fieldValue = (ProductProto.ID)value;
+                    Option<ProductProto> resultProduct = registrator.PrototypesDb.Get<ProductProto>(fieldValue);
+                    if (resultProduct.HasValue && resultProduct.Value.IsStorable && resultProduct.Value.Radioactivity == 0)
+                    {
+                        GenerateRecipes(registrator, new RecipeProto.ID("MyVoidProducer" + typeName + "Recipe" + fieldName.Trim()), resultProduct.Value);
+                    }
+                }
+            }
         }
 
         private void GenerateLiquidsRecipes(ProtoRegistrator registrator)
         {
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_FertilizerOrganic, Ids.Products.FertilizerOrganic);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Water, Ids.Products.Water);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_ChilledWater, Ids.Products.ChilledWater);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Seawater, Ids.Products.Seawater);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Brine, Ids.Products.Brine);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_WasteWater, Ids.Products.WasteWater);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_ToxicSlurry, Ids.Products.ToxicSlurry);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Chlorine, Ids.Products.Chlorine);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_SteamHi, Ids.Products.SteamHi);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_SteamLo, Ids.Products.SteamLo);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_SteamDepleted, Ids.Products.SteamDepleted);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Exhaust, Ids.Products.Exhaust);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_CrudeOil, Ids.Products.CrudeOil);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Diesel, Ids.Products.Diesel);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Naphtha, Ids.Products.Naphtha);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_FuelGas, Ids.Products.FuelGas);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_SourWater, Ids.Products.SourWater);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Ammonia, Ids.Products.Ammonia);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Acid, Ids.Products.Acid);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_HeavyOil, Ids.Products.HeavyOil);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_MediumOil, Ids.Products.MediumOil);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_LightOil, Ids.Products.LightOil);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Hydrogen, Ids.Products.Hydrogen);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Nitrogen, Ids.Products.Nitrogen);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_CarbonDioxide, Ids.Products.CarbonDioxide);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLiquids_Oxygen, Ids.Products.Oxygen);
+            GenerateRecipesByProductFields<FluidProductAttribute>(registrator, "Fluid");
         }
 
         private void GenerateProductsRecipes(ProtoRegistrator registrator)
         {
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Wood, Ids.Products.Wood);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Cement, Ids.Products.Cement);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Iron, Ids.Products.Iron);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Steel, Ids.Products.Steel);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Copper, Ids.Products.Copper);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Gold, Ids.Products.Gold);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Glass, Ids.Products.Glass);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_PolySilicon, Ids.Products.PolySilicon);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Food, Ids.Products.Potato);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_HouseholdGoods, Ids.Products.HouseholdGoods);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ConcreteSlab, Ids.Products.ConcreteSlab);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ConstructionParts, Ids.Products.ConstructionParts);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ConstructionParts2, Ids.Products.ConstructionParts2);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ConstructionParts3, Ids.Products.ConstructionParts3);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ConstructionParts4, Ids.Products.ConstructionParts4);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Electronics, Ids.Products.Electronics);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Electronics2, Ids.Products.Electronics2);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Microchips, Ids.Products.Microchips);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Graphite, Ids.Products.Graphite);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_ImpureCopper, Ids.Products.ImpureCopper);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_UraniumPellets, Ids.Products.UraniumPellets);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_UraniumRod, Ids.Products.UraniumRod);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerProdcuts_Rubber, Ids.Products.Rubber);
+            GenerateRecipesByProductFields<CountableProductAttribute>(registrator, "Unit");
         }
         
         private void GenerateLooseRecipes(ProtoRegistrator registrator)
         {
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Dirt, Ids.Products.Dirt);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Compost, Ids.Products.Compost);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Sludge, Ids.Products.Sludge);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Limestone, Ids.Products.Limestone);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Rock, Ids.Products.Rock);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Gravel, Ids.Products.Gravel);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_FilterMedia, Ids.Products.FilterMedia);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Coal, Ids.Products.Coal);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Slag, Ids.Products.Slag);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_SlagCrushed, Ids.Products.SlagCrushed);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_IronOre, Ids.Products.IronOre);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_IronOreCrushed, Ids.Products.IronOreCrushed);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_IronScrap, Ids.Products.IronScrap);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_CopperOre, Ids.Products.CopperOre);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_CopperOreCrushed, Ids.Products.CopperOreCrushed);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_CopperScrap, Ids.Products.CopperScrap);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_GoldOre, Ids.Products.GoldOre);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_GoldOreCrushed, Ids.Products.GoldOreCrushed);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_GoldOrePowder, Ids.Products.GoldOrePowder);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_GoldOreConcentrate, Ids.Products.GoldOreConcentrate);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Sand, Ids.Products.Sand);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_GlassMix, Ids.Products.GlassMix);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_UraniumOre, Ids.Products.UraniumOre);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_UraniumOreCrushed, Ids.Products.UraniumOreCrushed);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_YellowCake, Ids.Products.YellowCake);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Quartz, Ids.Products.Quartz);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Salt, Ids.Products.Salt);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Sulfur, Ids.Products.Sulfur);
-            GenerateRecipes(registrator, MyIDs.Recipes.VoidProducerLoose_Waste, Ids.Products.Waste);
+            GenerateRecipesByProductFields<LooseProductAttribute>(registrator, "Loose");
         }
 
-        private void GenerateRecipes(ProtoRegistrator registrator, RecipeProto.ID recipeID, ProductProto.ID productID)
+        private void GenerateRecipes(ProtoRegistrator registrator, RecipeProto.ID recipeID, ProductProto inputProduct)
         {
-            var productProto = registrator.PrototypesDb.GetOrThrow<ProductProto>(productID);
-
             registrator.RecipeProtoBuilder
-                .Start("Produce " + productProto.Strings.Name, recipeID, machine)
+                .Start("Produce " + inputProduct.Strings.Name, recipeID, machine)
                 .SetDuration(currentDuration)
-                .AddOutput("X", registrator.PrototypesDb.GetOrThrow<ProductProto>(productID), currentInputAmount.Quantity())
+                .AddOutput("X", inputProduct, currentInputAmount.Quantity())
                 .BuildAndAdd();
         }
     }
