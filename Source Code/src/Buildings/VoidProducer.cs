@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace CoI.Mod.Better
 {
@@ -32,7 +33,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableVoidProducer || BetterMod.Config.DisableCheats) return; 
+            if (BetterMod.Config.DisableVoidProducer || BetterMod.Config.DisableCheats) return;
 
             // Add Cheats
             if (!BetterMod.Config.DisableCheats)
@@ -76,11 +77,11 @@ namespace CoI.Mod.Better
                 .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
-                    "[2][7][7][2]   ", 
-                    "[2][7][7][2]   ", 
-                    "[2][7][7][2]   ", 
-                    "[2][4][4]X2> # ", 
-                    "   [2][2][2]   ", 
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][7][7][2]   ",
+                    "[2][4][4]X2> # ",
+                    "   [2][2][2]   ",
                     "   [2][2][2]   "
                 )
                 .SetPrefabPath("Assets/Base/Machines/Pump/LandWaterPump.prefab")
@@ -146,7 +147,10 @@ namespace CoI.Mod.Better
                     Option<ProductProto> resultProduct = registrator.PrototypesDb.Get<ProductProto>(fieldValue);
                     if (resultProduct.HasValue && resultProduct.Value.IsStorable && resultProduct.Value.Radioactivity == 0)
                     {
-                        GenerateRecipes(registrator, new RecipeProto.ID("MyVoidProducer" + typeName + "Recipe" + fieldName.Trim()), resultProduct.Value);
+                        RecipeProto.ID recipeID = new RecipeProto.ID("MyVoidProducer" + typeName + "Recipe" + fieldName.Trim());
+                        GenerateRecipes(registrator, recipeID, resultProduct.Value);
+
+                        Debug.Log("VoidProducer >> GenerateRecipesByProductFields<" + typeof(T).Name + ">(id: " + recipeID + ") >> Output: " + resultProduct.Value.Id);
                     }
                 }
             }
@@ -161,7 +165,7 @@ namespace CoI.Mod.Better
         {
             GenerateRecipesByProductFields<CountableProductAttribute>(registrator, "Unit");
         }
-        
+
         private void GenerateLooseRecipes(ProtoRegistrator registrator)
         {
             GenerateRecipesByProductFields<LooseProductAttribute>(registrator, "Loose");

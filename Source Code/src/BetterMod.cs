@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Buildings;
+using CoI.Mod.Better.Custom;
 using CoI.Mod.Better.Edicts;
 using CoI.Mod.Better.Extensions;
 using CoI.Mod.Better.Toolbars;
@@ -31,13 +32,14 @@ namespace CoI.Mod.Better
 
         public static ModConfig Config = new ModConfig();
 
-        private static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
+        internal static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
 
         public static bool gameWasLoaded = false;
         public static int OldConfigVersion = 2;
         public static int CurrentConfigVersion = 3;
 
         public const int UI_StepSize = 4;
+        public static string MyVersion = "0.1.8.2";
 
 
         public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
@@ -48,6 +50,7 @@ namespace CoI.Mod.Better
 
         public void RegisterPrototypes(ProtoRegistrator registrator)
         {
+            Debug.Log("Better mod Version: " + MyVersion);
             // Registers all products from this assembly. See MyIds.Products.cs for examples.
             registrator.RegisterAllProducts();
 
@@ -66,6 +69,9 @@ namespace CoI.Mod.Better
             registrator.RegisterData<VoidProducer>();
             registrator.RegisterData<DieselGenerator>();
             registrator.RegisterData<PowerGenerators>();
+#if BETA
+            registrator.RegisterData<Customs>();
+#endif
 
             Log.Info("BetterMod RegisterPrototypes..");
         }
@@ -129,6 +135,22 @@ namespace CoI.Mod.Better
                                  BindingFlags.DeclaredOnly;
 
             return type.GetFields(flags).Union(GetAllFields(type.BaseType));
+        }
+
+        public static IEnumerable<PropertyInfo> GetAllProperty(Type type)
+        {
+            if (type == null)
+            {
+                return Enumerable.Empty<PropertyInfo>();
+            }
+
+            BindingFlags flags = BindingFlags.Public |
+                                 BindingFlags.NonPublic |
+                                 BindingFlags.Static |
+                                 BindingFlags.Instance |
+                                 BindingFlags.DeclaredOnly;
+
+            return type.GetProperties(flags).Union(GetAllProperty(type.BaseType));
         }
     }
 }
