@@ -27,40 +27,40 @@
   
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mafi">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Base">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Core">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.ModsAuthoringSupport">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Unity">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <CopyLocal>False</CopyLocal>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>H:\SteamLibrary\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>H:\SteamLibrary\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>H:\SteamLibrary\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>H:\SteamLibrary\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>H:\SteamLibrary\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   
