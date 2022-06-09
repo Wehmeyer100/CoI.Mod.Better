@@ -32,7 +32,7 @@ namespace CoI.Mod.Better.Buildings
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Power Energy CHEAT", MyIDs.Research.VoidPowerEnergyCheat)
-                .SetCostsFree()
+                .SetCostsOne()
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT1Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT2Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT3Cheat)

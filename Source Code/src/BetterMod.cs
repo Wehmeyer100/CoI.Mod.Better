@@ -38,11 +38,12 @@ namespace CoI.Mod.Better
         public static int CurrentConfigVersion = 3;
 
         public const int UI_StepSize = 4;
+        public static string MyVersion = "0.1.8.2";
 
 
         public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
         {
-            Log.Info("BetterMod mod was created!");
+            Log.Info("BetterMod(Version: " + MyVersion + ") mod was init!");
             BetterMod.gameWasLoaded = gameWasLoaded;
         }
 
@@ -52,7 +53,7 @@ namespace CoI.Mod.Better
             registrator.RegisterAllProducts();
 
             LoadModConfig();
-            Log.Info("BetterMod Config loaded..");
+            Log.Info("BetterMod(Version: " + MyVersion + ") Config loaded..");
 
             // Use data class registration to register other protos such as machines, recipes, etc.
             registrator.RegisterData<MyToolbars>();
@@ -67,7 +68,7 @@ namespace CoI.Mod.Better
             registrator.RegisterData<DieselGenerator>();
             registrator.RegisterData<PowerGenerators>();
 
-            Log.Info("BetterMod RegisterPrototypes..");
+            Log.Info("BetterMod(Version: " + MyVersion + ") RegisterPrototypes..");
         }
 
         private static void LoadModConfig()
@@ -78,14 +79,14 @@ namespace CoI.Mod.Better
 
             if (File.Exists(oldConfigFile) && !File.Exists(newConfigFile))
             {
-                Log.Info("BetterMod Config converting..");
+                Log.Info("BetterMod(Version: " + MyVersion + ") Config converting..");
 
                 Config = new ModConfig();
 
                 string content = File.ReadAllText(oldConfigFile);
                 JsonUtility.FromJsonOverwrite(content, Config);
 
-                Log.Info("BetterMod Config converted.");
+                Log.Info("BetterMod(Version: " + MyVersion + ") Config converted.");
 
                 File.Delete(oldConfigFile);
             }
@@ -97,7 +98,7 @@ namespace CoI.Mod.Better
 
             File.WriteAllText(newConfigFile, JsonUtility.ToJson(Config, true));
 
-            Debug.Log("BetterMod: Config data");
+            Debug.Log("BetterMod(Version: " + MyVersion + "): Config data");
             foreach (FieldInfo field in GetAllFields(typeof(ModConfig)))
             {
                 Debug.Log(" - " + field.Name + ": " + field.GetValue(Config));
