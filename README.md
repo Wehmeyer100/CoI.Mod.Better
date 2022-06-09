@@ -1,6 +1,6 @@
 # Captain of Industry mod: Better
 
-Game Version(Comptability): 0.3.10
+Game Version(Comptability): 0.4.2
 
 Savegame Comptability: You need to start a new game!
 
