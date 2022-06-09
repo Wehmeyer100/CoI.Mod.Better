@@ -1,6 +1,8 @@
 ﻿using CoI.Mod.Better.Extensions;
 using Mafi;
 using Mafi.Base;
+using Mafi.Collections.ImmutableCollections;
+using Mafi.Core;
 using Mafi.Core.Mods;
 using Mafi.Core.Population.Edicts;
 using Mafi.Core.Prototypes;
@@ -26,10 +28,10 @@ namespace CoI.Mod.Better.Edicts
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableVehicleEdicts) return;
+            if (BetterMod.Config.DisableVehicleEdicts) return;
 
-            DisableCheats = MoreRecipes.Config.DisableCheats;
-            CheatUpkeepEdicts = MoreRecipes.Config.CheatUpkeepEdicts;
+            DisableCheats = BetterMod.Config.DisableCheats;
+            CheatUpkeepEdicts = BetterMod.Config.CheatUpkeepEdicts;
 
             AddTruckCap(registrator);
             AddTruckFuelCons(registrator);
@@ -44,7 +46,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T1
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict Plus", MyIDs.Research.VehicleEdictsResearchT1)
-                .SetCostsWithDifficulty(MoreRecipes.Config.VehicleEdictsResearchCostT1)
+                .SetCostsWithDifficulty(BetterMod.Config.VehicleEdictsResearchCostT1)
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT2,
                     MyIDs.Eticts.Trucks.FuelReductionT2,
@@ -55,13 +57,13 @@ namespace CoI.Mod.Better.Edicts
 
             // Add parent to my research T1
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(Ids.Research.CaptainsOffice);
-            research_t1.AddParentPlusGridPos(master_research, MoreRecipes.UI_StepSize, (MoreRecipes.UI_StepSize * 3));
+            research_t1.AddParentPlusGridPos(master_research, BetterMod.UI_StepSize, (BetterMod.UI_StepSize * 3));
 
 
             // Generate Research T2
             ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict Plus II", MyIDs.Research.VehicleEdictsResearchT2)
-                .SetCostsWithDifficulty(MoreRecipes.Config.VehicleEdictsResearchCostT2)
+                .SetCostsWithDifficulty(BetterMod.Config.VehicleEdictsResearchCostT2)
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT3,
                     MyIDs.Eticts.Trucks.FuelReductionT3,
@@ -76,7 +78,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T3
             ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus III", MyIDs.Research.VehicleEdictsResearchT3)
-               .SetCostsWithDifficulty(MoreRecipes.Config.VehicleEdictsResearchCostT3)
+               .SetCostsWithDifficulty(BetterMod.Config.VehicleEdictsResearchCostT3)
                .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT4,
                     MyIDs.Eticts.Trucks.FuelReductionT4,
@@ -92,7 +94,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T4
             ResearchNodeProtoBuilder.State research_state_t4 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus IV", MyIDs.Research.VehicleEdictsResearchT4)
-               .SetCostsWithDifficulty(MoreRecipes.Config.VehicleEdictsResearchCostT4)
+               .SetCostsWithDifficulty(BetterMod.Config.VehicleEdictsResearchCostT4)
                .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT5,
                     MyIDs.Eticts.Trucks.FuelReductionT5,
@@ -108,7 +110,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T5
             ResearchNodeProtoBuilder.State research_state_t5 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus V", MyIDs.Research.VehicleEdictsResearchT5)
-               .SetCostsWithDifficulty(MoreRecipes.Config.VehicleEdictsResearchCostT5);
+               .SetCostsWithDifficulty(BetterMod.Config.VehicleEdictsResearchCostT5);
 
             ResearchNodeProto research_t5 = research_state_t5.BuildAndAdd();
 
@@ -221,12 +223,13 @@ namespace CoI.Mod.Better.Edicts
                 locStr8.Format(maintenanceMultiplierReduction.ToString()).Value
             );
 
-            registrator.PrototypesDb.Add(new MaintenanceReductionEdictProto(
+            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Maintenance reducer T" + countMaintenanceEdicts.ToString() + title_add, descShort8, translationComment),
+                GenerellEdicts.category,
                 monthlyUpointsCost.Upoints(),
-                typeof(MaintenanceReductionEdict),
-                maintenanceMultiplierReduction,
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -(maintenance).Percent())),
+                Option<EdictProto>.None,
                 new EdictProto.Gfx("Assets/Base/Icons/Edicts/MaintenanceReduced.svg"))
             );
         }
@@ -263,60 +266,60 @@ namespace CoI.Mod.Better.Edicts
                 locStr3.Format(fuelMultiplierReduction.ToString()).Value
             );
 
-            registrator.PrototypesDb.Add(new FuelReductionEdictProto(
+            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Fuel saver T" + countTruckFuelConsEdicts.ToString() + title_add, descShort3, translationComment),
+                GenerellEdicts.category,
                 monthlyUpointsCost.Upoints(),
-                typeof(FuelReductionEdict),
-                fuelMultiplierReduction,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FuelReduced.svg")
-            ));
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.VehiclesFuelConsumptionMultiplier, -(consume).Percent())),
+                Option<EdictProto>.None,
+                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FuelReduced.svg"))
+            );
         }
 
         private void AddTruckCap(ProtoRegistrator registrator)
         {
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2, 50, 25, 1);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3, 75, 37, 2);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4, 100, 50, 3);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5, 200, 100, 4);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2, 50, 1);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3, 75, 2);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4, 100, 3);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5, 200, 4);
 
             if (DisableCheats) return;
 
             // Add Cheats
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT1_CHEAT, 100, 0, CheatUpkeepEdicts, "CHEAT");
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2_CHEAT, 200, 0, CheatUpkeepEdicts, "CHEAT");
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3_CHEAT, 300, 0, CheatUpkeepEdicts, "CHEAT");
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4_CHEAT, 400, 0, CheatUpkeepEdicts, "CHEAT");
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5_CHEAT, 500, 0, CheatUpkeepEdicts, "CHEAT");
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT1_CHEAT, 100, CheatUpkeepEdicts, "CHEAT");
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2_CHEAT, 200, CheatUpkeepEdicts, "CHEAT");
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3_CHEAT, 300, CheatUpkeepEdicts, "CHEAT");
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4_CHEAT, 400, CheatUpkeepEdicts, "CHEAT");
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5_CHEAT, 500, CheatUpkeepEdicts, "CHEAT");
         }
 
-        private void GenerateTruckCap(ProtoRegistrator registrator, Proto.ID protoID, int Capacity, int Maintenance, float monthlyUpointsCost, string title_add = "")
+        private void GenerateTruckCap(ProtoRegistrator registrator, Proto.ID protoID, int Capacity, float monthlyUpointsCost, string title_add = "")
         {
             countTruckCapEdicts++;
 
             Percent trucksCapacityDiff = Capacity.Percent();
-            Percent trucksMaintenanceDiff = Maintenance.Percent();
 
             LocStr2 locStr4 = Loc.Str2(
                 protoID.ToString() + "__desc",
                 "Trucks can get overloaded by {0} but they require extra {1} maintenance",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + Maintenance + "%"
+                "policy / edict which can enabled by the player in their Captain's office. {0}=" + trucksCapacityDiff + "%"
             );
 
             LocStr descShort4 = LocalizationManager.CreateAlreadyLocalizedStr(
                 protoID.ToString() + "_formatted",
-                locStr4.Format(trucksCapacityDiff.ToString(), trucksMaintenanceDiff.ToString()).Value
+                locStr4.Format(trucksCapacityDiff.ToString(), trucksCapacityDiff.ToString()).Value
             );
 
-            registrator.PrototypesDb.Add(new TrucksCapacityIncreaseEdictProto(
+            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Overloaded trucks T" + countTruckCapEdicts.ToString() + title_add, descShort4, translationComment),
+                GenerellEdicts.category,
                 monthlyUpointsCost.Upoints(),
-                typeof(TrucksCapacityIncreaseEdict),
-                trucksCapacityDiff,
-                trucksMaintenanceDiff,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/TrucksCapacity.svg")
-            ));
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.TrucksCapacityMultiplier, Capacity.Percent()), Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -(Capacity).Percent())),
+                Option<EdictProto>.None,
+                new EdictProto.Gfx("Assets/Base/Icons/Edicts/TrucksCapacity.svg"))
+            );
         }
     }
 }

@@ -18,10 +18,10 @@ using UnityEngine;
 
 namespace CoI.Mod.Better
 {
-    public sealed class MoreRecipes : IMod
+    public sealed class BetterMod : IMod
     {
 
-        public string Name => "MoreRecipes";
+        public string Name => "BetterMod";
 
         public int Version => 1;
 
@@ -29,7 +29,7 @@ namespace CoI.Mod.Better
 
         public static ModConfig Config = new ModConfig();
 
-        private static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CaptainOfIndustry"));
+        private static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
 
         public static bool gameWasLoaded = false;
         public static int OldConfigVersion = 1;
@@ -41,7 +41,7 @@ namespace CoI.Mod.Better
         public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
         {
             Log.Info("MoreRecipes mod was created!");
-            MoreRecipes.gameWasLoaded = gameWasLoaded;
+            BetterMod.gameWasLoaded = gameWasLoaded;
         }
 
         public void RegisterPrototypes(ProtoRegistrator registrator)

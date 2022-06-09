@@ -25,7 +25,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableBigStorage) return;
+            if (BetterMod.Config.DisableBigStorage) return;
 
             LoadData();
 
@@ -40,13 +40,13 @@ namespace CoI.Mod.Better
 
         private void LoadData()
         {
-            capacity_small = (int)MoreRecipes.Config.StorageCapacitySmall;
+            capacity_small = (int)BetterMod.Config.StorageCapacitySmall;
             capacity_small = Mathf.Clamp(capacity_small, 180, int.MaxValue);
 
-            capacity_large = (int)MoreRecipes.Config.StorageCapacityLarge;
+            capacity_large = (int)BetterMod.Config.StorageCapacityLarge;
             capacity_large = Mathf.Clamp(capacity_large, 360, int.MaxValue);
 
-            float fluidStorageCapacityMultiplier = MoreRecipes.Config.FluidStorageCapacityMultiplier;
+            float fluidStorageCapacityMultiplier = BetterMod.Config.FluidStorageCapacityMultiplier;
 
             capacity_fluid_small = (int)(capacity_small * fluidStorageCapacityMultiplier);
             capacity_fluid_small = Mathf.Clamp(capacity_fluid_small, 1, int.MaxValue);
@@ -54,7 +54,7 @@ namespace CoI.Mod.Better
             capacity_fluid_large = (int)(capacity_large * fluidStorageCapacityMultiplier);
             capacity_fluid_large = Mathf.Clamp(capacity_fluid_large, 1, int.MaxValue);
 
-            float nuclearWasteStorageCapacityMultiplier = MoreRecipes.Config.NuclearWasteStorageCapacityMultiplier;
+            float nuclearWasteStorageCapacityMultiplier = BetterMod.Config.NuclearWasteStorageCapacityMultiplier;
             capacity_nuclear = (int)(capacity_large * nuclearWasteStorageCapacityMultiplier);
             capacity_nuclear = Mathf.Clamp(capacity_nuclear, 1, int.MaxValue);
         }
@@ -68,16 +68,21 @@ namespace CoI.Mod.Better
             NuclearWasteStorageProto vanilla_storage = (NuclearWasteStorageProto)registrator.PrototypesDb.RemoveOrThrow(protoID);
 
             // Generate new proto
-            IEnumerable<KeyValuePair<string, Func<int, LayoutTokenSpec>>> customTokens = new KeyValuePair<string, Func<int, LayoutTokenSpec>>[1] { Make.Kvp<string, Func<int, LayoutTokenSpec>>("-0]", (int i) => new LayoutTokenSpec(-i, 6, LayoutTileConstraint.Any, -i)) };
-            EntityLayout layout = registrator.LayoutParser.ParseLayoutOrThrow(new EntityLayoutParams(null, LayoutTileConstraint.None, useNewLayoutSyntax: true, customTokens), "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][-3[-3[-3[4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][4][4][-3[4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][4][4][-3[4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][4][4][-3[4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][4][4][-3[4][4]", "   [4][4][-4[-4[-4[-4[4][4][4][4][4][4][-1[-3[4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][-1[-3[4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "A#>[4][6][6][6]-3]-3]-3][-2[-2[-2[4][4][4][4][4][4]", "   [4][6][6][6]-3]-3]-3][-2[-2[-2[4][4][4][4][4][4]", "X#<[4][6][6][6]-3]-3]-3][-2[-2[-2[4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]");
+            CustomLayoutToken[] customTokens = new CustomLayoutToken[2]
+            {
+                new CustomLayoutToken("-0]", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, -h)),
+                new CustomLayoutToken("-0|", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, -h))
+            };
+            EntityLayout layout = registrator.LayoutParser.ParseLayoutOrThrow(new EntityLayoutParams(null, useNewLayoutSyntax: true, customTokens), "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "A#>[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "X#<[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]");
 
             NuclearWasteStorageProto override_storage = new NuclearWasteStorageProto(
                     id: protoID,
                     Proto.CreateStr(protoID, "Spent fuel storage", "A special underground storage facility that can safely manage any radioactive waste without causing any danger to the island’s population. Leaving a legacy for the next generations to come."),
                     layout,
                     productsFilter: NuclearFilter,
+                    productType: CountableProductProto.ProductType,
                     capacity: capacity_nuclear.Quantity(),
-                    costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator.PrototypesDb),
+                    costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),
                     nextTier: Option.None,
                     graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default, Option<string>.None, default, hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(Ids.ToolbarCategories.Storages)),
                     emissionIntensity: 5,
@@ -109,6 +114,7 @@ namespace CoI.Mod.Better
                 .SetLayout("      [5][5][5]      ", " @ >5A[6][6][6]X5> @ ", "   [5][6][6][6][5]   ", " @ >5B[6][6][6]Y5> @ ", "      [5][5][5]      ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Gas.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -132,6 +138,7 @@ namespace CoI.Mod.Better
                 .SetLayout("      [5][5][5]      ", " @ >5A[6][6][6]X5> @ ", "   [5][6][6][6][5]   ", " @ >5B[6][6][6]Y5> @ ", "      [5][5][5]      ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Gas.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -157,6 +164,7 @@ namespace CoI.Mod.Better
                 .SetLayout("   [3][3][3][3][3]   ", " # >3A[3][3][3]X3> # ", " # >3B[3][3][3]Y3> # ", "   [3][3][3][3][3]   ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Unit.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -180,6 +188,7 @@ namespace CoI.Mod.Better
                 .SetLayout("   [3][3][3][3][3]   ", " # >3A[3][3][3]X3> # ", " # >3B[3][3][3]Y3> # ", "   [3][3][3][3][3]   ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Unit.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -205,6 +214,7 @@ namespace CoI.Mod.Better
                 .SetLayout("      [6][6][6][6]   ", " ~ >7A[7][6][6]X6> ~ ", " ~ >7B[7][6][6]Y6> ~ ", "      [6][6][6][6]   ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Loose.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -228,6 +238,7 @@ namespace CoI.Mod.Better
                 .SetLayout("      [6][6][6][6]   ", " ~ >7A[7][6][6]X6> ~ ", " ~ >7B[7][6][6]Y6> ~ ", "      [6][6][6][6]   ")
                 .SetCategories(Ids.ToolbarCategories.Storages)
                 .SetPrefabPath("Assets/Base/Buildings/Storages/Loose.prefab")
+                .SetNoTransferLimit()
                 .BuildAndAdd();
         }
 
@@ -260,7 +271,7 @@ namespace CoI.Mod.Better
 
         private static bool NuclearFilter(ProductProto x)
         {
-            if (x.Type == CountableProductProto.ProductType && x.IsStorable)
+            if (x.IsStorable)
             {
                 return x.Radioactivity > 0;
             }

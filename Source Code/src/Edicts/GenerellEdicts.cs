@@ -1,6 +1,8 @@
 ﻿using CoI.Mod.Better.Extensions;
 using Mafi;
 using Mafi.Base;
+using Mafi.Collections.ImmutableCollections;
+using Mafi.Core;
 using Mafi.Core.Mods;
 using Mafi.Core.Population.Edicts;
 using Mafi.Core.Prototypes;
@@ -21,12 +23,15 @@ namespace CoI.Mod.Better
         private float CheatUpkeepEdicts = -0.5f;
 
         private readonly string translationComment = "policy / edict which can enabled by the player in their Captain's office.";
+        public static EdictCategoryProto category;
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableGenerellEdicts) return;
+            if (BetterMod.Config.DisableGenerellEdicts) return;
 
-            CheatUpkeepEdicts = MoreRecipes.Config.CheatUpkeepEdicts;
+            CheatUpkeepEdicts = BetterMod.Config.CheatUpkeepEdicts;
+
+            category = registrator.PrototypesDb.Add(new EdictCategoryProto(MyIDs.Eticts.BetterMod, Proto.CreateStr(Ids.EdictCategories.Industry, "Better mod")));
 
             AddUnityPoints(registrator);
             AddReduceService(registrator);
@@ -39,20 +44,20 @@ namespace CoI.Mod.Better
             // Generate Research T1
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict", MyIDs.Research.GenerellEdictsResearchT1)
-                .SetCostsWithDifficulty(MoreRecipes.Config.GenerellEdictsResearchCostT1);
+                .SetCostsWithDifficulty(BetterMod.Config.GenerellEdictsResearchCostT1);
 
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(Ids.Research.CaptainsOffice);
             // Add parent to my research T1
-            research_t1.AddParentPlusGridPos(master_research, MoreRecipes.UI_StepSize, (MoreRecipes.UI_StepSize * 2));
+            research_t1.AddParentPlusGridPos(master_research, BetterMod.UI_StepSize, (BetterMod.UI_StepSize * 2));
 
 
             // Generate Research T2
             ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict II", MyIDs.Research.GenerellEdictsResearchT2)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT2)
-               .SetCostsWithDifficulty(MoreRecipes.Config.GenerellEdictsResearchCostT2);
+               .SetCostsWithDifficulty(BetterMod.Config.GenerellEdictsResearchCostT2);
 
             ResearchNodeProto research_t2 = research_state_t2.BuildAndAdd();
 
@@ -65,7 +70,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict III", MyIDs.Research.GenerellEdictsResearchT3)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT3)
-               .SetCostsWithDifficulty(MoreRecipes.Config.GenerellEdictsResearchCostT3);
+               .SetCostsWithDifficulty(BetterMod.Config.GenerellEdictsResearchCostT3);
 
             ResearchNodeProto research_t3 = research_state_t3.BuildAndAdd();
 
@@ -78,7 +83,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t4 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict IV", MyIDs.Research.GenerellEdictsResearchT4)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT4)
-               .SetCostsWithDifficulty(MoreRecipes.Config.GenerellEdictsResearchCostT4);
+               .SetCostsWithDifficulty(BetterMod.Config.GenerellEdictsResearchCostT4);
 
             ResearchNodeProto research_t4 = research_state_t4.BuildAndAdd();
 
@@ -91,14 +96,14 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t5 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict V", MyIDs.Research.GenerellEdictsResearchT5)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT5)
-               .SetCostsWithDifficulty(MoreRecipes.Config.GenerellEdictsResearchCostT5);
+               .SetCostsWithDifficulty(BetterMod.Config.GenerellEdictsResearchCostT5);
 
             ResearchNodeProto research_t5 = research_state_t5.BuildAndAdd();
 
             // Add parent to my research T5
             research_t5.AddParentPlusGridPos(research_t4);
 
-            if (!MoreRecipes.Config.DisableCheats)
+            if (!BetterMod.Config.DisableCheats)
             {
                 Cheats(registrator, master_research);
             }
@@ -116,7 +121,7 @@ namespace CoI.Mod.Better
 
             // Add parent to my research CHEAT
             ResearchNodeProto master_cheat_research = registrator.PrototypesDb.Get<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_CHEAT).ValueOrNull;
-            research_cheat_t1.AddGridPos(master_cheat_research, MoreRecipes.UI_StepSize, -MoreRecipes.UI_StepSize);
+            research_cheat_t1.AddGridPos(master_cheat_research, BetterMod.UI_StepSize, -BetterMod.UI_StepSize);
 
 
             // Generate Cheat Research
@@ -160,7 +165,7 @@ namespace CoI.Mod.Better
         private void AddUnityPoints(ProtoRegistrator registrator)
         {
             // Add Cheats
-            if (MoreRecipes.Config.DisableCheats) return;
+            if (BetterMod.Config.DisableCheats) return;
 
             // Add Cheats
             GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, 5.0f, "CHEAT");
@@ -185,12 +190,13 @@ namespace CoI.Mod.Better
                 locStr.Format(monthlyUpointsCost.ToString()).Value
             );
 
-            registrator.PrototypesDb.Add(new MaintenanceReductionEdictProto(
+            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Unity Plus T" + countUnityPointsEdicts.ToString() + title_add, descShort, translationComment),
+                category,
                 (-monthlyUpointsCost).Upoints(),
-                typeof(MaintenanceReductionEdict),
-                1.Percent(),
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0.Percent())),
+                Option<EdictProto>.None,
                 new EdictProto.Gfx("Assets/Base/Icons/Edicts/UnityIncreased.svg"))
             );
         }
@@ -198,7 +204,7 @@ namespace CoI.Mod.Better
         private void AddReduceService(ProtoRegistrator registrator)
         {
             // Add Cheats
-            if (MoreRecipes.Config.DisableCheats) return;
+            if (BetterMod.Config.DisableCheats) return;
 
             // Add Cheats
             GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, 30, "CHEAT");
@@ -223,12 +229,13 @@ namespace CoI.Mod.Better
                 locStr.Format(reduceServiceConsum.ToString()).Value
             );
 
-            registrator.PrototypesDb.Add(new SettlementConsumptionEdictProto(
-                protoID, 
+            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
+                protoID,
                 Proto.CreateStr(protoID, "Settlement Consumption T" + countReduceServiceEdicts.ToString() + title_add, descShort, translationComment),
-                CheatUpkeepEdicts.Upoints(), 
-                typeof(SettlementConsumptionEdict),
-                1.Percent(), 
+                category,
+                CheatUpkeepEdicts.Upoints(),
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FoodConsumptionMultiplier, reduceServiceConsum.Percent())),
+                Option<EdictProto>.None,
                 new EdictProto.Gfx("Assets/Base/Icons/Edicts/FoodReduced.svg"))
             );
         }

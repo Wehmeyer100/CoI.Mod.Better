@@ -19,7 +19,7 @@ namespace CoI.Mod.Better
         private float towerAreaMultiplier = 1f;
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableExtentedMineTowerRange) return;
+            if (BetterMod.Config.DisableExtentedMineTowerRange) return;
 
             LoadData();
 
@@ -28,7 +28,7 @@ namespace CoI.Mod.Better
 
         private void LoadData()
         {
-            towerAreaMultiplier = MoreRecipes.Config.TowerAreaMultiplier;
+            towerAreaMultiplier = BetterMod.Config.TowerAreaMultiplier;
         }
 
         private void OverrideMineTower(ProtoRegistrator registrator)

@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main - Kopie\\Source Code\\src\\CoI.Mod.Better.csproj",
+      "projectUniqueName": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj",
       "projectName": "CoI.Mod.Better",
-      "projectPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main - Kopie\\Source Code\\src\\CoI.Mod.Better.csproj",
+      "projectPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj",
       "packagesPath": "K:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main - Kopie\\Source Code\\src\\obj\\",
+      "outputPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -29,12 +29,12 @@ namespace CoI.Mod.Better
                     .BuildAndAdd();
             master_research.GridPosition += new Vector2i(0, -2);
 
-            if (MoreRecipes.Config.DisableVehicleCapIncrease)
+            if (BetterMod.Config.DisableVehicleCapIncrease)
             {
                 return;
             }
 
-            if (!MoreRecipes.Config.DisableCheats)
+            if (!BetterMod.Config.DisableCheats)
             {
                 LocStr1 locStr = Loc.Str1(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "__desc", "Increases vehicle{0}", "{0}=" + StepSize);
                 LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "_formatted_master", locStr.Format("").Value);
@@ -45,7 +45,7 @@ namespace CoI.Mod.Better
                     .SetCosts(new ResearchCostsTpl(ResearchNodeProto.DifficultyToSteps(1)))
                     .AddVehicleCapIncrease(StepSize * 10, "Assets/Base/Icons/VehicleLimitIncrease.svg")
                     .BuildAndAdd();
-                cheat_research.GridPosition = master_research.GridPosition + new Vector2i(MoreRecipes.UI_StepSize, -MoreRecipes.UI_StepSize);
+                cheat_research.GridPosition = master_research.GridPosition + new Vector2i(BetterMod.UI_StepSize, -BetterMod.UI_StepSize);
                 cheat_research.AddParent(master_research);
             }
 
