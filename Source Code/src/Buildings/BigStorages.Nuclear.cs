@@ -21,6 +21,7 @@ namespace CoI.Mod.Better
             // Set proto ids
             StaticEntityProto.ID protoID = Ids.Buildings.NuclearWasteStorage;
             Proto.ID category = Ids.ToolbarCategories.Storages;
+            string iconPath = registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.NuclearWasteStorage).Graphics.IconPath;
 
             if (BetterMod.Config.OverrideVanillaStorages)
             {
@@ -50,7 +51,7 @@ namespace CoI.Mod.Better
                     capacity: capacity_nuclear.Quantity(),
                     costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),
                     nextTier: Option.None,
-                    graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default(RelTile3f), Option<string>.Some(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.NuclearWasteStorage).Graphics.IconPath), default(ColorRgba), hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(category)),
+                    graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default(RelTile3f), Option<string>.Some(iconPath), default(ColorRgba), hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(category)),
                     emissionIntensity: 5,
                     powerConsumed: 30.Kw());
 
