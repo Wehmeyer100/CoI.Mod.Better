@@ -405,8 +405,8 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
 
-#package created for Mod install
-CoI.Mod.Better.zip
+#Files created after solution is built
+CoI.Mod.Better.*
 
 #directories created at time of build
 Source\ Code/bin/
