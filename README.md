@@ -25,7 +25,7 @@ Machine:
 - Void Producer Products - You can produce all Products| Currently disabled
 - Void Producer Loose - You can produce all Loose | Currently disabled
 - Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW | You can customise this setting in the Config file.
-- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW | You can customise this setting in the Config file.
+- Power Generators - 1 Diesel per minute, produce: 900KW, 1.8MW, 2.7MW, 3.6MW, 4.5GW | You can customise this setting in the Config file.
 
 Research:
 - Vehicle Capacity +250
