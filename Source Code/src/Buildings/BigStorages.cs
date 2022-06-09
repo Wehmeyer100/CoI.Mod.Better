@@ -1,11 +1,14 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.Extensions;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
 using Mafi.Core.Entities.Static.Layout;
+using Mafi.Core.Factory;
 using Mafi.Core.Mods;
 using Mafi.Core.Products;
 using Mafi.Core.Prototypes;
+using Mafi.Core.Research;
 using Mafi.Localization;
 using System;
 using System.Collections.Generic;
@@ -13,13 +16,17 @@ using UnityEngine;
 
 namespace CoI.Mod.Better
 {
-    internal class BigStorages : IModData
+    internal partial class BigStorages : IModData
     {
-        private int capacity_small = 0;
-        private int capacity_large = 0;
+        private int capacity_T1 = 0;
+        private int capacity_T2 = 0;
+        private int capacity_T3 = 0;
+        private int capacity_T4 = 0;
 
-        private int capacity_fluid_small = 0;
-        private int capacity_fluid_large = 0;
+        private int capacity_fluid_T1 = 0;
+        private int capacity_fluid_T2 = 0;
+        private int capacity_fluid_T3 = 0;
+        private int capacity_fluid_T4 = 0;
 
         private int capacity_nuclear = 0;
 
@@ -31,251 +38,115 @@ namespace CoI.Mod.Better
 
             UnitStoragesT2(registrator);
             UnitStoragesT1(registrator);
+            UnitStoragesT4(registrator);
+            UnitStoragesT3(registrator);
+
             LooseStoragesT2(registrator);
             LooseStoragesT1(registrator);
+            LooseStoragesT4(registrator);
+            LooseStoragesT3(registrator);
+
             FluidStoragesT2(registrator);
             FluidStoragesT1(registrator);
+            FluidStoragesT4(registrator);
+            FluidStoragesT3(registrator);
+
             NuclearWasteStorage(registrator);
+
+            if (!BetterMod.Config.OverrideVanillaStorages)
+            {
+                GenerateResearch(registrator);
+            }
         }
 
         private void LoadData()
         {
-            capacity_small = (int)BetterMod.Config.StorageCapacitySmall;
-            capacity_small = Mathf.Clamp(capacity_small, 180, int.MaxValue);
+            capacity_T1 = (int)BetterMod.Config.StorageCapacityT1;
+            capacity_T1 = Mathf.Clamp(capacity_T1, 180, int.MaxValue);
 
-            capacity_large = (int)BetterMod.Config.StorageCapacityLarge;
-            capacity_large = Mathf.Clamp(capacity_large, 360, int.MaxValue);
+            capacity_T2 = (int)BetterMod.Config.StorageCapacityT2;
+            capacity_T2 = Mathf.Clamp(capacity_T2, 360, int.MaxValue);
+
+            capacity_T3 = (int)BetterMod.Config.StorageCapacityT3;
+            capacity_T3 = Mathf.Clamp(capacity_T3, 2160, int.MaxValue);
+
+            capacity_T4 = (int)BetterMod.Config.StorageCapacityT4;
+            capacity_T4 = Mathf.Clamp(capacity_T4, 4320, int.MaxValue);
 
             float fluidStorageCapacityMultiplier = BetterMod.Config.FluidStorageCapacityMultiplier;
 
-            capacity_fluid_small = (int)(capacity_small * fluidStorageCapacityMultiplier);
-            capacity_fluid_small = Mathf.Clamp(capacity_fluid_small, 1, int.MaxValue);
+            capacity_fluid_T1 = (int)(capacity_T1 * fluidStorageCapacityMultiplier);
+            capacity_fluid_T1 = Mathf.Clamp(capacity_fluid_T1, 1, int.MaxValue);
 
-            capacity_fluid_large = (int)(capacity_large * fluidStorageCapacityMultiplier);
-            capacity_fluid_large = Mathf.Clamp(capacity_fluid_large, 1, int.MaxValue);
+            capacity_fluid_T2 = (int)(capacity_T2 * fluidStorageCapacityMultiplier);
+            capacity_fluid_T2 = Mathf.Clamp(capacity_fluid_T2, 1, int.MaxValue);
+
+            capacity_fluid_T3 = (int)(capacity_T3 * fluidStorageCapacityMultiplier);
+            capacity_fluid_T3 = Mathf.Clamp(capacity_fluid_T3, 1, int.MaxValue);
+
+            capacity_fluid_T4 = (int)(capacity_T4 * fluidStorageCapacityMultiplier);
+            capacity_fluid_T4 = Mathf.Clamp(capacity_fluid_T4, 1, int.MaxValue);
 
             float nuclearWasteStorageCapacityMultiplier = BetterMod.Config.NuclearWasteStorageCapacityMultiplier;
-            capacity_nuclear = (int)(capacity_large * nuclearWasteStorageCapacityMultiplier);
-            capacity_nuclear = Mathf.Clamp(capacity_nuclear, 1, int.MaxValue);
-        }
-
-        private void NuclearWasteStorage(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.NuclearWasteStorage;
-
-            // Get vanilla proto data
-            NuclearWasteStorageProto vanilla_storage = (NuclearWasteStorageProto)registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate new proto
-            CustomLayoutToken[] customTokens = new CustomLayoutToken[2]
-            {
-                new CustomLayoutToken("-0]", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, -h)),
-                new CustomLayoutToken("-0|", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, -h))
-            };
-            EntityLayout layout = registrator.LayoutParser.ParseLayoutOrThrow(new EntityLayoutParams(null, useNewLayoutSyntax: true, customTokens), "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "A#>[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "X#<[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]");
-
-            NuclearWasteStorageProto override_storage = new NuclearWasteStorageProto(
-                    id: protoID,
-                    Proto.CreateStr(protoID, "Spent fuel storage", "A special underground storage facility that can safely manage any radioactive waste without causing any danger to the island’s population. Leaving a legacy for the next generations to come."),
-                    layout,
-                    productsFilter: NuclearFilter,
-                    productType: CountableProductProto.ProductType,
-                    capacity: capacity_nuclear.Quantity(),
-                    costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),
-                    nextTier: Option.None,
-                    graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default, Option<string>.None, default, hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(Ids.ToolbarCategories.Storages)),
-                    emissionIntensity: 5,
-                    powerConsumed: 30.Kw());
-
-            // Add new to Database
-            registrator.PrototypesDb.Add(override_storage, true);
-        }
-
-        private void FluidStoragesT1(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageFluid;
-            StaticEntityProto.ID protoT2ID = Ids.Buildings.StorageFluidT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolidFormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Fluid storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_small.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageFluid)
-                .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoT2ID))
-                .SetCapacity(capacity_fluid_small)
-                .SetProductsFilter(FluidFilter)
-                .SetLayout("      [5][5][5]      ", " @ >5A[6][6][6]X5> @ ", "   [5][6][6][6][5]   ", " @ >5B[6][6][6]Y5> @ ", "      [5][5][5]      ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Gas.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
-        }
-
-        private void FluidStoragesT2(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageFluidT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluidFormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Fluid storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_large.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageFluidT2)
-                .SetCapacity(capacity_fluid_large)
-                .SetProductsFilter(FluidFilter)
-                .SetLayout("      [5][5][5]      ", " @ >5A[6][6][6]X5> @ ", "   [5][6][6][6][5]   ", " @ >5B[6][6][6]Y5> @ ", "      [5][5][5]      ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Gas.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
-        }
-
-        private void UnitStoragesT1(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageUnit;
-            StaticEntityProto.ID protoT2ID = Ids.Buildings.StorageUnitT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolidFormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Unit storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_small.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageUnit)
-                .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoT2ID))
-                .SetCapacity(capacity_small)
-                .SetProductsFilter(ProductFilter)
-                .SetLayout("   [3][3][3][3][3]   ", " # >3A[3][3][3]X3> # ", " # >3B[3][3][3]Y3> # ", "   [3][3][3][3][3]   ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Unit.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
-        }
-
-        private void UnitStoragesT2(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageUnitT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolidFormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Unit storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_large.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageUnitT2)
-                .SetCapacity(capacity_large)
-                .SetProductsFilter(ProductFilter)
-                .SetLayout("   [3][3][3][3][3]   ", " # >3A[3][3][3]X3> # ", " # >3B[3][3][3]Y3> # ", "   [3][3][3][3][3]   ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Unit.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
-        }
-
-        private void LooseStoragesT1(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageLoose;
-            StaticEntityProto.ID protoT2ID = Ids.Buildings.StorageLooseT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Loose storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_small.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageLoose)
-                .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoT2ID))
-                .SetCapacity(capacity_small)
-                .SetProductsFilter(LooseFilter)
-                .SetLayout("      [6][6][6][6]   ", " ~ >7A[7][6][6]X6> ~ ", " ~ >7B[7][6][6]Y6> ~ ", "      [6][6][6][6]   ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Loose.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
-        }
-
-        private void LooseStoragesT2(ProtoRegistrator registrator)
-        {
-            // Set proto ids
-            StaticEntityProto.ID protoID = Ids.Buildings.StorageLooseT2;
-
-            // Remove from Database
-            registrator.PrototypesDb.RemoveOrThrow(protoID);
-
-            // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
-
-            // Add new to Database
-            registrator.StorageProtoBuilder.Start("Loose storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_large.ToString()).Value))
-                .SetCost(Costs.Buildings.StorageLooseT2)
-                .SetCapacity(capacity_large)
-                .SetProductsFilter(LooseFilter)
-                .SetLayout("      [6][6][6][6]   ", " ~ >7A[7][6][6]X6> ~ ", " ~ >7B[7][6][6]Y6> ~ ", "      [6][6][6][6]   ")
-                .SetCategories(Ids.ToolbarCategories.Storages)
-                .SetPrefabPath("Assets/Base/Buildings/Storages/Loose.prefab")
-                .SetNoTransferLimit()
-                .BuildAndAdd();
+            capacity_nuclear = (int)(5000 * nuclearWasteStorageCapacityMultiplier);
+            capacity_nuclear = Mathf.Clamp(capacity_nuclear, 5000, int.MaxValue);
         }
 
         private static bool ProductFilter(ProductProto x)
         {
-            if (x.Type == CountableProductProto.ProductType && x.IsStorable)
-            {
-                return x.Radioactivity == 0;
-            }
-            return false;
+            return x.IsStorable ? x.Radioactivity == 0 : false;
         }
 
-        private static bool LooseFilter(ProductProto x)
+        private static bool radioactiveProductFilter(ProductProto x)
         {
-            if (x.Type == LooseProductProto.ProductType)
-            {
-                return x.IsStorable;
-            }
-            return false;
+            return x.IsStorable ? x.Radioactivity > 0 : false;
         }
 
-        private static bool FluidFilter(ProductProto x)
+        private static StorageProtoBuilder.State SetTransferLimitByT(StorageProtoBuilder.State creator, int TLevel)
         {
-            if (x.Type == FluidProductProto.ProductType)
+            if (BetterMod.Config.UnlimitedTransferLimit)
             {
-                return x.IsStorable;
+                creator.SetNoTransferLimit();
             }
-            return false;
+            else
+            {
+                var count = BetterMod.Config.StorageTransferLimitT1Count;
+                var duration = BetterMod.Config.StorageTransferLimitT1Duration;
+
+                switch (TLevel)
+                {
+                    case 2:
+                        count = BetterMod.Config.StorageTransferLimitT2Count;
+                        duration = BetterMod.Config.StorageTransferLimitT2Duration;
+                        break;
+                    case 3:
+                        count = BetterMod.Config.StorageTransferLimitT3Count;
+                        duration = BetterMod.Config.StorageTransferLimitT3Duration;
+                        break;
+                    case 4:
+                        count = BetterMod.Config.StorageTransferLimitT4Count;
+                        duration = BetterMod.Config.StorageTransferLimitT4Duration;
+                        break;
+                }
+
+                creator.SetTransferLimit(count, 1.Seconds() / duration);
+            }
+            return creator;
         }
 
-        private static bool NuclearFilter(ProductProto x)
+
+
+        private static StorageProtoBuilder.State SetCategory(StorageProtoBuilder.State creator)
         {
-            if (x.IsStorable)
+            if (BetterMod.Config.OverrideVanillaStorages)
             {
-                return x.Radioactivity > 0;
+                creator.SetCategories(Ids.ToolbarCategories.Storages);
             }
-            return false;
+            else
+            {
+                creator.SetCategories(MyIDs.ToolbarCategories.Storages);
+            }
+            return creator;
         }
     }
 }

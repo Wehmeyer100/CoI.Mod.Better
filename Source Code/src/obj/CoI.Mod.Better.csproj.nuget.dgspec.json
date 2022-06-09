@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj": {}
+    "K:\\Users\\Admin\\Documents\\GitHub\\CoI.Mod.Better\\Source Code\\src\\CoI.Mod.Better.csproj": {}
   },
   "projects": {
-    "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj": {
+    "K:\\Users\\Admin\\Documents\\GitHub\\CoI.Mod.Better\\Source Code\\src\\CoI.Mod.Better.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj",
+        "projectUniqueName": "K:\\Users\\Admin\\Documents\\GitHub\\CoI.Mod.Better\\Source Code\\src\\CoI.Mod.Better.csproj",
         "projectName": "CoI.Mod.Better",
-        "projectPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\CoI.Mod.Better.csproj",
+        "projectPath": "K:\\Users\\Admin\\Documents\\GitHub\\CoI.Mod.Better\\Source Code\\src\\CoI.Mod.Better.csproj",
         "packagesPath": "K:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "E:\\Visual Sudio Projects\\Captain-of-industry-more-recipces\\Captain-of-industry-modding-main\\Source Code\\src\\obj\\",
+        "outputPath": "K:\\Users\\Admin\\Documents\\GitHub\\CoI.Mod.Better\\Source Code\\src\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -27,22 +27,22 @@
   
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mafi">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Base">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Core">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.ModsAuthoringSupport">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
     </Reference>
     <Reference Include="Mafi.Unity">
-      <HintPath>K:\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Captain of Industry\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <CopyLocal>False</CopyLocal>

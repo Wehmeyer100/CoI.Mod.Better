@@ -60,13 +60,45 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static ResearchNodeProto.ID VoidCrusher = new ResearchNodeProto.ID("ResearchVoidCrusher");
         public readonly static ResearchNodeProto.ID VoidCrusherCheat = new ResearchNodeProto.ID("ResearchVoidCrusherCheat");
         public readonly static ResearchNodeProto.ID VoidProducerCheat = new ResearchNodeProto.ID("ResearchVoidProducerCheat");
-        public readonly static ResearchNodeProto.ID VoidEnergyCheat = new ResearchNodeProto.ID("VoidEnergyCheat");
+        public readonly static ResearchNodeProto.ID VoidDieselEnergyCheat = new ResearchNodeProto.ID("VoidEnergyCheat");
+        public readonly static ResearchNodeProto.ID VoidPowerEnergyCheat = new ResearchNodeProto.ID("VoidPowerEnergyCheat");
 
+        public readonly static ResearchNodeProto.ID StorageResearchT1 = new ResearchNodeProto.ID("MyStorageResearchT1");
+        public readonly static ResearchNodeProto.ID StorageResearchT2 = new ResearchNodeProto.ID("MyStorageResearchT2");
+        public readonly static ResearchNodeProto.ID StorageResearchT3 = new ResearchNodeProto.ID("MyStorageResearchT3");
+        public readonly static ResearchNodeProto.ID StorageResearchT4 = new ResearchNodeProto.ID("MyStorageResearchT4");
+        public readonly static ResearchNodeProto.ID StorageResearchT5 = new ResearchNodeProto.ID("MyStorageResearchT5");
+
+    }
+
+    public static class ToolbarCategories
+    {
+        public static readonly Proto.ID Storages = new Proto.ID("Better_Mod_Storages");
+        public static readonly Proto.ID MachinesElectricity = new Proto.ID("Better_Mod_Electricity");
     }
 
     public sealed class Buildings
     {
+        public static readonly StaticEntityProto.ID MineTowerNormal = new StaticEntityProto.ID("MyMineTowerNormal");
+        public static readonly StaticEntityProto.ID MineTowerT2 = new StaticEntityProto.ID("MyMineTowerT2");
+        public static readonly StaticEntityProto.ID MineTowerT3 = new StaticEntityProto.ID("MyMineTowerT3");
 
+        public static readonly StaticEntityProto.ID StorageUnitT4 = new StaticEntityProto.ID("MyStorageUnitT4");
+        public static readonly StaticEntityProto.ID StorageUnitT3 = new StaticEntityProto.ID("MyStorageUnitT3");
+        public static readonly StaticEntityProto.ID StorageUnitT2 = new StaticEntityProto.ID("MyStorageUnitT2");
+        public static readonly StaticEntityProto.ID StorageUnitT1 = new StaticEntityProto.ID("MyStorageUnitT1");
+
+        public static readonly StaticEntityProto.ID StorageLooseT4 = new StaticEntityProto.ID("MyStorageLooseT4");
+        public static readonly StaticEntityProto.ID StorageLooseT3 = new StaticEntityProto.ID("MyStorageLooseT3");
+        public static readonly StaticEntityProto.ID StorageLooseT2 = new StaticEntityProto.ID("MyStorageLooseT2");
+        public static readonly StaticEntityProto.ID StorageLooseT1 = new StaticEntityProto.ID("MyStorageLooseT1");
+
+        public static readonly StaticEntityProto.ID StorageFluidT4 = new StaticEntityProto.ID("MyStorageFluidT4");
+        public static readonly StaticEntityProto.ID StorageFluidT3 = new StaticEntityProto.ID("MyStorageFluidT3");
+        public static readonly StaticEntityProto.ID StorageFluidT2 = new StaticEntityProto.ID("MyStorageFluidT2");
+        public static readonly StaticEntityProto.ID StorageFluidT1 = new StaticEntityProto.ID("MyStorageFluidT1");
+
+        public static readonly StaticEntityProto.ID NuclearWasteStorage = new StaticEntityProto.ID("MyNuclearWasteStorage");
     }
 
     public sealed class Machines
@@ -78,16 +110,24 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static MachineProto.ID VoidProducerProductCheat = new MachineProto.ID("VoidProducerProductCheat");
 
 
-        public readonly static StaticEntityProto.ID VoidProducerEnergy10Cheat = new StaticEntityProto.ID("VoidProducerEnergy10Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy50Cheat = new StaticEntityProto.ID("VoidProducerEnergy50Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy100Cheat = new StaticEntityProto.ID("VoidProducerEnergy100Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy200Cheat = new StaticEntityProto.ID("VoidProducerEnergy200Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy1000Cheat = new StaticEntityProto.ID("VoidProducerEnergy1000Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy10Cheat = new StaticEntityProto.ID("VoidProducerEnergy10Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy50Cheat = new StaticEntityProto.ID("VoidProducerEnergy50Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy100Cheat = new StaticEntityProto.ID("VoidProducerEnergy100Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy200Cheat = new StaticEntityProto.ID("VoidProducerEnergy200Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy1000Cheat = new StaticEntityProto.ID("VoidProducerEnergy1000Cheat");
+
+
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT1Cheat = new StaticEntityProto.ID("VoidPowerEnergyT1Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT2Cheat = new StaticEntityProto.ID("VoidPowerEnergyT2Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT3Cheat = new StaticEntityProto.ID("VoidPowerEnergyT3Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT4Cheat = new StaticEntityProto.ID("VoidPowerEnergyT4Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT5Cheat = new StaticEntityProto.ID("VoidPowerEnergyT5Cheat");
     }
 
     public sealed class Eticts
     {
         public static readonly Proto.ID BetterMod = new ProductProto.ID("BetterModCatergory");
+        public static readonly Proto.ID BetterModCheats = new ProductProto.ID("BetterModCheatCatergory");
 
         public sealed class Trucks
         {

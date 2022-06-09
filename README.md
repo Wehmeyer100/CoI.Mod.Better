@@ -1,7 +1,7 @@
 # Captain of Industry mod: Better
 
 Game Version(Comptability): 0.4.2
-!!!! Void Producer, Storages, Void Crusher currently not working !!!!!
+!!!! Void Producer and Void Crusher currently not working and disabled !!!!!
 
 Savegame Comptability: You need to start a new game!
 
@@ -20,11 +20,12 @@ Savegame Comptability: You need to start a new game!
 - Cheats can be disabled in the config file.
 
 Machine:
-- Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
-- Void Producer Liquids - You can produce all liquids
-- Void Producer Products - You can produce all Products
-- Void Producer Loose - You can produce all Loose
-- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW
+- Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.| Currently disabled
+- Void Producer Liquids - You can produce all liquids| Currently disabled
+- Void Producer Products - You can produce all Products| Currently disabled
+- Void Producer Loose - You can produce all Loose | Currently disabled
+- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW | You can customise this setting in the Config file.
+- Diesel Generators - 1 Diesel per minute, produce: 10MW, 50MW, 100MW, 200MW, 1GW | You can customise this setting in the Config file.
 
 Research:
 - Vehicle Capacity +250
@@ -68,16 +69,8 @@ Then start the game and enjoy!
     
     1. You look in the last log and in the log should be the following to find: 
      
-        Game will start with following 4 mods:
-        
-        Mafi.Core.CoreMod
-        
-        Mafi.Base.BaseMod
-        
-        Mafi.Unity.UnityMod
-        
-        CoI.Mod.Better.MoreRecipes <--- If this is displayed, the mod has been loaded.
-        
+        Loaded 2 extra mods
+		CoI.Mod.Better (CoI.Mod.Better.BetterMod) <--- If this is displayed, the mod has been loaded.
         
     2. In the research tree there should be new research options at the top.
 
@@ -102,6 +95,8 @@ Then start the game and enjoy!
     "DisableVoidProducer": false,               => Disables VoidProducer, Only for new game!!!
 
     "DisableDieselGeneators": false,            => Disables DieselGeneators, Only for new game!!!
+	
+    "DisablePowerGeneators": false,            => Disables PowerGeneators, Only for new game!!!
     
     "BeaconRefugeesMin": 1,
     
@@ -137,11 +132,35 @@ Then start the game and enjoy!
 
     "BeaconRewardFoodChance": 0.699999988079071,
     
+	"OverrideBaseGameTower": true # By override, was generate Vanilla tower as seperate building
+	
     "TowerAreaMultiplier": 1.5,
-    
-    "StorageCapacitySmall": 540,
-    
-    "StorageCapacityLarge": 1080,
+	
+    "OverrideVanillaStorages": false,# By false, was generate seperate storages in a seperate toolbar., By true, Vanilla storages override. Only for new buildings builded
+	
+    "StorageCapacityT1": 540,
+	
+    "StorageTransferLimitT1Count": 2, # Count items per transfer
+	
+    "StorageTransferLimitT1Duration": 5, # Higher = Faster, Smaller = slower
+	
+    "StorageCapacityT2": 1080,
+	
+    "StorageTransferLimitT2Count": 4, # Count items per transfer
+	
+    "StorageTransferLimitT2Duration": 5, # Higher = Faster, Smaller = slower
+	
+    "StorageCapacityT3": 6480,
+	
+    "StorageTransferLimitT3Count": 8, # Count items per transfer
+	
+    "StorageTransferLimitT3Duration": 5, # Higher = Faster, Smaller = slower
+	
+    "StorageCapacityT4": 12960,
+	
+    "StorageTransferLimitT4Count": 10, # Count items per transfer
+	
+    "StorageTransferLimitT4Duration": 5, # Higher = Faster, Smaller = slower
     
     "FluidStorageCapacityMultiplier": 10,
     
@@ -172,28 +191,48 @@ Then start the game and enjoy!
     "VoidProducerCheatAmountInput": 40,
 
     "VoidProducerCheatDuration": 20,
-
-    "VoidProducerEnergyInputType": 1, # 1 = Diesel, 2 = Water, 3 = crude oil,
-
-    "VoidProducerEnergy10CheatInKW": 10000,
-
-    "VoidProducerEnergy50CheatInKW": 50000,
-
-    "VoidProducerEnergy100CheatInKW": 100000,
-
-    "VoidProducerEnergy200CheatInKW": 200000,
-
-    "VoidProducerEnergy1000CheatInKW": 1000000,
-
-    "VoidProducerEnergy10CheatBufferCapactiy": 540,
-
-    "VoidProducerEnergy50CheatBufferCapactiy": 1080,
-
-    "VoidProducerEnergy100CheatBufferCapactiy": 1620,
-
-    "VoidProducerEnergy200CheatBufferCapactiy": 2160,
-
-    "VoidProducerEnergy1000CheatBufferCapactiy": 2700
+	
+    "VoidDieselEnergyInputType": 1, # 1 = Diesel, 2 = Water, 3 = crude oil,
+    
+	"VoidDieselEnergy10CheatInKW": 10000,
+    
+	"VoidDieselEnergy50CheatInKW": 50000,
+    
+	"VoidDieselEnergy100CheatInKW": 100000,
+    
+	"VoidDieselEnergy200CheatInKW": 200000,
+    
+	"VoidDieselEnergy1000CheatInKW": 1000000,
+    
+	"VoidDieselEnergy10CheatBufferCapactiy": 540,
+    
+	"VoidDieselEnergy50CheatBufferCapactiy": 1080,
+    
+	"VoidDieselEnergy100CheatBufferCapactiy": 1620,
+    
+	"VoidDieselEnergy200CheatBufferCapactiy": 2160,
+    
+	"VoidDieselEnergy1000CheatBufferCapactiy": 2700,
+    
+	"VoidPowerEnergyT1InputMechPower": 500, # in KwMech
+    
+	"VoidPowerEnergyT2InputMechPower": 500, # in KwMech
+    
+	"VoidPowerEnergyT3InputMechPower": 500, # in KwMech
+    
+	"VoidPowerEnergyT4InputMechPower": 500, # in KwMech
+    
+	"VoidPowerEnergyT5InputMechPower": 500, # in KwMech
+    
+	"VoidPowerEnergyT1OutputPower": 900,  # in kw
+    
+	"VoidPowerEnergyT2OutputPower": 1800, # in kw
+    
+	"VoidPowerEnergyT3OutputPower": 2700, # in kw
+    
+	"VoidPowerEnergyT4OutputPower": 3600, # in kw
+    
+	"VoidPowerEnergyT5OutputPower": 4500  # in kw
     
 
 # 

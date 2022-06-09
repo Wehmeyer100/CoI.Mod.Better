@@ -1,6 +1,7 @@
 ﻿using CoI.Mod.Better.Buildings;
 using CoI.Mod.Better.Edicts;
 using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Toolbars;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core;
@@ -14,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace CoI.Mod.Better
@@ -32,15 +34,15 @@ namespace CoI.Mod.Better
         private static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
 
         public static bool gameWasLoaded = false;
-        public static int OldConfigVersion = 1;
-        public static int CurrentConfigVersion = 2;
+        public static int OldConfigVersion = 2;
+        public static int CurrentConfigVersion = 3;
 
         public const int UI_StepSize = 4;
 
 
         public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
         {
-            Log.Info("MoreRecipes mod was created!");
+            Log.Info("BetterMod mod was created!");
             BetterMod.gameWasLoaded = gameWasLoaded;
         }
 
@@ -50,42 +52,56 @@ namespace CoI.Mod.Better
             registrator.RegisterAllProducts();
 
             LoadModConfig();
+            Log.Info("BetterMod Config loaded..");
 
             // Use data class registration to register other protos such as machines, recipes, etc.
+            registrator.RegisterData<MyToolbars>();
+            registrator.RegisterData<MyVehicleCapIncrease>();
             registrator.RegisterData<MineTower>();
             registrator.RegisterData<BigStorages>();
             registrator.RegisterData<Beacon>();
-            registrator.RegisterData<MyVehicleCapIncrease>();
             registrator.RegisterData<GenerellEdicts>();
             registrator.RegisterData<VehicleEdicts>();
             registrator.RegisterData<VoidCrusher>();
             registrator.RegisterData<VoidProducer>();
-            registrator.RegisterData<DieselGeneators>();
+            registrator.RegisterData<DieselGenerator>();
+            registrator.RegisterData<PowerGenerators>();
 
-            Log.Info("MoreRecipes RegisterPrototypes..");
+            Log.Info("BetterMod RegisterPrototypes..");
         }
 
         private static void LoadModConfig()
         {
             string modFolder = DOCUMENTS_ROOT_DIR_PATH + "/Mods/CoI.Mod.Better";
-            string oldConfigFile = modFolder + "/globalconfig" + OldConfigVersion + ".v" + OldConfigVersion + ".json";
+            string oldConfigFile = modFolder + "/globalconfig" + OldConfigVersion + ".json";
             string newConfigFile = modFolder + "/globalconfig" + CurrentConfigVersion + ".json";
 
             if (File.Exists(oldConfigFile) && !File.Exists(newConfigFile))
             {
+                Log.Info("BetterMod Config converting..");
+
                 Config = new ModConfig();
 
                 string content = File.ReadAllText(oldConfigFile);
                 JsonUtility.FromJsonOverwrite(content, Config);
 
+                Log.Info("BetterMod Config converted.");
+
                 File.Delete(oldConfigFile);
             }
-            else if(File.Exists(newConfigFile))
+            else if (File.Exists(newConfigFile))
             {
                 string content = File.ReadAllText(newConfigFile);
                 JsonUtility.FromJsonOverwrite(content, Config);
             }
+
             File.WriteAllText(newConfigFile, JsonUtility.ToJson(Config, true));
+
+            Debug.Log("BetterMod: Config data");
+            foreach (FieldInfo field in GetAllFields(typeof(ModConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(Config));
+            }
         }
 
         public void RegisterDependencies(DependencyResolverBuilder depBuilder, ProtosDb protosDb, bool gameWasLoaded)
@@ -99,19 +115,20 @@ namespace CoI.Mod.Better
             return (proto.Value as LayoutEntityProto).Graphics.IconPath;
         }
 
-        public static EntityLayout GenerateLayout(ProtosDb protosDb, EntityLayoutParams layoutParams, params string[] layout)
+        public static IEnumerable<FieldInfo> GetAllFields(Type type)
         {
-            EntityLayout result;
-            try
+            if (type == null)
             {
-                result = new EntityLayoutParser(protosDb).ParseLayoutOrThrow(layoutParams, layout);
-            }
-            catch (InvalidEntityLayoutException inner)
-            {
-                throw new ProtoBuilderException($"Invalid layout of entity", inner);
+                return Enumerable.Empty<FieldInfo>();
             }
 
-            return result;
+            BindingFlags flags = BindingFlags.Public |
+                                 BindingFlags.NonPublic |
+                                 BindingFlags.Static |
+                                 BindingFlags.Instance |
+                                 BindingFlags.DeclaredOnly;
+
+            return type.GetFields(flags).Union(GetAllFields(type.BaseType));
         }
     }
 }
