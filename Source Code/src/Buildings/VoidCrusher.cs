@@ -25,7 +25,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableVoidCrusher) return;
+            if (BetterMod.Config.DisableVoidCrusher || true) return;
             currentDuration = 20.Seconds();
             currentInputAmount = 20;
             hasOutput = true;
@@ -40,13 +40,13 @@ namespace CoI.Mod.Better
                 .SetCost(Costs.Machines.Crusher)
                 .SetElectricityConsumption(150.Kw())
                 .SetCategories(Ids.ToolbarCategories.Waste)
-                .SetLayout("   [3][4][3][3][3][3]   ", "#3 >3A[4][3][3][3]X3> ~ ", "   [3][4][3][3][3][3]   ", "   [2][3][2][2]         ")
+                .SetLayout("   [3][4][3][3][3][3]   ", " # >3A[4][3][3][3]X3> ~ ", "   [3][4][3][3][3][3]   ", "   [2][3][2][2]         ")
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
                 .SetEmissionWhenWorking(10)
                 .SetAsLockedOnInit()
-                .SetCustomIconPath(MoreRecipes.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
+                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .BuildAndAdd();
 
             // Generate Products Recipes for the Machine
@@ -65,7 +65,7 @@ namespace CoI.Mod.Better
             research_t1.AddParentPlusGridPos(master_research, ui_stepSize_y: -5);
 
             // Add Cheats
-            if (!MoreRecipes.Config.DisableCheats)
+            if (!BetterMod.Config.DisableCheats)
             {
                 Cheats(registrator);
             }
@@ -73,22 +73,22 @@ namespace CoI.Mod.Better
 
         private void Cheats(ProtoRegistrator registrator)
         {
-            currentDuration = MoreRecipes.Config.VoidDestroyCheatDuration.Seconds();
-            currentInputAmount = MoreRecipes.Config.VoidDestroyCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
             hasOutput = false;
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Crusher CHEAT", MyIDs.Machines.VoidCrusherCheat)
                 .Description("Destroy Products without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(MoreRecipes.Config.VoidDestroyCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
                 .SetCategories(Ids.ToolbarCategories.Waste)
                 .SetLayout("   [3][4][3][3][3][3]   ", "#3 >3A[4][3][3][3][3]   ", "   [3][4][3][3][3][3]   ", "   [2][3][2][2]         ")
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(MoreRecipes.Config.VoidDestroyCheatEmission)
-                .SetCustomIconPath(MoreRecipes.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .SetAsLockedOnInit()
                 .BuildAndAdd();
 
@@ -106,7 +106,7 @@ namespace CoI.Mod.Better
 
             // Add parent to my research T1
             ResearchNodeProto parent_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO);
-            research_t1.AddParentPlusGridPos(parent_research, MoreRecipes.UI_StepSize * 2, MoreRecipes.UI_StepSize);
+            research_t1.AddParentPlusGridPos(parent_research, BetterMod.UI_StepSize * 2, BetterMod.UI_StepSize);
         }
 
         private void GenerateCountableProduct(ProtoRegistrator registrator, MyIDs.Recipes.VoidCrusher crusher_ids)
@@ -117,14 +117,12 @@ namespace CoI.Mod.Better
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_Iron, Ids.Products.Iron);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_Steel, Ids.Products.Steel);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_Copper, Ids.Products.Copper);
-            GenerateRecipes(registrator, crusher_ids.VoidDestroy_Aluminum, Ids.Products.Aluminum);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_Gold, Ids.Products.Gold);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_Glass, Ids.Products.Glass);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_PolySilicon, Ids.Products.PolySilicon);
             //GenerateRecipes(registrator, crusher_ids.VoidDestroy_SiliconWafer, Ids.Products.SiliconWafer);
-            GenerateRecipes(registrator, crusher_ids.VoidDestroy_Food, Ids.Products.Food);
+            GenerateRecipes(registrator, crusher_ids.VoidDestroy_Food, Ids.Products.Potato);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_HouseholdGoods, Ids.Products.HouseholdGoods);
-            GenerateRecipes(registrator, crusher_ids.VoidDestroy_HouseholdElectronics, Ids.Products.HouseholdElectronics);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_ConcreteSlab, Ids.Products.ConcreteSlab);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_ConstructionParts, Ids.Products.ConstructionParts);
             GenerateRecipes(registrator, crusher_ids.VoidDestroy_ConstructionParts2, Ids.Products.ConstructionParts2);

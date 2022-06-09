@@ -22,17 +22,19 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (MoreRecipes.Config.DisableNewRefugeesSystem) return;
+            if (BetterMod.Config.DisableNewRefugeesSystem) return;
 
             LoadData(registrator);
 
             registrator.PrototypesDb.RemoveOrThrow(MyIDs.Utilities.BeaconSchedule);
             registrator.PrototypesDb.Add(new BeaconScheduleProto(MyIDs.Utilities.BeaconSchedule, GenerateReward));
+
+            Debug.Log("Beacon >> RegisterData >> replace schedule!");
         }
 
         private void LoadData(ProtoRegistrator registrator)
         {
-            all_baseValue_multiplier = Mathf.Clamp(MoreRecipes.Config.BeaconRewardBaseValueMultiplier, 0.1f, 100f); ;
+            all_baseValue_multiplier = Mathf.Clamp(BetterMod.Config.BeaconRewardBaseValueMultiplier, 0.1f, 100f); ;
 
             registrator.FluidProductProtoBuilder
                .Start("Nothing", MyIDs.Products.Nothing)
@@ -49,7 +51,7 @@ namespace CoI.Mod.Better
             diesel = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.Diesel);
             rubber = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.Rubber);
             oil = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.CrudeOil);
-            food = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.Food);
+            food = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.Potato);
         }
 
         private Option<RefugeesReward> GenerateReward(int index)
@@ -57,17 +59,17 @@ namespace CoI.Mod.Better
             float reward_multiply = 1 + ((index == 0 ? 1 : index) / max_index);
 
             // Calc Refugees Range
-            int refugeesMin = MoreRecipes.Config.BeaconRefugeesMin;
+            int refugeesMin = BetterMod.Config.BeaconRefugeesMin;
             refugeesMin = Mathf.Clamp(refugeesMin, 1, int.MaxValue);
 
-            int refugeesMax = MoreRecipes.Config.BeaconRefugeesMax;
+            int refugeesMax = BetterMod.Config.BeaconRefugeesMax;
             refugeesMax = Mathf.Clamp(refugeesMax, refugeesMin, int.MaxValue);
 
             // Calc Durations Range
-            int durationMin = MoreRecipes.Config.BeaconDurationMin;
+            int durationMin = BetterMod.Config.BeaconDurationMin;
             durationMin = Mathf.Clamp(durationMin, 1, int.MaxValue);
 
-            int durationMax = MoreRecipes.Config.BeaconDurationMax;
+            int durationMax = BetterMod.Config.BeaconDurationMax;
             durationMax = Mathf.Clamp(durationMax, durationMin, int.MaxValue);
 
             // Calc Amount of Refugees
@@ -75,9 +77,14 @@ namespace CoI.Mod.Better
             amountOfRefugees += Random.Range(amountOfRefugees, amountOfRefugees);
             amountOfRefugees = Mathf.Clamp(amountOfRefugees, 0, 100);
 
+
+            Debug.Log("Beacon >> GenerateReward >> reward_multiply: " + reward_multiply + " >> amountOfRefugees: " + amountOfRefugees + " >> durationMinMax: ( " + durationMin + " : " + durationMax + ") >> refugeesMinMax: ( " + refugeesMin + " : " + refugeesMax + " )");
+
             // To nothing then amount zero
             if (amountOfRefugees == 0)
             {
+                Debug.Log("Beacon >> GenerateReward >> generate noting.");
+
                 return new RefugeesReward(
                     possibleRewards: ImmutableArray.Create(GetRewardNothing()),
                     duration: Random.Range(durationMin, durationMax).Months(),
@@ -85,6 +92,7 @@ namespace CoI.Mod.Better
                     minimalTier: 1);
             }
 
+            Debug.Log("Beacon >> GenerateReward >> generate randon reward.");
             return new RefugeesReward(
                 possibleRewards: ImmutableArray.Create(
                         GetReward(reward_multiply, amountOfRefugees),
@@ -121,12 +129,12 @@ namespace CoI.Mod.Better
             List<ProductQuantity> availableRewards = new List<ProductQuantity>();
 
             // Add Products by Chance
-            AddByChance(ref availableRewards, iron,   MoreRecipes.Config.BeaconRewardIronBaseValue,   MoreRecipes.Config.BeaconRewardIronChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, copper, MoreRecipes.Config.BeaconRewardCopperBaseValue, MoreRecipes.Config.BeaconRewardCopperChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, rubber, MoreRecipes.Config.BeaconRewardRubberBaseValue, MoreRecipes.Config.BeaconRewardRubberChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, diesel, MoreRecipes.Config.BeaconRewardDieselBaseValue, MoreRecipes.Config.BeaconRewardDieselChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, oil,    MoreRecipes.Config.BeaconRewardOilBaseValue,    MoreRecipes.Config.BeaconRewardOilChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, food,   MoreRecipes.Config.BeaconRewardFoodBaseValue,   MoreRecipes.Config.BeaconRewardFoodChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, iron, BetterMod.Config.BeaconRewardIronBaseValue, BetterMod.Config.BeaconRewardIronChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, copper, BetterMod.Config.BeaconRewardCopperBaseValue, BetterMod.Config.BeaconRewardCopperChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, rubber, BetterMod.Config.BeaconRewardRubberBaseValue, BetterMod.Config.BeaconRewardRubberChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, diesel, BetterMod.Config.BeaconRewardDieselBaseValue, BetterMod.Config.BeaconRewardDieselChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, oil, BetterMod.Config.BeaconRewardOilBaseValue, BetterMod.Config.BeaconRewardOilChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, food, BetterMod.Config.BeaconRewardFoodBaseValue, BetterMod.Config.BeaconRewardFoodChance, reward_multiply, amountOfRefugees);
 
             // Check spawn rewards when zero then nothing
             return availableRewards.Count == 0 ? GetRewardNothing() : ImmutableArray.CreateRange(availableRewards);

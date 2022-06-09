@@ -39,34 +39,66 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static ResearchNodeProto.ID VehicleEdictsResearchCheat_T4 = new ResearchNodeProto.ID("MyEdictsResearchCheatT4");
         public readonly static ResearchNodeProto.ID VehicleEdictsResearchCheat_T5 = new ResearchNodeProto.ID("MyEdictsResearchCheatT5");
 
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_ZERO = new ResearchNodeProto.ID("Vehicle_Cap_Increase_ZERO");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_ZERO = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_ZERO");
         public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_CHEAT = new ResearchNodeProto.ID("CHEAT_Vehicle_Cap_Increase_CHEAT");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_I = new ResearchNodeProto.ID("Vehicle_Cap_Increase_I");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_II = new ResearchNodeProto.ID("Vehicle_Cap_Increase_II");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_III = new ResearchNodeProto.ID("Vehicle_Cap_Increase_III");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_IV = new ResearchNodeProto.ID("Vehicle_Cap_Increase_IV");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_V = new ResearchNodeProto.ID("Vehicle_Cap_Increase_V");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VI = new ResearchNodeProto.ID("Vehicle_Cap_Increase_VI");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VII = new ResearchNodeProto.ID("Vehicle_Cap_Increase_VII");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VIII = new ResearchNodeProto.ID("Vehicle_Cap_Increase_VIII");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_IX = new ResearchNodeProto.ID("Vehicle_Cap_Increase_IX");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_X = new ResearchNodeProto.ID("Vehicle_Cap_Increase_X");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XI = new ResearchNodeProto.ID("Vehicle_Cap_Increase_XI");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XII = new ResearchNodeProto.ID("Vehicle_Cap_Increase_XII");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XIII = new ResearchNodeProto.ID("Vehicle_Cap_Increase_XIII");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XIV = new ResearchNodeProto.ID("Vehicle_Cap_Increase_XIV");
-        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XV = new ResearchNodeProto.ID("Vehicle_Cap_Increase_XV");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_I = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_I");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_II = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_II");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_III = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_III");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_IV = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_IV");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_V = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_V");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VI = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_VI");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VII = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_VII");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_VIII = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_VIII");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_IX = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_IX");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_X = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_X");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XI = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_XI");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XII = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_XII");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XIII = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_XIII");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XIV = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_XIV");
+        public readonly static ResearchNodeProto.ID VehicleCapIncreaseID_XV = new ResearchNodeProto.ID("MyVehicle_Cap_Increase_XV");
 
         public readonly static ResearchNodeProto.ID VoidCrusher = new ResearchNodeProto.ID("ResearchVoidCrusher");
         public readonly static ResearchNodeProto.ID VoidCrusherCheat = new ResearchNodeProto.ID("ResearchVoidCrusherCheat");
         public readonly static ResearchNodeProto.ID VoidProducerCheat = new ResearchNodeProto.ID("ResearchVoidProducerCheat");
-        public readonly static ResearchNodeProto.ID VoidEnergyCheat = new ResearchNodeProto.ID("VoidEnergyCheat");
+        public readonly static ResearchNodeProto.ID VoidDieselEnergyCheat = new ResearchNodeProto.ID("VoidEnergyCheat");
+        public readonly static ResearchNodeProto.ID VoidPowerEnergyCheat = new ResearchNodeProto.ID("VoidPowerEnergyCheat");
 
+        public readonly static ResearchNodeProto.ID StorageResearchT1 = new ResearchNodeProto.ID("MyStorageResearchT1");
+        public readonly static ResearchNodeProto.ID StorageResearchT2 = new ResearchNodeProto.ID("MyStorageResearchT2");
+        public readonly static ResearchNodeProto.ID StorageResearchT3 = new ResearchNodeProto.ID("MyStorageResearchT3");
+        public readonly static ResearchNodeProto.ID StorageResearchT4 = new ResearchNodeProto.ID("MyStorageResearchT4");
+        public readonly static ResearchNodeProto.ID StorageResearchT5 = new ResearchNodeProto.ID("MyStorageResearchT5");
+
+    }
+
+    public static class ToolbarCategories
+    {
+        public static readonly Proto.ID Storages = new Proto.ID("Better_Mod_Storages");
+        public static readonly Proto.ID MachinesElectricity = new Proto.ID("Better_Mod_Electricity");
     }
 
     public sealed class Buildings
     {
+        public static readonly StaticEntityProto.ID MineTowerNormal = new StaticEntityProto.ID("MyMineTowerNormal");
+        public static readonly StaticEntityProto.ID MineTowerT2 = new StaticEntityProto.ID("MyMineTowerT2");
+        public static readonly StaticEntityProto.ID MineTowerT3 = new StaticEntityProto.ID("MyMineTowerT3");
 
+        public static readonly StaticEntityProto.ID StorageUnitT4 = new StaticEntityProto.ID("MyStorageUnitT4");
+        public static readonly StaticEntityProto.ID StorageUnitT3 = new StaticEntityProto.ID("MyStorageUnitT3");
+        public static readonly StaticEntityProto.ID StorageUnitT2 = new StaticEntityProto.ID("MyStorageUnitT2");
+        public static readonly StaticEntityProto.ID StorageUnitT1 = new StaticEntityProto.ID("MyStorageUnitT1");
+
+        public static readonly StaticEntityProto.ID StorageLooseT4 = new StaticEntityProto.ID("MyStorageLooseT4");
+        public static readonly StaticEntityProto.ID StorageLooseT3 = new StaticEntityProto.ID("MyStorageLooseT3");
+        public static readonly StaticEntityProto.ID StorageLooseT2 = new StaticEntityProto.ID("MyStorageLooseT2");
+        public static readonly StaticEntityProto.ID StorageLooseT1 = new StaticEntityProto.ID("MyStorageLooseT1");
+
+        public static readonly StaticEntityProto.ID StorageFluidT4 = new StaticEntityProto.ID("MyStorageFluidT4");
+        public static readonly StaticEntityProto.ID StorageFluidT3 = new StaticEntityProto.ID("MyStorageFluidT3");
+        public static readonly StaticEntityProto.ID StorageFluidT2 = new StaticEntityProto.ID("MyStorageFluidT2");
+        public static readonly StaticEntityProto.ID StorageFluidT1 = new StaticEntityProto.ID("MyStorageFluidT1");
+
+        public static readonly StaticEntityProto.ID NuclearWasteStorage = new StaticEntityProto.ID("MyNuclearWasteStorage");
     }
 
     public sealed class Machines
@@ -78,15 +110,25 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static MachineProto.ID VoidProducerProductCheat = new MachineProto.ID("VoidProducerProductCheat");
 
 
-        public readonly static StaticEntityProto.ID VoidProducerEnergy10Cheat = new StaticEntityProto.ID("VoidProducerEnergy10Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy50Cheat = new StaticEntityProto.ID("VoidProducerEnergy50Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy100Cheat = new StaticEntityProto.ID("VoidProducerEnergy100Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy200Cheat = new StaticEntityProto.ID("VoidProducerEnergy200Cheat");
-        public readonly static StaticEntityProto.ID VoidProducerEnergy1000Cheat = new StaticEntityProto.ID("VoidProducerEnergy1000Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy10Cheat = new StaticEntityProto.ID("VoidProducerEnergy10Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy50Cheat = new StaticEntityProto.ID("VoidProducerEnergy50Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy100Cheat = new StaticEntityProto.ID("VoidProducerEnergy100Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy200Cheat = new StaticEntityProto.ID("VoidProducerEnergy200Cheat");
+        public readonly static StaticEntityProto.ID VoidDieselEnergy1000Cheat = new StaticEntityProto.ID("VoidProducerEnergy1000Cheat");
+
+
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT1Cheat = new StaticEntityProto.ID("VoidPowerEnergyT1Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT2Cheat = new StaticEntityProto.ID("VoidPowerEnergyT2Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT3Cheat = new StaticEntityProto.ID("VoidPowerEnergyT3Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT4Cheat = new StaticEntityProto.ID("VoidPowerEnergyT4Cheat");
+        public readonly static StaticEntityProto.ID VoidPowerEnergyT5Cheat = new StaticEntityProto.ID("VoidPowerEnergyT5Cheat");
     }
 
     public sealed class Eticts
     {
+        public static readonly Proto.ID BetterMod = new ProductProto.ID("BetterModCatergory");
+        public static readonly Proto.ID BetterModCheats = new ProductProto.ID("BetterModCheatCatergory");
+
         public sealed class Trucks
         {
             public readonly static ResearchNodeProto.ID CapacityIncT2 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "2");
@@ -151,11 +193,11 @@ namespace CoI.Mod.Better.MyIDs
     {
         public readonly static Proto.ID BeaconSchedule = new Proto.ID("BeaconSchedule");
 
-        public readonly static string CapacityIncStr = "TruckCapacityIncreaseT";
-        public readonly static string FuelReductionStr = "FuelReductionT";
-        public readonly static string MaintenanceReductionStr = "MaintenanceReductionT";
-        public readonly static string UnityPlusStr = "UnityPlusT";
-        public readonly static string ReduceServiceStr = "ReduceServiceT";
+        public readonly static string CapacityIncStr = "MyTruckCapacityIncreaseT";
+        public readonly static string FuelReductionStr = "MyFuelReductionT";
+        public readonly static string MaintenanceReductionStr = "MyMaintenanceReductionT";
+        public readonly static string UnityPlusStr = "MyUnityPlusT";
+        public readonly static string ReduceServiceStr = "MyReduceServiceT";
 
         public readonly static string Cheat_1 = "CHEAT1";
         public readonly static string Cheat_2 = "CHEAT2";
@@ -179,14 +221,12 @@ namespace CoI.Mod.Better.MyIDs
                  VoidDestroy_Iron = new RecipeProto.ID("VoidDestroy_Iron" + addStr);
                  VoidDestroy_Steel = new RecipeProto.ID("VoidDestroy_Steel" + addStr);
                  VoidDestroy_Copper = new RecipeProto.ID("VoidDestroy_Copper" + addStr);
-                 VoidDestroy_Aluminum = new RecipeProto.ID("VoidDestroy_Aluminum" + addStr);
                  VoidDestroy_Gold = new RecipeProto.ID("VoidDestroy_Gold" + addStr);
                  VoidDestroy_Glass = new RecipeProto.ID("VoidDestroy_Glass" + addStr);
                  VoidDestroy_PolySilicon = new RecipeProto.ID("VoidDestroy_PolySilicon" + addStr);
                  VoidDestroy_SiliconWafer = new RecipeProto.ID("VoidDestroy_SiliconWafer" + addStr);
                  VoidDestroy_Food = new RecipeProto.ID("VoidDestroy_Food" + addStr);
                  VoidDestroy_HouseholdGoods = new RecipeProto.ID("VoidDestroy_HouseholdGoods" + addStr);
-                 VoidDestroy_HouseholdElectronics = new RecipeProto.ID("VoidDestroy_HouseholdElectronics" + addStr);
                  VoidDestroy_ConcreteSlab = new RecipeProto.ID("VoidDestroy_ConcreteSlab" + addStr);
                  VoidDestroy_ConstructionParts = new RecipeProto.ID("VoidDestroy_ConstructionParts" + addStr);
                  VoidDestroy_ConstructionParts2 = new RecipeProto.ID("VoidDestroy_ConstructionParts2" + addStr);
@@ -219,14 +259,12 @@ namespace CoI.Mod.Better.MyIDs
             public RecipeProto.ID VoidDestroy_Rubber;
             public RecipeProto.ID VoidDestroy_Steel;
             public RecipeProto.ID VoidDestroy_Copper;
-            public RecipeProto.ID VoidDestroy_Aluminum;
             public RecipeProto.ID VoidDestroy_Gold;
             public RecipeProto.ID VoidDestroy_Glass;
             public RecipeProto.ID VoidDestroy_PolySilicon;
             public RecipeProto.ID VoidDestroy_SiliconWafer;
             public RecipeProto.ID VoidDestroy_Food;
             public RecipeProto.ID VoidDestroy_HouseholdGoods;
-            public RecipeProto.ID VoidDestroy_HouseholdElectronics;
             public RecipeProto.ID VoidDestroy_ConcreteSlab ;
             public RecipeProto.ID VoidDestroy_ConstructionParts ;
             public RecipeProto.ID VoidDestroy_ConstructionParts2 ;
@@ -253,7 +291,7 @@ namespace CoI.Mod.Better.MyIDs
         }
 
 
-        public readonly static RecipeProto.ID VoidProducerLiquids_Fertilizer = new RecipeProto.ID("VoidProducerLiquids_Fertilizer");
+        public readonly static RecipeProto.ID VoidProducerLiquids_FertilizerOrganic = new RecipeProto.ID("VoidProducerLiquids_Fertilizer");
         public readonly static RecipeProto.ID VoidProducerLiquids_Water = new RecipeProto.ID("VoidProducerLiquids_Water");
         public readonly static RecipeProto.ID VoidProducerLiquids_ChilledWater = new RecipeProto.ID("VoidProducerLiquids_ChilledWater");
         public readonly static RecipeProto.ID VoidProducerLiquids_Seawater = new RecipeProto.ID("VoidProducerLiquids_Seawater");
@@ -286,13 +324,11 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static RecipeProto.ID VoidProducerProdcuts_Iron = new RecipeProto.ID("VoidProducerProdcuts_Iron");
         public readonly static RecipeProto.ID VoidProducerProdcuts_Steel = new RecipeProto.ID("VoidProducerProdcuts_Steel");
         public readonly static RecipeProto.ID VoidProducerProdcuts_Copper = new RecipeProto.ID("VoidProducerProdcuts_Copper");
-        public readonly static RecipeProto.ID VoidProducerProdcuts_Aluminum = new RecipeProto.ID("VoidProducerProdcuts_Aluminum");
         public readonly static RecipeProto.ID VoidProducerProdcuts_Gold = new RecipeProto.ID("VoidProducerProdcuts_Gold");
         public readonly static RecipeProto.ID VoidProducerProdcuts_Glass = new RecipeProto.ID("VoidProducerProdcuts_Glass");
         public readonly static RecipeProto.ID VoidProducerProdcuts_PolySilicon = new RecipeProto.ID("VoidProducerProdcuts_PolySilicon");
         public readonly static RecipeProto.ID VoidProducerProdcuts_Food = new RecipeProto.ID("VoidProducerProdcuts_Food");
         public readonly static RecipeProto.ID VoidProducerProdcuts_HouseholdGoods = new RecipeProto.ID("VoidProducerProdcuts_HouseholdGoods");
-        public readonly static RecipeProto.ID VoidProducerProdcuts_HouseholdElectronics = new RecipeProto.ID("VoidProducerProdcuts_HouseholdElectronics");
         public readonly static RecipeProto.ID VoidProducerProdcuts_ConcreteSlab = new RecipeProto.ID("VoidProducerProdcuts_ConcreteSlab");
         public readonly static RecipeProto.ID VoidProducerProdcuts_ConstructionParts = new RecipeProto.ID("VoidProducerProdcuts_ConstructionParts");
         public readonly static RecipeProto.ID VoidProducerProdcuts_ConstructionParts2 = new RecipeProto.ID("VoidProducerProdcuts_ConstructionParts2");
@@ -308,7 +344,7 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static RecipeProto.ID VoidProducerProdcuts_Rubber = new RecipeProto.ID("VoidProducerProdcuts_Rubber");
 
         public readonly static RecipeProto.ID VoidProducerLoose_Dirt = new RecipeProto.ID("VoidProducerLoose_Dirt");
-        public readonly static RecipeProto.ID VoidProducerLoose_Digestate = new RecipeProto.ID("VoidProducerLoose_Digestate");
+        public readonly static RecipeProto.ID VoidProducerLoose_Compost = new RecipeProto.ID("VoidProducerLoose_Digestate");
         public readonly static RecipeProto.ID VoidProducerLoose_Sludge = new RecipeProto.ID("VoidProducerLoose_Sludge");
         public readonly static RecipeProto.ID VoidProducerLoose_Limestone = new RecipeProto.ID("VoidProducerLoose_Limestone");
         public readonly static RecipeProto.ID VoidProducerLoose_Rock = new RecipeProto.ID("VoidProducerLoose_Rock");
@@ -320,10 +356,10 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static RecipeProto.ID VoidProducerLoose_SlagCrushed = new RecipeProto.ID("VoidProducerLoose_SlagCrushed");
         public readonly static RecipeProto.ID VoidProducerLoose_IronOre = new RecipeProto.ID("VoidProducerLoose_IronOre");
         public readonly static RecipeProto.ID VoidProducerLoose_IronOreCrushed = new RecipeProto.ID("VoidProducerLoose_IronOreCrushed");
-        public readonly static RecipeProto.ID VoidProducerLoose_MetalScrap = new RecipeProto.ID("VoidProducerLoose_MetalScrap");
+        public readonly static RecipeProto.ID VoidProducerLoose_IronScrap = new RecipeProto.ID("VoidProducerLoose_MetalScrap");
         public readonly static RecipeProto.ID VoidProducerLoose_CopperOre = new RecipeProto.ID("VoidProducerLoose_CopperOre");
         public readonly static RecipeProto.ID VoidProducerLoose_CopperOreCrushed = new RecipeProto.ID("VoidProducerLoose_CopperOreCrushed");
-        public readonly static RecipeProto.ID VoidProducerLoose_Bauxite = new RecipeProto.ID("VoidProducerLoose_Bauxite");
+        public readonly static RecipeProto.ID VoidProducerLoose_CopperScrap = new RecipeProto.ID("VoidProducerLoose_Bauxite");
         public readonly static RecipeProto.ID VoidProducerLoose_GoldOre = new RecipeProto.ID("VoidProducerLoose_GoldOre");
         public readonly static RecipeProto.ID VoidProducerLoose_GoldOreCrushed = new RecipeProto.ID("VoidProducerLoose_GoldOreCrushed");
         public readonly static RecipeProto.ID VoidProducerLoose_GoldOrePowder = new RecipeProto.ID("VoidProducerLoose_GoldOrePowder");
@@ -336,6 +372,6 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static RecipeProto.ID VoidProducerLoose_Quartz = new RecipeProto.ID("VoidProducerLoose_Quartz");
         public readonly static RecipeProto.ID VoidProducerLoose_Salt = new RecipeProto.ID("VoidProducerLoose_Salt");
         public readonly static RecipeProto.ID VoidProducerLoose_Sulfur = new RecipeProto.ID("VoidProducerLoose_Sulfur");
-        public readonly static RecipeProto.ID VoidProducerLoose_Stardust = new RecipeProto.ID("VoidProducerLoose_Stardust");
+        public readonly static RecipeProto.ID VoidProducerLoose_Waste = new RecipeProto.ID("VoidProducerLoose_Stardust");
     }
 }
