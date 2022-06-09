@@ -75,6 +75,7 @@ namespace CoI.Mod.Better.MyIDs
     {
         public static readonly Proto.ID Storages = new Proto.ID("Better_Mod_Storages");
         public static readonly Proto.ID MachinesElectricity = new Proto.ID("Better_Mod_Electricity");
+        public static readonly Proto.ID MachinesMetallurgy = new Proto.ID("Better_Mod_Metallurgy");
     }
 
     public sealed class Buildings
@@ -105,6 +106,7 @@ namespace CoI.Mod.Better.MyIDs
     {
         public readonly static MachineProto.ID VoidCrusher = new MachineProto.ID("VoidCrusher");
         public readonly static MachineProto.ID VoidCrusherCheat = new MachineProto.ID("VoidCrusherCheat");
+        public readonly static MachineProto.ID VoidCrusherRecyclablesCheat = new MachineProto.ID("VoidCrusherRecyclablesCheat");
         public readonly static MachineProto.ID VoidProducerLiquidCheat = new MachineProto.ID("VoidProducerLiquidCheat");
         public readonly static MachineProto.ID VoidProducerLooseCheat = new MachineProto.ID("VoidProducerLooseCheat");
         public readonly static MachineProto.ID VoidProducerProductCheat = new MachineProto.ID("VoidProducerProductCheat");
