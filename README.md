@@ -1,4 +1,4 @@
-# Captain of Industry mod: Better
+# CoI.Mod.Better
 
 Game Version(Comptability): 0.4.2
 
