@@ -62,6 +62,8 @@ namespace CoI.Mod.Better
             Debug.Log("VoidCrusher >> Generate Cheat Research");
 
             GenerateMachineCheat(registrator);
+            GenerateMachineCheatFluid(registrator);
+            GenerateMachineCheatLoose(registrator);
 
             GenerateMachineRecyclables(registrator);
 
@@ -76,9 +78,33 @@ namespace CoI.Mod.Better
 
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
-            // Add parent to my research T1
+            // Add parent to my research T2
             ResearchNodeProto parent_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO);
-            research_t1.AddParentPlusGridPos(parent_research, BetterMod.UI_StepSize, -BetterMod.UI_StepSize);
+            research_t1.AddParentPlusGridPos(parent_research, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
+
+            // Generate Research
+            ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
+                .Start("Void Crusher Fluid CHEAT", MyIDs.Research.VoidCrusherFluidCheat)
+                .SetCostsOne()
+                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat)
+                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat);
+
+            ResearchNodeProto research_t2 = research_state_t2.BuildAndAdd();
+
+            // Add parent to my research T3
+            research_t2.AddParentPlusGridPos(research_t1);          
+            
+            // Generate Research
+            ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
+                .Start("Void Crusher Loose CHEAT", MyIDs.Research.VoidCrusherLooseCheat)
+                .SetCostsOne()
+                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat)
+                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat);
+
+            ResearchNodeProto research_t3 = research_state_t3.BuildAndAdd();
+
+            // Add parent to my research T1
+            research_t3.AddParentPlusGridPos(research_t2);
         }
 
         private void GenerateMachineVanilla(ProtoRegistrator registrator)
@@ -110,7 +136,7 @@ namespace CoI.Mod.Better
             output = Ids.Products.Recyclables;
             outputNoneRecyclables = Ids.Products.Gravel;
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct(registrator);
+            GenerateCountableProduct<CountableProductAttribute>(registrator);
         }
 
         private void GenerateMachineCheat(ProtoRegistrator registrator)
@@ -126,9 +152,9 @@ namespace CoI.Mod.Better
                 .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
-                "   [3][4][3][3][3][3]   ", 
-                "#3 >3A[4][3][3][3][3]   ", 
-                "   [3][4][3][3][3][3]   ", 
+                "   [3][4][3][3][3][3]   ",
+                "#3 >3A[4][3][3][3][3]   ",
+                "   [3][4][3][3][3][3]   ",
                 "   [2][3][2][2]         ")
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
@@ -139,7 +165,7 @@ namespace CoI.Mod.Better
                 .BuildAndAdd();
 
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct(registrator, true);
+            GenerateCountableProduct<CountableProductAttribute>(registrator, true);
         }
 
         private void GenerateMachineRecyclables(ProtoRegistrator registrator)
@@ -171,10 +197,68 @@ namespace CoI.Mod.Better
             outputNoneRecyclables = Ids.Products.Recyclables;
 
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct(registrator, true, "Recyclables");
+            GenerateCountableProduct<CountableProductAttribute>(registrator, true, "Recyclables");
         }
 
-        private void GenerateCountableProduct(ProtoRegistrator registrator, bool cheat = false, string title_addr = "")
+        private void GenerateMachineCheatLoose(ProtoRegistrator registrator)
+        {
+            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            hasOutput = false;
+
+            machine = registrator.MachineProtoBuilder
+                .Start("Void Crusher Loose Cheat", MyIDs.Machines.VoidCrusherLooseCheat)
+                .Description("Destroy Loose without waste", "short description of a machine")
+                .SetCost(Costs.Machines.SmokeStack)
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+                .SetLayout(
+                "   [3][4][3][3][3][3]   ",
+                "~3 >3A[4][3][3][3][3]   ",
+                "   [3][4][3][3][3][3]   ",
+                "   [2][3][2][2]         ")
+                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
+                .SetAnimationParams(AnimationParams.Loop())
+                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
+                .SetAsLockedOnInit()
+                .BuildAndAdd();
+
+            // Generate Products Recipes for the Machine
+            GenerateCountableProduct<LooseProductAttribute>(registrator, true, "loose");
+        }
+
+        private void GenerateMachineCheatFluid(ProtoRegistrator registrator)
+        {
+            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            hasOutput = false;
+
+            machine = registrator.MachineProtoBuilder
+                .Start("Void Crusher Fluid Cheat", MyIDs.Machines.VoidCrusherFluidCheat)
+                .Description("Destroy fluid without waste", "short description of a machine")
+                .SetCost(Costs.Machines.SmokeStack)
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+                .SetLayout(
+                "   [3][4][3][3][3][3]   ",
+                "@3 >3A[4][3][3][3][3]   ",
+                "   [3][4][3][3][3][3]   ",
+                "   [2][3][2][2]         ")
+                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
+                .SetAnimationParams(AnimationParams.Loop())
+                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
+                .SetAsLockedOnInit()
+                .BuildAndAdd();
+
+            // Generate Products Recipes for the Machine
+            GenerateCountableProduct<FluidProductAttribute>(registrator, true, "fluid");
+        }
+
+        private void GenerateCountableProduct<T>(ProtoRegistrator registrator, bool cheat = false, string title_addr = "") where T : ProductAttribute
         {
             IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.Products));
 
@@ -182,7 +266,7 @@ namespace CoI.Mod.Better
             {
                 string fieldName = field.Name;
                 object value = field.GetValue(null);
-                if (field.IsStatic && value != null && value is ProductProto.ID && field.GetCustomAttributes(typeof(CountableProductAttribute), false).Length > 0)
+                if (field.IsStatic && value != null && value is ProductProto.ID && field.GetCustomAttributes(typeof(T), false).Length > 0)
                 {
                     ProductProto.ID fieldValue = (ProductProto.ID)value;
                     if (fieldValue == output)

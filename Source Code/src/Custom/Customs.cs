@@ -23,13 +23,13 @@ namespace CoI.Mod.Better.Custom
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableCustoms) return;
+            if (BetterMod.Config.DisableCustoms || true) return;
 
             LoadFiles(registrator);
             ExternalCustoms(registrator);
             Build(registrator);
 
-            Test(registrator);
+           // Test(registrator);
         }
 
         private void LoadFiles(ProtoRegistrator registrator)
