@@ -26,7 +26,7 @@ namespace CoI.Mod.Better
                     .Start("Better Research", MyIDs.Research.VehicleCapIncreaseID_ZERO)
                     .Description("Coi:Better mod main research.")
                     .SetCostsFree()
-                    .AddVehicleCapIncrease(0, "Assets/Base/Icons/VehicleLimitIncrease.svg")
+                    .AddVehicleCapIncrease(1, "Assets/Base/Icons/VehicleLimitIncrease.svg")
                     .BuildAndAdd();
 
             master_research.GridPosition += new Vector2i(0, -2);

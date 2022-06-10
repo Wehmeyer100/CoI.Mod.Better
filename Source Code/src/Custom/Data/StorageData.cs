@@ -3,26 +3,30 @@ using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
 using Mafi.Core.Mods;
 using Mafi.Core.Products;
+using Mafi.Core.Prototypes;
 using Mafi.Localization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CoI.Mod.Better.Custom
 {
 
+
     [Serializable]
-    public class StorageData : IStorageData<StorageProto, StorageProtoBuilder.State>
+    public class StorageData
     {
-        public bool overrideProtoID = false;
+        public bool overrideProtoID;
         public string ProtoID;
 
         public string Name;
         public string Description;
-        public CostsData Costs;
 
-        public CategoryToolbar Category;
+        public CategoryToolbarData Category;
         public string NextTier;
+
+        public CostsData Costs;
 
         public int Capacity;
         public StorageType StorageType;
@@ -36,9 +40,8 @@ namespace CoI.Mod.Better.Custom
         public PileGfxParamsData PileGfxParams;
 
 
-        public void Load(StorageProto loadData)
+        public void From(StorageProto loadData)
         {
-            overrideProtoID = true;
             ProtoID = loadData.Id.ToString();
 
             Name = loadData.Strings.Name.ToString();
@@ -47,14 +50,8 @@ namespace CoI.Mod.Better.Custom
             Costs = new CostsData();
             Costs.From(loadData.Costs);
 
-            if (loadData.Graphics.Categories.Length == 0) 
-            {
-                Category = CategoryToolbar.None;
-            }
-            else
-            {
-                Category = Utils.GetCategory(loadData.Graphics.Categories.First.Id);
-            }
+            Category = new CategoryToolbarData();
+            Category.From(loadData.Graphics);
 
             if (loadData.NextTier.HasValue)
             {
@@ -62,44 +59,113 @@ namespace CoI.Mod.Better.Custom
             }
 
             Capacity = loadData.Capacity.Value;
+            if (loadData.TransferLimit == Quantity.MaxValue && loadData.TransferLimitDuration == 1.Ticks())
+            {
+                TransferLimit = new TransferLimitData() { Unlimited = true };
+            }
+            else
+            {
+                TransferLimit = new TransferLimitData { Count = loadData.TransferLimit.Value, Duration = loadData.TransferLimitDuration.Seconds.RawValue };
+            }
+
+            PrefabPath = loadData.Graphics.PrefabPaths.First;
+            if (loadData.Graphics.IconIsCustom)
+            {
+                CustomIconPath = loadData.Graphics.IconPath;
+            }
+
+            if (CustomIconPath != null && CustomIconPath.IsEmpty())
+            {
+                CustomIconPath = null;
+            }
+
+            Layout = loadData.Layout.SourceLayoutStr.Split('\n').ToList();
+            if (loadData.Graphics is LooseStorageProto.Gfx)
+            {
+                StorageType = StorageType.Loose;
+
+                LooseStorageProto.Gfx looseGfx = (LooseStorageProto.Gfx)loadData.Graphics;
+                PileGfxParams = new PileGfxParamsData();
+                PileGfxParams.From(looseGfx);
+            }
+            else if (loadData.Graphics is FluidStorageProto.Gfx)
+            {
+                StorageType = StorageType.Fluid;
+
+                FluidStorageProto.Gfx fluidGfx = (FluidStorageProto.Gfx)loadData.Graphics;
+                FluidIndicatorGfxParams = new FluidIndicatorGfxParamsData();
+                FluidIndicatorGfxParams.From(fluidGfx);
+            }
+            else if (loadData.StorableProducts != null && loadData.StorableProducts.Any((data) => data.Radioactivity > 0))
+            {
+                StorageType = StorageType.Radioactive;
+            }
+            else
+            {
+                StorageType = StorageType.Flat;
+            }
         }
 
         public Option<StorageProtoBuilder.State> Into(ProtoRegistrator registrator)
         {
-            StaticEntityProto.ID protoID = new StaticEntityProto.ID(ProtoID);
-            if (
-                (!overrideProtoID && registrator.PrototypesDb.Get<StorageProto>(protoID).HasValue)
-                || Capacity < 0
-                || ProtoID.IsEmpty()
-                || Name.IsEmpty()
-                || Description.IsEmpty()
-                || PrefabPath.IsEmpty()
-                || TransferLimit.Duration <= 0
-                || TransferLimit.Count <= 0
-                || Layout.Count == 0)
+            ProtoID.CheckNotNullOrEmpty();
+            if (ProtoID.Contains(" "))
             {
-                Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot generate!");
+                Debug.Log("StorageData >> Into >> name: " + Name + " >> Storage cannot generate, ProtoID is not valid! >> There must be no blank characters.");
                 return Option<StorageProtoBuilder.State>.None;
             }
 
+            StaticEntityProto.ID protoID = new StaticEntityProto.ID(ProtoID);
+            if (!overrideProtoID && registrator.PrototypesDb.Get<StorageProto>(protoID).HasValue)
+            {
+                Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot generate, ProtoID already exists!");
+                return Option<StorageProtoBuilder.State>.None;
+            }
+
+            Name.CheckNotNullOrEmpty();
+            Description.CheckNotNullOrEmpty();
+            PrefabPath.CheckNotNullOrEmpty();
+            Capacity.CheckGreater(0);
+            TransferLimit.CheckNotNull();
+            TransferLimit.Count.CheckGreater(0);
+            TransferLimit.Duration.CheckGreater(0);
+            Layout.Count.CheckGreater(0);
+
+            Proto.Str protoStr = Proto.CreateStr(protoID, Name, Description);
+
             StorageProtoBuilder.State creator = registrator.StorageProtoBuilder
-                .Start(Name, protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(ProtoID + "Desc", Description))
+                .Start(protoStr.Name.ToString(), protoID)
+                .Description(protoStr.DescShort)
                 .SetCapacity(Capacity)
                 .SetPrefabPath(PrefabPath);
 
             if (PileGfxParams != null && PileGfxParams != default && StorageType == StorageType.Loose)
             {
+                PileGfxParams.smoothPileObjectPath.CheckNotNullOrEmpty();
+                PileGfxParams.roughPileObjectPath.CheckNotNullOrEmpty();
+
+                PileGfxParams.pileTextureParams.CheckNotNull();
+                PileGfxParams.pileTextureParams.scale.CheckGreaterOrEqual(0);
+                PileGfxParams.pileTextureParams.offsetX.CheckGreaterOrEqual(0);
+                PileGfxParams.pileTextureParams.offsetY.CheckGreaterOrEqual(0);
+
                 creator.SetPileGfxParams(PileGfxParams.smoothPileObjectPath, PileGfxParams.roughPileObjectPath, PileGfxParams.pileTextureParams.Into());
             }
 
             if (FluidIndicatorGfxParams != null && FluidIndicatorGfxParams != default && StorageType == StorageType.Fluid)
             {
+                FluidIndicatorGfxParams.indicatorObjectPath.CheckNotNullOrEmpty();
+                FluidIndicatorGfxParams.detailsScale.CheckGreaterOrEqual(0);
+                FluidIndicatorGfxParams.sizePerTextureWidthMeters.CheckGreaterOrEqual(0);
+                FluidIndicatorGfxParams.stillMovementScale.CheckGreaterOrEqual(0);
+
                 creator.SetFluidIndicatorGfxParams(FluidIndicatorGfxParams.indicatorObjectPath, FluidIndicatorGfxParams.Into());
             }
 
             if (CustomIconPath != null || !CustomIconPath.IsEmpty())
             {
+                CustomIconPath.CheckNotNullOrEmpty();
+
                 creator.SetCustomIconPath(CustomIconPath);
             }
 
@@ -140,12 +206,12 @@ namespace CoI.Mod.Better.Custom
             return creator;
         }
 
-        public Option<StorageProto> Build(ProtoRegistrator registrator)
+        public void Build(ProtoRegistrator registrator)
         {
             Option<StorageProtoBuilder.State> creator = Into(registrator);
             if (!creator.HasValue)
             {
-                return Option<StorageProto>.None;
+                return;
             }
             Option<StorageProto> result = Option<StorageProto>.None;
             switch (StorageType)
@@ -163,7 +229,6 @@ namespace CoI.Mod.Better.Custom
                     result = creator.Value.BuildAndAdd(CountableProductProto.ProductType);
                     break;
             }
-            return result;
         }
 
 

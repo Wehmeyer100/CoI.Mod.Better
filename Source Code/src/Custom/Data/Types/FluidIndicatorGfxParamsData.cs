@@ -1,4 +1,5 @@
-﻿using Mafi.Core.Factory;
+﻿using Mafi.Core.Buildings.Storages;
+using Mafi.Core.Factory;
 using System;
 
 namespace CoI.Mod.Better.Custom
@@ -11,6 +12,14 @@ namespace CoI.Mod.Better.Custom
         public float sizePerTextureWidthMeters;
         public float detailsScale;
         public float stillMovementScale;
+
+        public void From(FluidStorageProto.Gfx gfx) 
+        {
+            indicatorObjectPath = gfx.FluidIndicatorObjectPath;
+            detailsScale = gfx.FluidIndicatorParams.DetailsScale;
+            sizePerTextureWidthMeters = gfx.FluidIndicatorParams.SizePerTextureWidthMeters;
+            stillMovementScale = gfx.FluidIndicatorParams.StillMovementScale;
+        }
 
         public FluidIndicatorGfxParams Into()
         {

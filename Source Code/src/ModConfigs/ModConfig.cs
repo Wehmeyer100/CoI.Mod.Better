@@ -20,6 +20,7 @@ namespace CoI.Mod.Better
         public bool DisableCheats = false;
         public bool DisableDieselGeneators = false;
         public bool DisablePowerGeneators = false;
+        public bool DisableCustoms = false;
 
         public int BeaconRefugeesMin = 1;
         public int BeaconRefugeesMax = 20;

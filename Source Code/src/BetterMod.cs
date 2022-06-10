@@ -1,4 +1,6 @@
-﻿using CoI.Mod.Better.Buildings;
+﻿#define BETA
+
+using CoI.Mod.Better.Buildings;
 using CoI.Mod.Better.Custom;
 using CoI.Mod.Better.Edicts;
 using CoI.Mod.Better.Extensions;
@@ -32,7 +34,9 @@ namespace CoI.Mod.Better
 
         public static ModConfig Config = new ModConfig();
 
-        internal static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
+        public static readonly string COI_FOLDER = "Captain of Industry";
+        public static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), COI_FOLDER));
+        public static readonly string MOD_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), COI_FOLDER + "/Mods/CoI.Mod.Better"));
 
         public static bool gameWasLoaded = false;
         public static int OldConfigVersion = 2;
@@ -78,9 +82,8 @@ namespace CoI.Mod.Better
 
         private static void LoadModConfig()
         {
-            string modFolder = DOCUMENTS_ROOT_DIR_PATH + "/Mods/CoI.Mod.Better";
-            string oldConfigFile = modFolder + "/globalconfig" + OldConfigVersion + ".json";
-            string newConfigFile = modFolder + "/globalconfig" + CurrentConfigVersion + ".json";
+            string oldConfigFile = MOD_ROOT_DIR_PATH + "/globalconfig" + OldConfigVersion + ".json";
+            string newConfigFile = MOD_ROOT_DIR_PATH + "/globalconfig" + CurrentConfigVersion + ".json";
 
             if (File.Exists(oldConfigFile) && !File.Exists(newConfigFile))
             {

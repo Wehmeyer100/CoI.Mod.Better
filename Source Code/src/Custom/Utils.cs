@@ -22,14 +22,14 @@ namespace CoI.Mod.Better.Custom
             }
             else
             {
-                creator.SetTransferLimit(data.Count, 1.Seconds() / data.Duration);
+                creator.SetTransferLimit(data.Count, data.Duration.Seconds());
             }
             return creator;
         }
 
-        public static T SetCategory<T>(T creator, CategoryToolbar category) where T : LayoutEntityBuilderState<T>
+        public static T SetCategory<T>(T creator, CategoryToolbarData category) where T : LayoutEntityBuilderState<T>
         {
-            switch (category)
+            switch (category.Category)
             {
                 case CategoryToolbar.Transports:
                     creator.SetCategories(Ids.ToolbarCategories.Transports);
@@ -72,6 +72,9 @@ namespace CoI.Mod.Better.Custom
                     break;
                 case CategoryToolbar.Landmarks:
                     creator.SetCategories(Ids.ToolbarCategories.Landmarks);
+                    break;
+                case CategoryToolbar.Custom:
+                    creator.SetCategories(new Proto.ID(category.CustomCategory));
                     break;
                 case CategoryToolbar.None:
                 default:
@@ -134,6 +137,10 @@ namespace CoI.Mod.Better.Custom
             {
                 return CategoryToolbar.MachinesOil;
             }
+            else if(category != null)
+            {
+                return CategoryToolbar.Custom;
+            }
             return CategoryToolbar.None;
         }
 
@@ -180,10 +187,14 @@ namespace CoI.Mod.Better.Custom
             {
                 creator.SetLayout(Layout[0], Layout[1], Layout[2], Layout[3], Layout[4], Layout[5], Layout[6], Layout[7], Layout[8], Layout[9]);
             }
+            else if (countlayout == 11)
+            {
+                creator.SetLayout(Layout[0], Layout[1], Layout[2], Layout[3], Layout[4], Layout[5], Layout[6], Layout[7], Layout[8], Layout[9], Layout[10]);
+            }
             else
             {
-                Debug.Log("Data >> SetLayout >> Layout with more 10 entries is not supported!");
-                throw new NotSupportedException("Data >> SetLayout >> Layout with more 10 entries is not supported!");
+                Debug.Log("Data >> SetLayout >> Layout with more 11 entries is not supported!");
+                throw new NotSupportedException("Data >> SetLayout >> Layout with more 11 entries is not supported!");
             }
             return Option<T>.Some(creator);
         }
