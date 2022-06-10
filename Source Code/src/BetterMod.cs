@@ -32,14 +32,16 @@ namespace CoI.Mod.Better
 
         public static ModConfig Config = new ModConfig();
 
-        internal static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Captain of Industry"));
+        public static readonly string COI_FOLDER = "Captain of Industry";
+        public static readonly string DOCUMENTS_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), COI_FOLDER));
+        public static readonly string MOD_ROOT_DIR_PATH = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), COI_FOLDER + "/Mods/CoI.Mod.Better"));
 
         public static bool gameWasLoaded = false;
-        public static int OldConfigVersion = 2;
-        public static int CurrentConfigVersion = 3;
+        public static int OldConfigVersion = 3;
+        public static int CurrentConfigVersion = 4;
 
         public const int UI_StepSize = 4;
-        public static string MyVersion = "0.1.8.2";
+        public static string MyVersion = "0.1.8.3";
 
 
         public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
@@ -69,18 +71,15 @@ namespace CoI.Mod.Better
             registrator.RegisterData<VoidProducer>();
             registrator.RegisterData<DieselGenerator>();
             registrator.RegisterData<PowerGenerators>();
-#if BETA
             registrator.RegisterData<Customs>();
-#endif
 
             Log.Info("BetterMod(V: " + MyVersion + ") RegisterPrototypes..");
         }
 
         private static void LoadModConfig()
         {
-            string modFolder = DOCUMENTS_ROOT_DIR_PATH + "/Mods/CoI.Mod.Better";
-            string oldConfigFile = modFolder + "/globalconfig" + OldConfigVersion + ".json";
-            string newConfigFile = modFolder + "/globalconfig" + CurrentConfigVersion + ".json";
+            string oldConfigFile = MOD_ROOT_DIR_PATH + "/globalconfig" + OldConfigVersion + ".json";
+            string newConfigFile = MOD_ROOT_DIR_PATH + "/globalconfig" + CurrentConfigVersion + ".json";
 
             if (File.Exists(oldConfigFile) && !File.Exists(newConfigFile))
             {

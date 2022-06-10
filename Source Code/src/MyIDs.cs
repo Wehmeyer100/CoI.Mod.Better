@@ -60,6 +60,8 @@ namespace CoI.Mod.Better.MyIDs
 
         public readonly static ResearchNodeProto.ID VoidCrusher = new ResearchNodeProto.ID("ResearchVoidCrusher");
         public readonly static ResearchNodeProto.ID VoidCrusherCheat = new ResearchNodeProto.ID("ResearchVoidCrusherCheat");
+        public readonly static ResearchNodeProto.ID VoidCrusherFluidCheat = new ResearchNodeProto.ID("ResearchVoidCrusherFluidCheat");
+        public readonly static ResearchNodeProto.ID VoidCrusherLooseCheat = new ResearchNodeProto.ID("ResearchVoidCrusherLooseCheat");
         public readonly static ResearchNodeProto.ID VoidProducerCheat = new ResearchNodeProto.ID("ResearchVoidProducerCheat");
         public readonly static ResearchNodeProto.ID VoidDieselEnergyCheat = new ResearchNodeProto.ID("VoidEnergyCheat");
         public readonly static ResearchNodeProto.ID VoidPowerEnergyCheat = new ResearchNodeProto.ID("VoidPowerEnergyCheat");
@@ -107,6 +109,8 @@ namespace CoI.Mod.Better.MyIDs
     {
         public readonly static MachineProto.ID VoidCrusher = new MachineProto.ID("VoidCrusher");
         public readonly static MachineProto.ID VoidCrusherCheat = new MachineProto.ID("VoidCrusherCheat");
+        public readonly static MachineProto.ID VoidCrusherLooseCheat = new MachineProto.ID("VoidCrusherLooseCheat");
+        public readonly static MachineProto.ID VoidCrusherFluidCheat = new MachineProto.ID("VoidCrusherFluidCheat");
         public readonly static MachineProto.ID VoidCrusherRecyclablesCheat = new MachineProto.ID("VoidCrusherRecyclablesCheat");
         public readonly static MachineProto.ID VoidProducerLiquidCheat = new MachineProto.ID("VoidProducerLiquidCheat");
         public readonly static MachineProto.ID VoidProducerLooseCheat = new MachineProto.ID("VoidProducerLooseCheat");
