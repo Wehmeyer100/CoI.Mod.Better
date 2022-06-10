@@ -19,17 +19,17 @@ namespace CoI.Mod.Better.Toolbars
     {
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if ((!BetterMod.Config.DisableDieselGeneators || !BetterMod.Config.DisablePowerGeneators) && !BetterMod.Config.DisableCheats)
+            if ((BetterMod.Config.Systems.DieselGeneators || BetterMod.Config.Systems.PowerGeneators) && BetterMod.Config.Systems.Cheats)
             {
                 GenerateToolbar(registrator, MyIDs.ToolbarCategories.MachinesElectricity, "Better mod: Electricity", "Assets/Unity/UserInterface/Toolbar/Power.svg", 31);
             }
 
-            if (!BetterMod.Config.DisableBigStorage && !BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Systems.BigStorage && BetterMod.Config.Storage.OverrideVanilla)
             {
                 GenerateToolbar(registrator, MyIDs.ToolbarCategories.Storages, "Better mod: Storages", "Assets/Unity/UserInterface/Toolbar/Storages.svg", 211);
             }
 
-            if (!BetterMod.Config.DisableVoidCrusher)
+            if (BetterMod.Config.Systems.VoidCrusher || BetterMod.Config.Systems.VoidProducer)
             {
                 GenerateToolbar(registrator, MyIDs.ToolbarCategories.MachinesMetallurgy, "Better mod: Crusher/Producer", "Assets/Unity/UserInterface/Toolbar/Metallurgy.svg", 21);
             }

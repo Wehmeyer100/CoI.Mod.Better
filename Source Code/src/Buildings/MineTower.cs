@@ -12,7 +12,7 @@ using Mafi.Core.UnlockingTree;
 using UnityEngine;
 using static Mafi.Base.Ids;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal class MineTower : IModData
     {
@@ -22,7 +22,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableExtentedMineTowerRange) return;
+            if (!BetterMod.Config.Systems.MineTower) return;
 
             LoadData();
 
@@ -31,7 +31,7 @@ namespace CoI.Mod.Better
 
         private void LoadData()
         {
-            towerAreaMultiplier = BetterMod.Config.TowerAreaMultiplier;
+            towerAreaMultiplier = BetterMod.Config.Tower.AreaMultiplier;
         }
 
         private void OverrideMineTower(ProtoRegistrator registrator)
@@ -43,7 +43,7 @@ namespace CoI.Mod.Better
             registrator.PrototypesDb.RemoveOrThrow(protoID);
 
             // Add override to Database
-            if (BetterMod.Config.OverrideBaseGameTower)
+            if (BetterMod.Config.Tower.OverrideVanilla)
             {
                 GenerateMineTower(registrator, protoID, "Mine control tower", (int)(defaultTowerRange * towerAreaMultiplier));
                 GenerateMineTower(registrator, MyIDs.Buildings.MineTowerNormal, "Mine control tower: Vanilla", defaultTowerRange);

@@ -22,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     public class VoidProducer : IModData
     {
@@ -33,10 +33,10 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableVoidProducer || BetterMod.Config.DisableCheats) return;
+            if (!BetterMod.Config.Systems.VoidProducer || !BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
-            if (!BetterMod.Config.DisableCheats)
+            if (BetterMod.Config.Systems.Cheats)
             {
                 Cheats(registrator);
             }
@@ -44,15 +44,15 @@ namespace CoI.Mod.Better
 
         private void Cheats(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidProducerCheatDuration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidProducerCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidProducer.Duration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidProducer.AmountInput;
 
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Producer Liquid", MyIDs.Machines.VoidProducerLiquidCheat)
                 .Description("Produce liquids without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducer.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                     "[2][7][7][2]   ",
@@ -74,7 +74,7 @@ namespace CoI.Mod.Better
                 .Start("Void Producer Products", MyIDs.Machines.VoidProducerProductCheat)
                 .Description("Produce Products without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducer.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                     "[2][7][7][2]   ",
@@ -96,7 +96,7 @@ namespace CoI.Mod.Better
                 .Start("Void Producer Loose", MyIDs.Machines.VoidProducerLooseCheat)
                 .Description("Produce Loose without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducerCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidProducer.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                     "[2][7][7][2]   ",
@@ -118,7 +118,6 @@ namespace CoI.Mod.Better
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Producer CHEAT", MyIDs.Research.VoidProducerCheat)
-                .SetCostsOne()
                 .AddMachineToUnlock(MyIDs.Machines.VoidProducerLiquidCheat)
                 .AddMachineToUnlock(MyIDs.Machines.VoidProducerLooseCheat)
                 .AddMachineToUnlock(MyIDs.Machines.VoidProducerProductCheat)
@@ -126,6 +125,14 @@ namespace CoI.Mod.Better
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidProducerLooseCheat)
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidProducerProductCheat);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_t1.SetCostsOne();
+            }
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
             // Add parent to my research T1

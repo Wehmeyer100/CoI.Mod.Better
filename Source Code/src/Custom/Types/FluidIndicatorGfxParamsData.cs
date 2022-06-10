@@ -2,7 +2,7 @@
 using Mafi.Core.Factory;
 using System;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Types
 {
     [Serializable]
     public class FluidIndicatorGfxParamsData

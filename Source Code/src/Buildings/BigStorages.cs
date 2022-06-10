@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal partial class BigStorages : IModData
     {
@@ -32,7 +32,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableBigStorage) return;
+            if (!BetterMod.Config.Systems.BigStorage) return;
 
             LoadData();
 
@@ -53,7 +53,7 @@ namespace CoI.Mod.Better
 
             NuclearWasteStorage(registrator);
 
-            if (!BetterMod.Config.OverrideVanillaStorages)
+            if (!BetterMod.Config.Storage.OverrideVanilla)
             {
                 GenerateResearch(registrator);
             }
@@ -61,19 +61,19 @@ namespace CoI.Mod.Better
 
         private void LoadData()
         {
-            capacity_T1 = (int)BetterMod.Config.StorageCapacityT1;
+            capacity_T1 = (int)BetterMod.Config.Storage.CapacityT1;
             capacity_T1 = Mathf.Clamp(capacity_T1, 180, int.MaxValue);
 
-            capacity_T2 = (int)BetterMod.Config.StorageCapacityT2;
+            capacity_T2 = (int)BetterMod.Config.Storage.CapacityT2;
             capacity_T2 = Mathf.Clamp(capacity_T2, 360, int.MaxValue);
 
-            capacity_T3 = (int)BetterMod.Config.StorageCapacityT3;
+            capacity_T3 = (int)BetterMod.Config.Storage.CapacityT3;
             capacity_T3 = Mathf.Clamp(capacity_T3, 2160, int.MaxValue);
 
-            capacity_T4 = (int)BetterMod.Config.StorageCapacityT4;
+            capacity_T4 = (int)BetterMod.Config.Storage.CapacityT4;
             capacity_T4 = Mathf.Clamp(capacity_T4, 4320, int.MaxValue);
 
-            float fluidStorageCapacityMultiplier = BetterMod.Config.FluidStorageCapacityMultiplier;
+            float fluidStorageCapacityMultiplier = BetterMod.Config.Storage.FluidCapacityMultiplier;
 
             capacity_fluid_T1 = (int)(capacity_T1 * fluidStorageCapacityMultiplier);
             capacity_fluid_T1 = Mathf.Clamp(capacity_fluid_T1, 1, int.MaxValue);
@@ -87,9 +87,9 @@ namespace CoI.Mod.Better
             capacity_fluid_T4 = (int)(capacity_T4 * fluidStorageCapacityMultiplier);
             capacity_fluid_T4 = Mathf.Clamp(capacity_fluid_T4, 1, int.MaxValue);
 
-            float nuclearWasteStorageCapacityMultiplier = BetterMod.Config.NuclearWasteStorageCapacityMultiplier;
-            capacity_nuclear = (int)(5000 * nuclearWasteStorageCapacityMultiplier);
-            capacity_nuclear = Mathf.Clamp(capacity_nuclear, 5000, int.MaxValue);
+            float nuclearWasteStorageCapacityMultiplier = BetterMod.Config.Storage.NuclearWasteCapacityMultiplier;
+            capacity_nuclear = (int)(BetterMod.Config.Storage.CapacityNuclearWaste * nuclearWasteStorageCapacityMultiplier);
+            capacity_nuclear = Mathf.Clamp(capacity_nuclear, BetterMod.Config.Storage.CapacityNuclearWaste, int.MaxValue);
         }
 
         private static bool ProductFilter(ProductProto x)
@@ -104,28 +104,28 @@ namespace CoI.Mod.Better
 
         private static StorageProtoBuilder.State SetTransferLimitByT(StorageProtoBuilder.State creator, int TLevel)
         {
-            if (BetterMod.Config.UnlimitedTransferLimit)
+            if (BetterMod.Config.Storage.UnlimitedTransferLimit)
             {
                 creator.SetNoTransferLimit();
             }
             else
             {
-                var count = BetterMod.Config.StorageTransferLimitT1Count;
-                var duration = BetterMod.Config.StorageTransferLimitT1Duration;
+                var count = BetterMod.Config.Storage.TransferLimitT1Count;
+                var duration = BetterMod.Config.Storage.TransferLimitT1Duration;
 
                 switch (TLevel)
                 {
                     case 2:
-                        count = BetterMod.Config.StorageTransferLimitT2Count;
-                        duration = BetterMod.Config.StorageTransferLimitT2Duration;
+                        count = BetterMod.Config.Storage.TransferLimitT2Count;
+                        duration = BetterMod.Config.Storage.TransferLimitT2Duration;
                         break;
                     case 3:
-                        count = BetterMod.Config.StorageTransferLimitT3Count;
-                        duration = BetterMod.Config.StorageTransferLimitT3Duration;
+                        count = BetterMod.Config.Storage.TransferLimitT3Count;
+                        duration = BetterMod.Config.Storage.TransferLimitT3Duration;
                         break;
                     case 4:
-                        count = BetterMod.Config.StorageTransferLimitT4Count;
-                        duration = BetterMod.Config.StorageTransferLimitT4Duration;
+                        count = BetterMod.Config.Storage.TransferLimitT4Count;
+                        duration = BetterMod.Config.Storage.TransferLimitT4Duration;
                         break;
                 }
 
@@ -138,7 +138,7 @@ namespace CoI.Mod.Better
 
         private static StorageProtoBuilder.State SetCategory(StorageProtoBuilder.State creator)
         {
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 creator.SetCategories(Ids.ToolbarCategories.Storages);
             }

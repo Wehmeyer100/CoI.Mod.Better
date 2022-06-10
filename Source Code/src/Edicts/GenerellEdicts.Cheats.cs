@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
@@ -25,9 +25,16 @@ namespace CoI.Mod.Better
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict Cheat", MyIDs.Research.GenerellEdictsResearchCheat_T1)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t1.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t1 = research_state_cheat_t1.BuildAndAdd();
 
             // Add parent to my research CHEAT
@@ -38,9 +45,16 @@ namespace CoI.Mod.Better
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t2 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict II Cheat", MyIDs.Research.GenerellEdictsResearchCheat_T2)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t2.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t2.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t2 = research_state_cheat_t2.BuildAndAdd();
             research_cheat_t2.AddGridPos(research_cheat_t1);
 
@@ -48,27 +62,48 @@ namespace CoI.Mod.Better
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t3 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict III Cheat", MyIDs.Research.GenerellEdictsResearchCheat_T3)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t3.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t3.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t3 = research_state_cheat_t3.BuildAndAdd();
             research_cheat_t3.AddGridPos(research_cheat_t2);
 
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t4 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict IV Cheat", MyIDs.Research.GenerellEdictsResearchCheat_T4)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t4.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t4.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t4 = research_state_cheat_t4.BuildAndAdd();
             research_cheat_t4.AddGridPos(research_cheat_t3);
 
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t5 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict V Cheat", MyIDs.Research.GenerellEdictsResearchCheat_T5)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT5_CHEAT, MyIDs.Eticts.Generell.ReduceServiceT5_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t5.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t5.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t5 = research_state_cheat_t5.BuildAndAdd();
             research_cheat_t5.AddGridPos(research_cheat_t4);
 

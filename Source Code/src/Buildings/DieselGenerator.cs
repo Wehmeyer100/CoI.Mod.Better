@@ -20,23 +20,31 @@ namespace CoI.Mod.Better.Buildings
     {
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisablePowerGeneators || BetterMod.Config.DisableCheats) return;
+            if (!BetterMod.Config.Systems.PowerGeneators || !BetterMod.Config.Systems.Cheats) return;
 
-            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy10Cheat, BetterMod.Config.VoidDieselEnergyInputType, BetterMod.Config.VoidDieselEnergy10CheatInKW, BetterMod.Config.VoidDieselEnergy10CheatBufferCapactiy);
-            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy50Cheat, BetterMod.Config.VoidDieselEnergyInputType, BetterMod.Config.VoidDieselEnergy50CheatInKW, BetterMod.Config.VoidDieselEnergy50CheatBufferCapactiy);
-            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy100Cheat, BetterMod.Config.VoidDieselEnergyInputType, BetterMod.Config.VoidDieselEnergy100CheatInKW, BetterMod.Config.VoidDieselEnergy100CheatBufferCapactiy);
-            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy200Cheat, BetterMod.Config.VoidDieselEnergyInputType, BetterMod.Config.VoidDieselEnergy200CheatInKW, BetterMod.Config.VoidDieselEnergy200CheatBufferCapactiy);
-            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy1000Cheat, BetterMod.Config.VoidDieselEnergyInputType, BetterMod.Config.VoidDieselEnergy1000CheatInKW, BetterMod.Config.VoidDieselEnergy1000CheatBufferCapactiy);
+            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy10Cheat, BetterMod.Config.VoidDiesel.EnergyInputType, BetterMod.Config.VoidDiesel.EnergyT1ProduceInKw, BetterMod.Config.VoidDiesel.EnergyT1BufferCapactiy);
+            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy50Cheat, BetterMod.Config.VoidDiesel.EnergyInputType, BetterMod.Config.VoidDiesel.EnergyT2ProduceInKw, BetterMod.Config.VoidDiesel.EnergyT2BufferCapactiy);
+            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy100Cheat, BetterMod.Config.VoidDiesel.EnergyInputType, BetterMod.Config.VoidDiesel.EnergyT3ProduceInKw, BetterMod.Config.VoidDiesel.EnergyT3BufferCapactiy);
+            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy200Cheat, BetterMod.Config.VoidDiesel.EnergyInputType, BetterMod.Config.VoidDiesel.EnergyT4ProduceInKw, BetterMod.Config.VoidDiesel.EnergyT4BufferCapactiy);
+            GenerateDieselMachine(registrator, MyIDs.Machines.VoidDieselEnergy1000Cheat, BetterMod.Config.VoidDiesel.EnergyInputType, BetterMod.Config.VoidDiesel.EnergyT5ProduceInKw, BetterMod.Config.VoidDiesel.EnergyT5BufferCapactiy);
 
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Energy CHEAT", MyIDs.Research.VoidDieselEnergyCheat)
-                .SetCostsOne()
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy10Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy50Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy100Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy200Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy1000Cheat);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_t1.SetCostsOne();
+            }
 
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 

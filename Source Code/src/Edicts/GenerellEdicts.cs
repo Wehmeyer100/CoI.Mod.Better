@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
@@ -29,9 +29,9 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableGenerellEdicts) return;
+            if (!BetterMod.Config.Systems.GenerellEdicts) return;
 
-            CheatUpkeepEdicts = BetterMod.Config.CheatUpkeepEdicts;
+            CheatUpkeepEdicts = BetterMod.Config.Default.CheatUpkeepEdicts;
             category = registrator.PrototypesDb.Add(new EdictCategoryProto(MyIDs.Eticts.BetterMod, Proto.CreateStr(MyIDs.Eticts.BetterMod, "Better mod")));
             categoryCheats = registrator.PrototypesDb.Add(new EdictCategoryProto(MyIDs.Eticts.BetterModCheats, Proto.CreateStr(MyIDs.Eticts.BetterModCheats, "Better mod: Cheats")));
 
@@ -46,7 +46,7 @@ namespace CoI.Mod.Better
             // Generate Research T1
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Generell Edict", MyIDs.Research.GenerellEdictsResearchT1)
-                .SetCosts(BetterMod.Config.GenerellEdictsResearchCostT1);
+                .SetCosts(BetterMod.Config.GenerellEdicts.ResearchCostT1);
 
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
@@ -59,7 +59,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict II", MyIDs.Research.GenerellEdictsResearchT2)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT2)
-               .SetCosts(BetterMod.Config.GenerellEdictsResearchCostT2);
+               .SetCosts(BetterMod.Config.GenerellEdicts.ResearchCostT2);
 
             ResearchNodeProto research_t2 = research_state_t2.BuildAndAdd();
 
@@ -72,7 +72,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict III", MyIDs.Research.GenerellEdictsResearchT3)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT3)
-               .SetCosts(BetterMod.Config.GenerellEdictsResearchCostT3);
+               .SetCosts(BetterMod.Config.GenerellEdicts.ResearchCostT3);
 
             ResearchNodeProto research_t3 = research_state_t3.BuildAndAdd();
 
@@ -85,7 +85,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t4 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict IV", MyIDs.Research.GenerellEdictsResearchT4)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT4)
-               .SetCosts(BetterMod.Config.GenerellEdictsResearchCostT4);
+               .SetCosts(BetterMod.Config.GenerellEdicts.ResearchCostT4);
 
             ResearchNodeProto research_t4 = research_state_t4.BuildAndAdd();
 
@@ -98,7 +98,7 @@ namespace CoI.Mod.Better
             ResearchNodeProtoBuilder.State research_state_t5 = registrator.ResearchNodeProtoBuilder
                .Start("Generell Edict V", MyIDs.Research.GenerellEdictsResearchT5)
                //.AddEdictToUnlock(MyIDs.Eticts.Generell.UnityPointsT5)
-               .SetCosts(BetterMod.Config.GenerellEdictsResearchCostT5);
+               .SetCosts(BetterMod.Config.GenerellEdicts.ResearchCostT5);
 
             ResearchNodeProto research_t5 = research_state_t5.BuildAndAdd();
 
@@ -107,7 +107,7 @@ namespace CoI.Mod.Better
 
             Debug.Log("GenerellEdicts >> Generell Edict created!");
 
-            if (!BetterMod.Config.DisableCheats)
+            if (BetterMod.Config.Systems.Cheats)
             {
                 Cheats(registrator, master_research);
             }

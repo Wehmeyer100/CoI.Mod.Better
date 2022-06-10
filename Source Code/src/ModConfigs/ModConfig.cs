@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CoI.Mod.Better
 {
     [Serializable]
-    public class ModConfig : IModConfig
+    public class ModConfig
     {
         public bool DisableBigStorage = false;
         public bool DisableVehicleEdicts = false;
@@ -21,6 +21,8 @@ namespace CoI.Mod.Better
         public bool DisableDieselGeneators = false;
         public bool DisablePowerGeneators = false;
         public bool DisableCustoms = false;
+
+        public bool UnlockAllCheatsResearches = false;
 
         public int BeaconRefugeesMin = 1;
         public int BeaconRefugeesMax = 20;
