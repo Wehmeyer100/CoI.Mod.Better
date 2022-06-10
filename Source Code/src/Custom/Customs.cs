@@ -30,7 +30,7 @@ namespace CoI.Mod.Better.Custom
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (!BetterMod.Config.Systems.Customs) return;
+            if (!BetterMod.Config.Systems.Customs || true) return;
 
             LoadFiles(registrator);
             ExternalCustoms(registrator);
@@ -136,19 +136,28 @@ namespace CoI.Mod.Better.Custom
 
         public void Test(ProtoRegistrator registrator)
         {
+            JsonSerializerSettings settings = new JsonSerializerSettings() { Formatting = Formatting.Indented, MaxDepth = 500, MissingMemberHandling = MissingMemberHandling.Ignore, NullValueHandling = NullValueHandling.Ignore, ReferenceLoopHandling = ReferenceLoopHandling.Serialize };
+            settings.Converters.Add(new StringEnumConverter());
+
             CustomData testData = new CustomData();
 
-            List<StorageProto> results = AllVanillaBuildings<StorageProto>(registrator);
+            List<StorageProto> storageProtoResults = AllVanillaBuildings<StorageProto>(registrator);
 
-            foreach (StorageProto storageProto in results)
+            foreach (StorageProto storageProto in storageProtoResults)
             {
                 StorageData storageData = new StorageData();
                 storageData.From(registrator, storageProto);
                 testData.Add(storageData);
             }
 
-            JsonSerializerSettings settings = new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore };
-            settings.Converters.Add(new StringEnumConverter());
+            List<ToolbarCategoryProto> results = AllVanillaToolbars(registrator);
+            foreach (ToolbarCategoryProto storageProto in results)
+            {
+                ToolbarData toolbarData = new ToolbarData();
+                toolbarData.From(storageProto);
+                testData.Add(toolbarData);
+            }
+
 
             //var result = JsonUtility.ToJson(storageData, true);
             string file_path = BetterMod.MOD_ROOT_DIR_PATH + "/testStorages.json";
@@ -189,15 +198,15 @@ namespace CoI.Mod.Better.Custom
         private List<ToolbarCategoryProto> AllVanillaToolbars(ProtoRegistrator registrator) 
         {
             List<ToolbarCategoryProto> results = new List<ToolbarCategoryProto>();
-            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.Buildings));
+            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.ToolbarCategories));
 
             foreach (FieldInfo field in result)
             {
                 string fieldName = field.Name;
                 object value = field.GetValue(null);
-                if (field.IsStatic && value != null && value is StaticEntityProto.ID)
+                if (field.IsStatic && value != null && value is Proto.ID)
                 {
-                    StaticEntityProto.ID fieldValueProtoID = (StaticEntityProto.ID)value;
+                    Proto.ID fieldValueProtoID = (Proto.ID)value;
                     Option<ToolbarCategoryProto> resultProduct = registrator.PrototypesDb.Get<ToolbarCategoryProto>(fieldValueProtoID);
 
                     if (resultProduct.HasValue)

@@ -9,7 +9,7 @@ namespace CoI.Mod.Better.Custom.Data
     [Serializable]
     public class CustomData
     {
-        public List<TooblarData> Toolbars = new List<TooblarData>();
+        public List<ToolbarData> Toolbars = new List<ToolbarData>();
         public List<StorageData> Storages = new List<StorageData>();
 
         [NonSerialized]
@@ -20,7 +20,7 @@ namespace CoI.Mod.Better.Custom.Data
             Storages.Add(storageData);
         }
 
-        public void Add(TooblarData tooblarData)
+        public void Add(ToolbarData tooblarData)
         {
             Toolbars.Add(tooblarData);
         }

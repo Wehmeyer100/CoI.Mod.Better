@@ -10,10 +10,15 @@ using Mafi.Base;
 using Mafi.Core;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static.Layout;
+using Mafi.Core.Game;
+using Mafi.Core.Maintenance;
+using Mafi.Core.Map;
 using Mafi.Core.Mods;
 using Mafi.Core.Prototypes;
 using Mafi.Core.Research;
+using Mafi.Core.Terrain.Generation;
 using Mafi.Localization;
+using Mafi.Unity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -54,7 +59,81 @@ namespace CoI.Mod.Better
             BetterMod.gameWasLoaded = gameWasLoaded;
 
             Option<CoreModConfig> result = resolver.GetResolvedInstance<CoreModConfig>();
-            Debug.Log("test: result.Value.StartingPopulation: " + result.Value.StartingPopulation);
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: CoreModConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(CoreModConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result.Value).ToString());
+            }
+
+            Option<GameDifficultyConfig> result4 = resolver.GetResolvedInstance<GameDifficultyConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: GameDifficultyConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(GameDifficultyConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result4.Value).ToString());
+            }
+
+            Option<MaintenanceConfig> result3 = resolver.GetResolvedInstance<MaintenanceConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: MaintenanceConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(MaintenanceConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result3.Value).ToString());
+            }
+
+            Option<IslandMapDifficultyConfig> result2 = resolver.GetResolvedInstance<IslandMapDifficultyConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: IslandMapDifficultyConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(IslandMapDifficultyConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result2.Value).ToString());
+            }
+
+            Option<StaticIslandMapProviderConfig> result5 = resolver.GetResolvedInstance<StaticIslandMapProviderConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: StaticIslandMapProviderConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(StaticIslandMapProviderConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result5.Value).ToString());
+            }
+
+            Option<RandomSeedConfig> result6 = resolver.GetResolvedInstance<RandomSeedConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: RandomSeedConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(RandomSeedConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result6.Value).ToString());
+            }
+
+            Option<TerrainGeneratorConfig> result7 = resolver.GetResolvedInstance<TerrainGeneratorConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: TerrainGeneratorConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(TerrainGeneratorConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result7.Value).ToString());
+            }
+
+            Option<IslandMapGeneratorConfig> result8 = resolver.GetResolvedInstance<IslandMapGeneratorConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: IslandMapGeneratorConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(IslandMapGeneratorConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result8.Value).ToString());
+            }
+
+            Option<BaseModConfig> result9 = resolver.GetResolvedInstance<BaseModConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: BaseModConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(BaseModConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result9.Value).ToString());
+            }
+
+            Option<StartingFactoryConfig> result10 = resolver.GetResolvedInstance<StartingFactoryConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: StartingFactoryConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(StartingFactoryConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result10.Value).ToString());
+            }
+
+            Option<UnityModConfig> result11 = resolver.GetResolvedInstance<UnityModConfig>();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): BASEGAME: UnityModConfig");
+            foreach (PropertyInfo field in BetterMod.GetAllProperty(typeof(UnityModConfig)))
+            {
+                Debug.Log(" - " + field.Name + ": " + field.GetValue(result11.Value).ToString());
+            }
         }
 
         public void RegisterPrototypes(ProtoRegistrator registrator)

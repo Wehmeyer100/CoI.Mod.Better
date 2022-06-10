@@ -47,6 +47,7 @@ namespace CoI.Mod.Better.Custom.Types
     public class CostsData
     {
         public int defaultPriority = 9;
+        public bool CostsDisabled = false;
         public string CustomFrom;
         public List<CostItemData> Costs = new List<CostItemData>();
 
@@ -58,6 +59,11 @@ namespace CoI.Mod.Better.Custom.Types
         public void From(EntityCosts costs)
         {
             defaultPriority = costs.DefaultPriority;
+
+            if (costs.Equals(EntityCosts.None)) 
+            {
+                CostsDisabled = true;
+            }
 
             if (costs.Workers > 0)
             {
@@ -153,6 +159,11 @@ namespace CoI.Mod.Better.Custom.Types
         {
             EntityCostsTpl.Builder builder = Mafi.Base.Costs.Build;
             builder.Priority(defaultPriority);
+
+            if (CostsDisabled) 
+            {
+                return builder; 
+            }
 
             if (CustomFrom != null && !CustomFrom.Trim().IsEmpty())
             {

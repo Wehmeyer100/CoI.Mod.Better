@@ -16,7 +16,15 @@ namespace CoI.Mod.Better.ModConfigs.Configs
             Debug.Log("- Config: " + sender.GetType().Name);
             foreach (FieldInfo field in BetterMod.GetAllFields(sender.GetType()))
             {
-                Debug.Log(" - " + field.Name + ": " + field.GetValue(sender));
+                object result = field.GetValue(sender);
+                if (result is IConfigBase)
+                {
+                    ((IConfigBase)result).Print(result);
+                }
+                else
+                {
+                    Debug.Log(" - " + field.Name + ": " + result);
+                }
             }
         }
     }

@@ -5,9 +5,10 @@ namespace CoI.Mod.Better.Custom.Types
     [Serializable]
     public enum StorageType : int
     {
-        Flat = 0,
-        Fluid = 1,
-        Loose = 2,
-        Radioactive = 3,
+        None = 0,
+        Flat = 1,
+        Fluid = 2,
+        Loose = 3,
+        Radioactive = 4,
     }
 }

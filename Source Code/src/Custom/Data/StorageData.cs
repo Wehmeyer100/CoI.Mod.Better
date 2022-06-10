@@ -120,20 +120,125 @@ namespace CoI.Mod.Better.Custom.Data
             }
 
             StaticEntityProto.ID protoID = new StaticEntityProto.ID(ProtoID);
-            if (!overrideProtoID && registrator.PrototypesDb.Get<StorageProto>(protoID).HasValue)
+            Option<StorageProto> overrideStorageProto = registrator.PrototypesDb.Get<StorageProto>(protoID);
+            if (!overrideProtoID && overrideStorageProto.HasValue)
             {
                 Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot generate, ProtoID already exists!");
                 return Option<StorageProtoBuilder.State>.None;
             }
+            else if (overrideProtoID && !overrideStorageProto.HasValue)
+            {
+                Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot override, ProtoID is not exists!");
+                return Option<StorageProtoBuilder.State>.None;
+            }
 
-            Name.CheckNotNullOrEmpty();
-            Description.CheckNotNullOrEmpty();
-            PrefabPath.CheckNotNullOrEmpty();
-            Capacity.CheckGreater(0);
-            TransferLimit.CheckNotNull();
-            TransferLimit.Count.CheckGreater(0);
-            TransferLimit.Duration.CheckGreater(0);
-            Layout.Count.CheckGreater(0);
+            if (overrideProtoID && overrideStorageProto.HasValue)
+            {
+                StorageData overrideData = new StorageData();
+                overrideData.From(registrator, overrideStorageProto.Value);
+                if (Name == null || Name.IsEmpty())
+                {
+                    Name = overrideData.Name;
+                }
+                else
+                {
+                    Name.CheckNotNullOrEmpty();
+                }
+
+                if (Description == null || Description.IsEmpty())
+                {
+                    Description = overrideData.Description;
+                }
+                else
+                {
+                    Description.CheckNotNullOrEmpty();
+                }
+
+
+                if (PrefabPath == null || PrefabPath.IsEmpty())
+                {
+                    PrefabPath = overrideData.Description;
+                }
+                else
+                {
+                    PrefabPath.CheckNotNullOrEmpty();
+                }
+
+                if (Category == null || Category == default)
+                {
+                    Category = overrideData.Category;
+                }
+
+                if (Capacity == default)
+                {
+                    Capacity = overrideData.Capacity;
+                }
+                else
+                {
+                    Capacity.CheckGreater(0);
+                }
+
+                if (TransferLimit == null || TransferLimit == default)
+                {
+                    TransferLimit = overrideData.TransferLimit;
+                }
+                else
+                {
+                    TransferLimit.CheckNotNull();
+                    TransferLimit.Count.CheckGreater(0);
+                    TransferLimit.Duration.CheckGreater(0);
+                }
+
+                if (Layout == null || Layout.Count == 0)
+                {
+                    Layout = overrideData.Layout;
+                }
+                else
+                {
+                    Layout.Count.CheckGreater(0);
+                }
+
+                if ((PileGfxParams == null || PileGfxParams == default) && overrideData.PileGfxParams != null)
+                {
+                    PileGfxParams = overrideData.PileGfxParams;
+                }
+
+                if ((FluidIndicatorGfxParams == null || FluidIndicatorGfxParams == default) && overrideData.FluidIndicatorGfxParams != null)
+                {
+                    FluidIndicatorGfxParams = overrideData.FluidIndicatorGfxParams;
+                }
+
+                if (CustomIconPath == null || CustomIconPath.IsEmpty())
+                {
+                    CustomIconPath = overrideData.CustomIconPath;
+                }
+
+                if (StorageType == StorageType.None)
+                {
+                    StorageType = overrideData.StorageType;
+                }
+
+                if (Costs == null || Costs == default)
+                {
+                    Costs = overrideData.Costs;
+                }
+
+                if ((NextTier == null || NextTier == default) && (overrideData.NextTier != null && overrideData.NextTier != default))
+                {
+                    NextTier = overrideData.NextTier;
+                }
+            }
+            else
+            {
+                Name.CheckNotNullOrEmpty();
+                Description.CheckNotNullOrEmpty();
+                PrefabPath.CheckNotNullOrEmpty();
+                Capacity.CheckGreater(0);
+                TransferLimit.CheckNotNull();
+                TransferLimit.Count.CheckGreater(0);
+                TransferLimit.Duration.CheckGreater(0);
+                Layout.Count.CheckGreater(0);
+            }
 
             Proto.Str protoStr = Proto.CreateStr(protoID, Name, Description);
 
@@ -185,7 +290,7 @@ namespace CoI.Mod.Better.Custom.Data
 
             if (Costs != null && Costs != default)
             {
-                creator.SetCost(Costs.Into());
+                creator.SetCost(Costs.Into(), Costs.CostsDisabled);
             }
 
             Option<StorageProto> result_nextTier = registrator.PrototypesDb.Get<StorageProto>(new StaticEntityProto.ID(NextTier));
@@ -217,6 +322,12 @@ namespace CoI.Mod.Better.Custom.Data
             {
                 return;
             }
+
+            if (overrideProtoID)
+            {
+                registrator.PrototypesDb.RemoveOrThrow(new StaticEntityProto.ID(ProtoID));
+            }
+
             Option<StorageProto> result = Option<StorageProto>.None;
             switch (StorageType)
             {
