@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Data
 {
     [Serializable]
     public class TooblarData
@@ -20,6 +20,16 @@ namespace CoI.Mod.Better.Custom
 
         public string IconPath;
         public bool isTransportBuildAllowed = true;
+        public string ShortcutID;
+
+        public void From(ToolbarCategoryProto toolbarCategoryProto)
+        {
+            ProtoID = toolbarCategoryProto.Id.ToString();
+            Name = toolbarCategoryProto.Strings.Name.ToString();
+            Order = (int)toolbarCategoryProto.Order;
+            IconPath = toolbarCategoryProto.IconPath;
+            isTransportBuildAllowed = toolbarCategoryProto.IsTransportBuildAllowed;
+        }
 
         public Option<ToolbarCategoryProto> Into(ProtoRegistrator registrator)
         {
@@ -41,13 +51,19 @@ namespace CoI.Mod.Better.Custom
             IconPath.CheckNotNullOrEmpty();
             Order.CheckNotNegative();
 
+            if (ShortcutID == null) 
+            {
+                ShortcutID = "";
+            }
+
             Proto.Str protoStr = Proto.CreateStr(protoID, Name);
             return Option<ToolbarCategoryProto>.Some(new ToolbarCategoryProto(
                         protoID,
                         protoStr,
                         Order,
                         IconPath,
-                        isTransportBuildAllowed: isTransportBuildAllowed
+                        isTransportBuildAllowed: isTransportBuildAllowed,
+                        shortcutId: ShortcutID
                     ));
         }
 

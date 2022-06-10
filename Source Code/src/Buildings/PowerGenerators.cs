@@ -21,24 +21,31 @@ namespace CoI.Mod.Better.Buildings
     {
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisablePowerGeneators || BetterMod.Config.DisableCheats) return;
+            if (!BetterMod.Config.Systems.PowerGeneators || !BetterMod.Config.Systems.Cheats) return;
 
-            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT1Cheat, BetterMod.Config.VoidPowerEnergyT1InputMechPower, BetterMod.Config.VoidPowerEnergyT1OutputPower);
-            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT2Cheat, BetterMod.Config.VoidPowerEnergyT2InputMechPower, BetterMod.Config.VoidPowerEnergyT2OutputPower);
-            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT3Cheat, BetterMod.Config.VoidPowerEnergyT3InputMechPower, BetterMod.Config.VoidPowerEnergyT3OutputPower);
-            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT4Cheat, BetterMod.Config.VoidPowerEnergyT4InputMechPower, BetterMod.Config.VoidPowerEnergyT4OutputPower);
-            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT5Cheat, BetterMod.Config.VoidPowerEnergyT5InputMechPower, BetterMod.Config.VoidPowerEnergyT5OutputPower);
+            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT1Cheat, BetterMod.Config.VoidPower.EnergyT1InputMechPower, BetterMod.Config.VoidPower.EnergyT1OutputPower);
+            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT2Cheat, BetterMod.Config.VoidPower.EnergyT2InputMechPower, BetterMod.Config.VoidPower.EnergyT2OutputPower);
+            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT3Cheat, BetterMod.Config.VoidPower.EnergyT3InputMechPower, BetterMod.Config.VoidPower.EnergyT3OutputPower);
+            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT4Cheat, BetterMod.Config.VoidPower.EnergyT4InputMechPower, BetterMod.Config.VoidPower.EnergyT4OutputPower);
+            GeneratePowerMachine(registrator, MyIDs.Machines.VoidPowerEnergyT5Cheat, BetterMod.Config.VoidPower.EnergyT5InputMechPower, BetterMod.Config.VoidPower.EnergyT5OutputPower);
 
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Power Energy CHEAT", MyIDs.Research.VoidPowerEnergyCheat)
-                .SetCostsOne()
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT1Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT2Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT3Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT4Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT5Cheat);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_t1.SetCostsOne();
+            }
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
             // Add parent to my research CHEAT

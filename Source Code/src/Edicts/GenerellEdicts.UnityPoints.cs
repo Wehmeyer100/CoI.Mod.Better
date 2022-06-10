@@ -15,14 +15,14 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
         private void AddUnityPoints(ProtoRegistrator registrator)
         {
             // Add Cheats
-            if (BetterMod.Config.DisableCheats) return;
+            if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
             GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, 5.0f, null, true);

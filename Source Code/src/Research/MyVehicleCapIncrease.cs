@@ -12,9 +12,8 @@ using Mafi.Core.Research;
 using Mafi.Core.UnlockingTree;
 using Mafi.Localization;
 using UnityEngine;
-using static Mafi.Base.Ids;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Research
 {
     internal class MyVehicleCapIncrease : IResearchNodesData, IModData
     {
@@ -31,25 +30,12 @@ namespace CoI.Mod.Better
 
             master_research.GridPosition += new Vector2i(0, -2);
 
-            if (BetterMod.Config.DisableVehicleCapIncrease)
+            if (!BetterMod.Config.Systems.VehicleCapIncrease)
             {
                 return;
             }
 
-            if (!BetterMod.Config.DisableCheats)
-            {
-                LocStr1 locStr = Loc.Str1(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "__desc", "Increases vehicle{0}", "{0}=" + StepSize);
-
-                var cheat_research = registrator.ResearchNodeProtoBuilder
-                    .Start(MyIDs.Research.VehicleCapIncreaseID_CHEAT.Value.Replace('_', ' '), MyIDs.Research.VehicleCapIncreaseID_CHEAT)
-                    .Description(LocalizationManager.CreateAlreadyLocalizedStr(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "_formatted_master", locStr.Format("").Value))
-                    .SetCosts(1)
-                    .AddVehicleCapIncrease(StepSize * 10, "Assets/Base/Icons/VehicleLimitIncrease.svg")
-                    .BuildAndAdd();
-
-                cheat_research.GridPosition = master_research.GridPosition + new Vector2i((BetterMod.UI_StepSize * 2), -BetterMod.UI_StepSize);
-                cheat_research.AddParent(master_research);
-            }
+            GenerateCheats(registrator, master_research);
 
             int research_tier = 1;
             var level_1 = GenerateStage(registrator, MyIDs.Research.VehicleCapIncreaseID_I, research_tier, master_research);
@@ -67,6 +53,32 @@ namespace CoI.Mod.Better
             var level_13 = GenerateStage(registrator, MyIDs.Research.VehicleCapIncreaseID_XIII, (research_tier += 2), level_12);
             var level_14 = GenerateStage(registrator, MyIDs.Research.VehicleCapIncreaseID_XIV, (research_tier += 2), level_13);
             var level_15 = GenerateStage(registrator, MyIDs.Research.VehicleCapIncreaseID_XV, (research_tier += 2), level_14);
+        }
+
+        private static void GenerateCheats(ProtoRegistrator registrator, ResearchNodeProto master_research)
+        {
+            if (BetterMod.Config.Systems.Cheats)
+            {
+                LocStr1 locStr = Loc.Str1(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "__desc", "Increases vehicle{0}", "{0}=" + StepSize);
+
+                ResearchNodeProtoBuilder.State cheat_research_proto = registrator.ResearchNodeProtoBuilder
+                    .Start(MyIDs.Research.VehicleCapIncreaseID_CHEAT.Value.Replace('_', ' '), MyIDs.Research.VehicleCapIncreaseID_CHEAT)
+                    .Description(LocalizationManager.CreateAlreadyLocalizedStr(MyIDs.Research.VehicleCapIncreaseID_ZERO.ToString() + "_formatted_master", locStr.Format("").Value))
+                    .AddVehicleCapIncrease(StepSize * 10, "Assets/Base/Icons/VehicleLimitIncrease.svg");
+
+                if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+                {
+                    cheat_research_proto.SetCostsFree();
+                }
+                else
+                {
+                    cheat_research_proto.SetCostsOne();
+                }
+                ResearchNodeProto cheat_research = cheat_research_proto.BuildAndAdd();
+
+                cheat_research.GridPosition = master_research.GridPosition + new Vector2i((BetterMod.UI_StepSize * 2), -BetterMod.UI_StepSize);
+                cheat_research.AddParent(master_research);
+            }
         }
 
         internal ResearchNodeProto GenerateStage(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, int costLevel, ResearchNodeProto parent)

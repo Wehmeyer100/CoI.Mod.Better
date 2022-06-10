@@ -15,14 +15,14 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
         private void AddReduceService(ProtoRegistrator registrator)
         {
             // Add Cheats
-            if (BetterMod.Config.DisableCheats) return;
+            if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
             GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, 30, null, true);

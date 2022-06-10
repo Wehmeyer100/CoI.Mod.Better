@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal partial class BigStorages : IModData
     {
@@ -23,7 +23,7 @@ namespace CoI.Mod.Better
             Proto.ID category = Ids.ToolbarCategories.Storages;
             string iconPath = registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.NuclearWasteStorage).Graphics.IconPath;
 
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 // Remove from Database
                 registrator.PrototypesDb.RemoveOrThrow(protoID);
@@ -59,7 +59,7 @@ namespace CoI.Mod.Better
             // Add new to Database
             registrator.PrototypesDb.Add(override_storage, true);
 
-            Debug.Log("BigStorages >> NuclearWasteStorage (override:" + BetterMod.Config.OverrideVanillaStorages + ") >> created!");
+            Debug.Log("BigStorages >> NuclearWasteStorage (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
     }
 }

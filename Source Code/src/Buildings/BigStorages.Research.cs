@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal partial class BigStorages : IModData
     {
@@ -33,13 +33,23 @@ namespace CoI.Mod.Better
             LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T1", "");
             LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
 
-            ResearchNodeProto result = registrator.ResearchNodeProtoBuilder
+            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
                 .Start("Storage T1", storageResearch)
                 .Description(desc)
-                .SetCostsFree()
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT1)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT1)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT1)
+                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT1);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                result.SetCostsFree();
+            }
+            else
+            {
+                result.SetCostsOne();
+            }
+
+            result
                 .BuildAndAdd()
                 .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO), 0, BetterMod.UI_StepSize);
 
@@ -53,13 +63,23 @@ namespace CoI.Mod.Better
             LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T2", "");
             LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
 
-            ResearchNodeProto result = registrator.ResearchNodeProtoBuilder
+            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
                 .Start("Storage T2", storageResearch)
                 .Description(desc)
-                .SetCosts(4)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT2)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT2)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT2)
+                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT2);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                result.SetCostsFree();
+            }
+            else
+            {
+                result.SetCosts(4);
+            }
+
+            result
                 .BuildAndAdd()
                 .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT1));
 
@@ -73,13 +93,23 @@ namespace CoI.Mod.Better
             LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T3", "");
             LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
 
-            ResearchNodeProto result = registrator.ResearchNodeProtoBuilder
+            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
                 .Start("Storage T3", storageResearch)
                 .Description(desc)
-                .SetCosts(8)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT3)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT3)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT3)
+                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT3);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                result.SetCostsFree();
+            }
+            else
+            {
+                result.SetCosts(8);
+            }
+
+            result
                 .BuildAndAdd()
                 .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT2));
 
@@ -93,13 +123,23 @@ namespace CoI.Mod.Better
             LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T4", "");
             LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
 
-            ResearchNodeProto result = registrator.ResearchNodeProtoBuilder
+            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
                 .Start("Storage T4", storageResearch)
                 .Description(desc)
-                .SetCosts(16)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT4)
                 .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT4)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT4)
+                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT4);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                result.SetCostsFree();
+            }
+            else
+            {
+                result.SetCosts(16);
+            }
+
+            result
                 .BuildAndAdd()
                 .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT3));
 
@@ -113,11 +153,21 @@ namespace CoI.Mod.Better
             LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T5", "");
             LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
 
-            ResearchNodeProto result = registrator.ResearchNodeProtoBuilder
+            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
                 .Start("Storage T5", storageResearch)
                 .Description(desc)
-                .SetCosts(20)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.NuclearWasteStorage)
+                .AddLayoutEntityToUnlock(MyIDs.Buildings.NuclearWasteStorage);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                result.SetCostsFree();
+            }
+            else
+            {
+                result.SetCosts(20);
+            }
+
+            result
                 .BuildAndAdd()
                 .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT4));
 

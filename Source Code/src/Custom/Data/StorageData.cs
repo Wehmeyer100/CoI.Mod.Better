@@ -1,4 +1,6 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.Custom.Types;
+using Mafi;
+using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
 using Mafi.Core.Mods;
@@ -10,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Data
 {
 
 
@@ -40,7 +42,7 @@ namespace CoI.Mod.Better.Custom
         public PileGfxParamsData PileGfxParams;
 
 
-        public void From(StorageProto loadData)
+        public void From(ProtoRegistrator registrator, StorageProto loadData)
         {
             ProtoID = loadData.Id.ToString();
 
@@ -79,6 +81,8 @@ namespace CoI.Mod.Better.Custom
                 CustomIconPath = null;
             }
 
+            ProductProto productSpentFuel = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.SpentFuel);
+
             Layout = loadData.Layout.SourceLayoutStr.Split('\n').ToList();
             if (loadData.Graphics is LooseStorageProto.Gfx)
             {
@@ -96,7 +100,7 @@ namespace CoI.Mod.Better.Custom
                 FluidIndicatorGfxParams = new FluidIndicatorGfxParamsData();
                 FluidIndicatorGfxParams.From(fluidGfx);
             }
-            else if (loadData.StorableProducts != null && loadData.StorableProducts.Any((data) => data.Radioactivity > 0))
+            else if (loadData.IsProductSupported(productSpentFuel))
             {
                 StorageType = StorageType.Radioactive;
             }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Data
 {
     [Serializable]
     public class CustomData

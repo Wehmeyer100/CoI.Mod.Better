@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal class Beacon : IModData
     {
@@ -22,7 +22,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableNewRefugeesSystem) return;
+            if (!BetterMod.Config.Systems.RefugeesSystem) return;
 
             LoadData(registrator);
 
@@ -34,7 +34,7 @@ namespace CoI.Mod.Better
 
         private void LoadData(ProtoRegistrator registrator)
         {
-            all_baseValue_multiplier = Mathf.Clamp(BetterMod.Config.BeaconRewardBaseValueMultiplier, 0.1f, 100f); ;
+            all_baseValue_multiplier = Mathf.Clamp(BetterMod.Config.Beacon.RewardBaseValueMultiplier, 0.1f, 100f); ;
 
             registrator.FluidProductProtoBuilder
                .Start("Nothing", MyIDs.Products.Nothing)
@@ -59,17 +59,17 @@ namespace CoI.Mod.Better
             float reward_multiply = 1 + ((index == 0 ? 1 : index) / max_index);
 
             // Calc Refugees Range
-            int refugeesMin = BetterMod.Config.BeaconRefugeesMin;
+            int refugeesMin = BetterMod.Config.Beacon.RefugeesMin;
             refugeesMin = Mathf.Clamp(refugeesMin, 1, int.MaxValue);
 
-            int refugeesMax = BetterMod.Config.BeaconRefugeesMax;
+            int refugeesMax = BetterMod.Config.Beacon.RefugeesMax;
             refugeesMax = Mathf.Clamp(refugeesMax, refugeesMin, int.MaxValue);
 
             // Calc Durations Range
-            int durationMin = BetterMod.Config.BeaconDurationMin;
+            int durationMin = BetterMod.Config.Beacon.DurationMin;
             durationMin = Mathf.Clamp(durationMin, 1, int.MaxValue);
 
-            int durationMax = BetterMod.Config.BeaconDurationMax;
+            int durationMax = BetterMod.Config.Beacon.DurationMax;
             durationMax = Mathf.Clamp(durationMax, durationMin, int.MaxValue);
 
             // Calc Amount of Refugees
@@ -129,12 +129,12 @@ namespace CoI.Mod.Better
             List<ProductQuantity> availableRewards = new List<ProductQuantity>();
 
             // Add Products by Chance
-            AddByChance(ref availableRewards, iron, BetterMod.Config.BeaconRewardIronBaseValue, BetterMod.Config.BeaconRewardIronChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, copper, BetterMod.Config.BeaconRewardCopperBaseValue, BetterMod.Config.BeaconRewardCopperChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, rubber, BetterMod.Config.BeaconRewardRubberBaseValue, BetterMod.Config.BeaconRewardRubberChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, diesel, BetterMod.Config.BeaconRewardDieselBaseValue, BetterMod.Config.BeaconRewardDieselChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, oil, BetterMod.Config.BeaconRewardOilBaseValue, BetterMod.Config.BeaconRewardOilChance, reward_multiply, amountOfRefugees);
-            AddByChance(ref availableRewards, food, BetterMod.Config.BeaconRewardFoodBaseValue, BetterMod.Config.BeaconRewardFoodChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, iron, BetterMod.Config.Beacon.RewardIronBaseValue, BetterMod.Config.Beacon.RewardIronChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, copper, BetterMod.Config.Beacon.RewardCopperBaseValue, BetterMod.Config.Beacon.RewardCopperChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, rubber, BetterMod.Config.Beacon.RewardRubberBaseValue, BetterMod.Config.Beacon.RewardRubberChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, diesel, BetterMod.Config.Beacon.RewardDieselBaseValue, BetterMod.Config.Beacon.RewardDieselChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, oil, BetterMod.Config.Beacon.RewardOilBaseValue, BetterMod.Config.Beacon.RewardOilChance, reward_multiply, amountOfRefugees);
+            AddByChance(ref availableRewards, food, BetterMod.Config.Beacon.RewardFoodBaseValue, BetterMod.Config.Beacon.RewardFoodChance, reward_multiply, amountOfRefugees);
 
             // Check spawn rewards when zero then nothing
             return availableRewards.Count == 0 ? GetRewardNothing() : ImmutableArray.CreateRange(availableRewards);

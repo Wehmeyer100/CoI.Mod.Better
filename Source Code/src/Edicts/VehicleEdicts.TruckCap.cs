@@ -26,7 +26,7 @@ namespace CoI.Mod.Better.Edicts
             GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4, 100, 3, MyIDs.Eticts.Trucks.CapacityIncT3);
             GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5, 200, 4, MyIDs.Eticts.Trucks.CapacityIncT4);
 
-            if (DisableCheats) return;
+            if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
             GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT1_CHEAT, 100, CheatUpkeepEdicts, null, true);

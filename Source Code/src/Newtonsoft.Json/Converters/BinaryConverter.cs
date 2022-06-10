@@ -43,7 +43,7 @@ namespace Newtonsoft.Json.Converters
 #if HAVE_LINQ
         private const string BinaryTypeName = "System.Data.Linq.Binary";
         private const string BinaryToArrayName = "ToArray";
-        private static Reflectionobject _reflectionObject;
+        private static ReflectionObject _reflectionObject;
 #endif
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Newtonsoft.Json.Converters
                 EnsureReflectionObject(value.GetType());
                 MiscellaneousUtils.Assert(_reflectionObject != null);
 
-                return (byte[])_reflectionObject.GetValue(value, BinaryToArrayName)!;
+                return (byte[])_reflectionObject.GetValue(value, BinaryToArrayName);
             }
 #endif
 #if HAVE_ADO_NET
@@ -126,7 +126,7 @@ namespace Newtonsoft.Json.Converters
             {
                 // current token is already at base64 string
                 // unable to call ReadAsBytes so do it the old fashion way
-                string encodedData = reader.Value!.ToString();
+                string encodedData = reader.Value.ToString();
                 data = Convert.FromBase64String(encodedData);
             }
             else
@@ -144,7 +144,7 @@ namespace Newtonsoft.Json.Converters
                 EnsureReflectionObject(t);
                 MiscellaneousUtils.Assert(_reflectionObject != null);
 
-                return _reflectionObject.Creator!(data);
+                return _reflectionObject.Creator(data);
             }
 #endif
 

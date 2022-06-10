@@ -24,15 +24,13 @@ namespace CoI.Mod.Better.Edicts
         private int countMaintenanceEdicts = 1;
 
         private readonly string translationComment = "policy / edict which can enabled by the player in their Captain's office.";
-        private bool DisableCheats = true;
         private float CheatUpkeepEdicts = -0.5f;
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableVehicleEdicts) return;
+            if (!BetterMod.Config.Systems.VehicleEdicts) return;
 
-            DisableCheats = BetterMod.Config.DisableCheats;
-            CheatUpkeepEdicts = BetterMod.Config.CheatUpkeepEdicts;
+            CheatUpkeepEdicts = BetterMod.Config.Default.CheatUpkeepEdicts;
 
             AddTruckCap(registrator);
             AddTruckFuelCons(registrator);
@@ -46,7 +44,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T1
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict Plus", MyIDs.Research.VehicleEdictsResearchT1)
-                .SetCosts(BetterMod.Config.VehicleEdictsResearchCostT1)
+                .SetCosts(BetterMod.Config.VehicleEdicts.ResearchCostT1)
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT2,
                     MyIDs.Eticts.Trucks.FuelReductionT2,
@@ -63,7 +61,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T2
             ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict Plus II", MyIDs.Research.VehicleEdictsResearchT2)
-                .SetCosts(BetterMod.Config.VehicleEdictsResearchCostT2)
+                .SetCosts(BetterMod.Config.VehicleEdicts.ResearchCostT2)
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT3,
                     MyIDs.Eticts.Trucks.FuelReductionT3,
@@ -78,7 +76,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T3
             ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus III", MyIDs.Research.VehicleEdictsResearchT3)
-               .SetCosts(BetterMod.Config.VehicleEdictsResearchCostT3)
+               .SetCosts(BetterMod.Config.VehicleEdicts.ResearchCostT3)
                .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT4,
                     MyIDs.Eticts.Trucks.FuelReductionT4,
@@ -94,7 +92,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T4
             ResearchNodeProtoBuilder.State research_state_t4 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus IV", MyIDs.Research.VehicleEdictsResearchT4)
-               .SetCosts(BetterMod.Config.VehicleEdictsResearchCostT4)
+               .SetCosts(BetterMod.Config.VehicleEdicts.ResearchCostT4)
                .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT5,
                     MyIDs.Eticts.Trucks.FuelReductionT5,
@@ -110,7 +108,7 @@ namespace CoI.Mod.Better.Edicts
             // Generate Research T5
             ResearchNodeProtoBuilder.State research_state_t5 = registrator.ResearchNodeProtoBuilder
                .Start("Vehicle Edict Plus V", MyIDs.Research.VehicleEdictsResearchT5)
-               .SetCosts(BetterMod.Config.VehicleEdictsResearchCostT5);
+               .SetCosts(BetterMod.Config.VehicleEdicts.ResearchCostT5);
 
             ResearchNodeProto research_t5 = research_state_t5.BuildAndAdd();
 
@@ -119,7 +117,7 @@ namespace CoI.Mod.Better.Edicts
 
             Debug.Log("VehicleEdicts >> Vehicle Edict created!");
 
-            if (!DisableCheats)
+            if (BetterMod.Config.Systems.Cheats)
             {
                 Cheats(registrator);
             }

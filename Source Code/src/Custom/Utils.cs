@@ -1,4 +1,5 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.Custom.Types;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Prototypes;

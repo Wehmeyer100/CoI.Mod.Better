@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     public class VoidCrusher : IModData
     {
@@ -30,7 +30,7 @@ namespace CoI.Mod.Better
 
         public void RegisterData(ProtoRegistrator registrator)
         {
-            if (BetterMod.Config.DisableVoidCrusher) return;
+            if (!BetterMod.Config.Systems.VoidCrusher) return;
 
             Debug.Log("VoidCrusher >> Generate Research");
 
@@ -51,7 +51,7 @@ namespace CoI.Mod.Better
             research_t1.AddParentPlusGridPos(master_research, ui_stepSize_x: BetterMod.UI_StepSize * 2, ui_stepSize_y: -6);
 
             // Add Cheats
-            if (!BetterMod.Config.DisableCheats)
+            if (BetterMod.Config.Systems.Cheats)
             {
                 Cheats(registrator);
             }
@@ -70,12 +70,19 @@ namespace CoI.Mod.Better
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Crusher CHEAT", MyIDs.Research.VoidCrusherCheat)
-                .SetCostsOne()
                 .AddMachineToUnlock(MyIDs.Machines.VoidCrusherCheat)
                 .AddMachineToUnlock(MyIDs.Machines.VoidCrusherRecyclablesCheat)
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherCheat)
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherRecyclablesCheat);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_t1.SetCostsOne();
+            }
             ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
 
             // Add parent to my research T2
@@ -85,22 +92,36 @@ namespace CoI.Mod.Better
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Crusher Fluid CHEAT", MyIDs.Research.VoidCrusherFluidCheat)
-                .SetCostsOne()
                 .AddMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat)
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t2.SetCostsFree();
+            }
+            else
+            {
+                research_state_t2.SetCostsOne();
+            }
             ResearchNodeProto research_t2 = research_state_t2.BuildAndAdd();
 
             // Add parent to my research T3
-            research_t2.AddParentPlusGridPos(research_t1);          
-            
+            research_t2.AddParentPlusGridPos(research_t1);
+
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
                 .Start("Void Crusher Loose CHEAT", MyIDs.Research.VoidCrusherLooseCheat)
-                .SetCostsOne()
                 .AddMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat)
                 .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_t3.SetCostsFree();
+            }
+            else
+            {
+                research_state_t3.SetCostsOne();
+            }
             ResearchNodeProto research_t3 = research_state_t3.BuildAndAdd();
 
             // Add parent to my research T1
@@ -141,15 +162,15 @@ namespace CoI.Mod.Better
 
         private void GenerateMachineCheat(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
             hasOutput = false;
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Crusher Cheat", MyIDs.Machines.VoidCrusherCheat)
                 .Description("Destroy Products without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                 "   [3][4][3][3][3][3]   ",
@@ -159,7 +180,7 @@ namespace CoI.Mod.Better
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
                 .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .SetAsLockedOnInit()
                 .BuildAndAdd();
@@ -170,15 +191,15 @@ namespace CoI.Mod.Better
 
         private void GenerateMachineRecyclables(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
             hasOutput = true;
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Crusher Cheat Recyclables", MyIDs.Machines.VoidCrusherRecyclablesCheat)
                 .Description("Destroy Products to recyclables", "short description of a machine")
                 .SetCost(Costs.Machines.Crusher)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                     "   [3][4][3][3][3][3]   ",
@@ -188,7 +209,7 @@ namespace CoI.Mod.Better
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
                 .SetAsLockedOnInit()
                 .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .BuildAndAdd();
@@ -202,15 +223,15 @@ namespace CoI.Mod.Better
 
         private void GenerateMachineCheatLoose(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
             hasOutput = false;
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Crusher Loose Cheat", MyIDs.Machines.VoidCrusherLooseCheat)
                 .Description("Destroy Loose without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                 "   [3][4][3][3][3][3]   ",
@@ -220,7 +241,7 @@ namespace CoI.Mod.Better
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
                 .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .SetAsLockedOnInit()
                 .BuildAndAdd();
@@ -231,15 +252,15 @@ namespace CoI.Mod.Better
 
         private void GenerateMachineCheatFluid(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroyCheatDuration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroyCheatAmountInput;
+            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
+            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
             hasOutput = false;
 
             machine = registrator.MachineProtoBuilder
                 .Start("Void Crusher Fluid Cheat", MyIDs.Machines.VoidCrusherFluidCheat)
                 .Description("Destroy fluid without waste", "short description of a machine")
                 .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroyCheatPowerConsume))
+                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
                 .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
                 .SetLayout(
                 "   [3][4][3][3][3][3]   ",
@@ -249,7 +270,7 @@ namespace CoI.Mod.Better
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroyCheatEmission)
+                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
                 .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .SetAsLockedOnInit()
                 .BuildAndAdd();

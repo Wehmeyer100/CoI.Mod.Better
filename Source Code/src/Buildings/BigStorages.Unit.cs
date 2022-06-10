@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoI.Mod.Better
+namespace CoI.Mod.Better.Buildings
 {
     internal partial class BigStorages : IModData
     {
@@ -25,7 +25,7 @@ namespace CoI.Mod.Better
             StaticEntityProto.ID protoID = Ids.Buildings.StorageUnit;
             StaticEntityProto.ID protoNextTier = Ids.Buildings.StorageUnitT2;
 
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 // Remove from Database
                 registrator.PrototypesDb.RemoveOrThrow(protoID);
@@ -49,13 +49,13 @@ namespace CoI.Mod.Better
                 .SetLayout("   [4][4][4][4][4]   ", " # >4A[4][4][4]X4> # ", "   [4][4][4][4][4]   ", " # >4B[4][4][4]Y4> # ", "   [4][4][4][4][4]   ")
                 .SetPrefabPath("Assets/Base/Buildings/Storages/UnitT1.prefab");
 
-            if (!BetterMod.Config.OverrideVanillaStorages)
+            if (!BetterMod.Config.Storage.OverrideVanilla)
             {
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageUnit).Graphics.IconPath);
             }
             creator = SetCategory(creator);
             SetTransferLimitByT(creator, 1).BuildAndAdd(CountableProductProto.ProductType);
-            Debug.Log("BigStorages >> UnitStoragesT1 (override:" + BetterMod.Config.OverrideVanillaStorages + ") >> created!");
+            Debug.Log("BigStorages >> UnitStoragesT1 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void UnitStoragesT2(ProtoRegistrator registrator)
@@ -63,7 +63,7 @@ namespace CoI.Mod.Better
             // Set proto ids
             StaticEntityProto.ID protoID = Ids.Buildings.StorageUnitT2;
 
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 // Remove from Database
                 registrator.PrototypesDb.RemoveOrThrow(protoID);
@@ -85,13 +85,13 @@ namespace CoI.Mod.Better
                 .SetLayout("   [5][5][5][5][5]   ", " # >5A[5][5][5]X5> # ", "   [5][5][5][5][5]   ", " # >5B[5][5][5]Y5> # ", "   [5][5][5][5][5]   ")
                 .SetPrefabPath("Assets/Base/Buildings/Storages/UnitT2.prefab");
             
-            if (!BetterMod.Config.OverrideVanillaStorages)
+            if (!BetterMod.Config.Storage.OverrideVanilla)
             {
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageUnitT2).Graphics.IconPath);
             }
             creator = SetCategory(creator);
             SetTransferLimitByT(creator, 2).BuildAndAdd(CountableProductProto.ProductType);
-            Debug.Log("BigStorages >> UnitStoragesT2 (override:" + BetterMod.Config.OverrideVanillaStorages + ") >> created!");
+            Debug.Log("BigStorages >> UnitStoragesT2 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void UnitStoragesT3(ProtoRegistrator registrator)
@@ -100,7 +100,7 @@ namespace CoI.Mod.Better
             StaticEntityProto.ID protoID = Ids.Buildings.StorageUnitT3;
             StaticEntityProto.ID protoNextTier = Ids.Buildings.StorageUnitT4;
 
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 // Remove from Database
                 registrator.PrototypesDb.RemoveOrThrow(protoID);
@@ -125,13 +125,13 @@ namespace CoI.Mod.Better
                 .SetPrefabPath("Assets/Base/Buildings/Storages/UnitT3.prefab");
 
 
-            if (!BetterMod.Config.OverrideVanillaStorages)
+            if (!BetterMod.Config.Storage.OverrideVanilla)
             {
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageUnitT3).Graphics.IconPath);
             }
             creator = SetCategory(creator);
             SetTransferLimitByT(creator, 3).BuildAndAdd(CountableProductProto.ProductType);
-            Debug.Log("BigStorages >> UnitStoragesT3 (override:" + BetterMod.Config.OverrideVanillaStorages + ") >> created!");
+            Debug.Log("BigStorages >> UnitStoragesT3 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void UnitStoragesT4(ProtoRegistrator registrator)
@@ -139,7 +139,7 @@ namespace CoI.Mod.Better
             // Set proto ids
             StaticEntityProto.ID protoID = Ids.Buildings.StorageUnitT4;
 
-            if (BetterMod.Config.OverrideVanillaStorages)
+            if (BetterMod.Config.Storage.OverrideVanilla)
             {
                 // Remove from Database
                 registrator.PrototypesDb.RemoveOrThrow(protoID);
@@ -161,13 +161,13 @@ namespace CoI.Mod.Better
                 .SetLayout("   [8][8][8][8][8][8][8][8][8][8]   ", " # >8A[8][8][8][8][8][8][8][8]X8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8B[8][8][8][8][8][8][8][8]Y8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8C[8][8][8][8][8][8][8][8]Z8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8D[8][8][8][8][8][8][8][8]W8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ")
                 .SetPrefabPath("Assets/Base/Buildings/Storages/UnitT4.prefab");
 
-            if (!BetterMod.Config.OverrideVanillaStorages)
+            if (!BetterMod.Config.Storage.OverrideVanilla)
             {
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageUnitT4).Graphics.IconPath);
             }
             creator = SetCategory(creator);
             SetTransferLimitByT(creator, 4).BuildAndAdd(CountableProductProto.ProductType);
-            Debug.Log("BigStorages >> UnitStoragesT4 (override:" + BetterMod.Config.OverrideVanillaStorages + ") >> created!");
+            Debug.Log("BigStorages >> UnitStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         #endregion

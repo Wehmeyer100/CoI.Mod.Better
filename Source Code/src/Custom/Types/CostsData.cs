@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Types
 {
 
     [Serializable]

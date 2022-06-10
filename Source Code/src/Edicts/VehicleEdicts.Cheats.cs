@@ -24,12 +24,19 @@ namespace CoI.Mod.Better.Edicts
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t1 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict Cheat", MyIDs.Research.VehicleEdictsResearchCheat_T1)
-                .SetCostsOne()
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT1_CHEAT,
                     MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT,
                     MyIDs.Eticts.Trucks.MaintenanceReductionT1_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t1.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t1.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t1 = research_state_cheat_t1.BuildAndAdd();
 
             // Add parent to my research CHEAT
@@ -40,12 +47,19 @@ namespace CoI.Mod.Better.Edicts
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t2 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict II Cheat", MyIDs.Research.VehicleEdictsResearchCheat_T2)
-                .SetCostsOne()
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT2_CHEAT,
                     MyIDs.Eticts.Trucks.FuelReductionT2_CHEAT,
                     MyIDs.Eticts.Trucks.MaintenanceReductionT2_CHEAT);
 
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t2.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t2.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t2 = research_state_cheat_t2.BuildAndAdd();
             research_cheat_t2.AddGridPos(research_cheat_t1);
 
@@ -53,11 +67,19 @@ namespace CoI.Mod.Better.Edicts
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t3 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict III Cheat", MyIDs.Research.VehicleEdictsResearchCheat_T3)
-                .SetCostsOne()
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT3_CHEAT,
                     MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT,
                     MyIDs.Eticts.Trucks.MaintenanceReductionT3_CHEAT);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t3.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t3.SetCostsOne();
+            }
 
             ResearchNodeProto research_cheat_t3 = research_state_cheat_t3.BuildAndAdd();
             research_cheat_t3.AddGridPos(research_cheat_t2);
@@ -65,11 +87,19 @@ namespace CoI.Mod.Better.Edicts
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t4 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict IV Cheat", MyIDs.Research.VehicleEdictsResearchCheat_T4)
-                .SetCostsOne()
                 .AddEdictToUnlock(
                     MyIDs.Eticts.Trucks.CapacityIncT4_CHEAT,
                     MyIDs.Eticts.Trucks.FuelReductionT4_CHEAT,
                     MyIDs.Eticts.Trucks.MaintenanceReductionT4_CHEAT);
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t4.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t4.SetCostsOne();
+            }
 
             ResearchNodeProto research_cheat_t4 = research_state_cheat_t4.BuildAndAdd();
             research_cheat_t4.AddGridPos(research_cheat_t3);
@@ -77,9 +107,17 @@ namespace CoI.Mod.Better.Edicts
             // Generate Cheat Research
             ResearchNodeProtoBuilder.State research_state_cheat_t5 = registrator.ResearchNodeProtoBuilder
                 .Start("Vehicle Edict V Cheat", MyIDs.Research.VehicleEdictsResearchCheat_T5)
-                .SetCostsOne()
                 .AddEdictToUnlock(MyIDs.Eticts.Trucks.CapacityIncT5_CHEAT);
 
+
+            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            {
+                research_state_cheat_t5.SetCostsFree();
+            }
+            else
+            {
+                research_state_cheat_t5.SetCostsOne();
+            }
             ResearchNodeProto research_cheat_t5 = research_state_cheat_t5.BuildAndAdd();
             research_cheat_t5.AddGridPos(research_cheat_t4);
 

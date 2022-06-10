@@ -29,7 +29,7 @@ namespace CoI.Mod.Better.Edicts
             GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT5, 60, 4f, MyIDs.Eticts.Trucks.MaintenanceReductionT4);
 
 
-            if (DisableCheats) return;
+            if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
 

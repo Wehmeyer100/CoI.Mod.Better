@@ -27,7 +27,7 @@ namespace CoI.Mod.Better.Edicts
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4, 60, 4f, MyIDs.Eticts.Trucks.FuelReductionT3);
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT5, 75, 5f, MyIDs.Eticts.Trucks.FuelReductionT4);
 
-            if (DisableCheats) return;
+            if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT, 25, CheatUpkeepEdicts, null, true);

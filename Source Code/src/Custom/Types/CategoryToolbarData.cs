@@ -4,7 +4,7 @@ using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Prototypes;
 using System;
 
-namespace CoI.Mod.Better.Custom
+namespace CoI.Mod.Better.Custom.Types
 {
     [Serializable]
     public enum CategoryToolbar : int
