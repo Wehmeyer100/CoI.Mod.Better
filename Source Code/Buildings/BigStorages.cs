@@ -92,16 +92,6 @@ namespace CoI.Mod.Better.Buildings
             capacity_nuclear = Mathf.Clamp(capacity_nuclear, BetterMod.Config.Storage.CapacityNuclearWaste, int.MaxValue);
         }
 
-        private static bool ProductFilter(ProductProto x)
-        {
-            return x.IsStorable ? x.Radioactivity == 0 : false;
-        }
-
-        private static bool radioactiveProductFilter(ProductProto x)
-        {
-            return x.IsStorable ? x.Radioactivity > 0 : false;
-        }
-
         private static StorageProtoBuilder.State SetTransferLimitByT(StorageProtoBuilder.State creator, int TLevel)
         {
             if (BetterMod.Config.Storage.UnlimitedTransferLimit)

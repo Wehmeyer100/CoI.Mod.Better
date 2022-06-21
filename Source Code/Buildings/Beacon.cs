@@ -148,7 +148,7 @@ namespace CoI.Mod.Better.Buildings
             float chance = Mathf.Clamp(key_chance, 0f, 1f);
 
             // No Chance, go return
-            if (chance == 0.0f) return;
+            if (chance <= 0.0f) return;
 
             if (base_value != 0 && chance >= Random.Range(0f, 1f))
             {

@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Base.Prototypes.Machines.PowerGenerators;
@@ -78,7 +79,7 @@ namespace CoI.Mod.Better.Buildings
                     ImmutableArray.Create(ParticlesParams.Loop("DarkSmoke")),
                     "Assets/Base/Machines/PowerPlant/CombustionEngine/CombustionEngine_Sound.prefab",
                     registrator.GetCategoriesProtos(MyIDs.ToolbarCategories.MachinesElectricity),
-                    BetterMod.GetIconPath<ElectricityGeneratorFromProductProto>(registrator, Ids.Machines.DieselGenerator)
+                    EntityProtoUtility.GetIconPath<ElectricityGeneratorFromProductProto>(registrator, Ids.Machines.DieselGenerator)
                 )
             ));
 
