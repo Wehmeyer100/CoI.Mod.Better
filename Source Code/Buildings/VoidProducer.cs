@@ -42,10 +42,10 @@ namespace CoI.Mod.Better.Buildings
             // Add Cheats
             if (BetterMod.Config.Systems.Cheats)
             {
-                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate cheats machines.");
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidProducer >> Generate cheats machines.");
                 GenerateCheatMachines(registrator);
 
-                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate cheats researches.");
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidProducer >> Generate cheats researches.");
                 GenerateCheatResearches(registrator);
             }
         }

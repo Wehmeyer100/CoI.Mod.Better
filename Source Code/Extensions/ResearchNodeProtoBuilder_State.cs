@@ -1,4 +1,6 @@
 ﻿using Mafi;
+using Mafi.Core.Entities.Static;
+using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Population.Edicts;
 using Mafi.Core.Prototypes;
 using Mafi.Core.Research;
@@ -53,6 +55,18 @@ namespace CoI.Mod.Better.Extensions
             foreach (Proto.ID protoId in protoIDs)
             {
                 return builderState.AddParents(builderState.Builder.ProtosDb.GetOrThrow<ResearchNodeProto>(protoId));
+            }
+            return builderState;
+        }
+
+        public static ResearchNodeProtoBuilder.State AddLayoutEntityToUnlock(this ResearchNodeProtoBuilder.State builderState, params StaticEntityProto.ID[] protoIDs)
+        {
+            foreach (Proto.ID protoId in protoIDs)
+            {
+                LayoutEntityProto orThrow = builderState.Builder.ProtosDb.GetOrThrow<LayoutEntityProto>(protoId);
+
+                builderState.AddIcon(orThrow, orThrow.Graphics.IconPath);
+                builderState.AddUnit(new LayoutEntityUnlock(orThrow, false));
             }
             return builderState;
         }

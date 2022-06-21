@@ -49,8 +49,8 @@ namespace CoI.Mod.Better.Buildings
                 GenerateMineTower(registrator, MyIDs.Buildings.MineTowerNormal, "Mine control tower: Vanilla", defaultTowerRange);
             }
 
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, "Mine control tower T2", (int)(defaultTowerRange * Mathf.Clamp(((towerAreaMultiplier - 1) / 2) + 1, 1, float.MaxValue)));
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, "Mine control tower T3", (int)(defaultTowerRange * towerAreaMultiplier));
+            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, "Mine control tower T2(x1.5)", (int)(defaultTowerRange * (towerAreaMultiplier * 1.5f)));
+            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, "Mine control tower T3(x2)", (int)(defaultTowerRange * (towerAreaMultiplier * 2)));
         }
 
         private void GenerateMineTower(ProtoRegistrator registrator, StaticEntityProto.ID protoID, string Name, int towerRange)
