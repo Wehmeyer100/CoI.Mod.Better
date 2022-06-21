@@ -1,6 +1,6 @@
 # CoI.Mod.Better
 
-Game Version(Comptability): 0.4.2a
+Game Version(Comptability): 0.4.5a
 
 Savegame Comptability: You need to start a new game!
 
@@ -35,8 +35,6 @@ Edicts:
 - Truck load size increase: 100%, 200%, 300%, 400%, 500%
 - Unity Plus(increase unity produce)): 5%, 10%, 20%, 50%, 100%
 - Reduce all Services: -30%, -40%, -50%, -60%, -75%
-# Bugs
-- The new storage size is not displayed in the research tree. However, after researching the building has the modded size.
 
 # Install
 Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.6
