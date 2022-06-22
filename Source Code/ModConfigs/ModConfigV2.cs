@@ -119,7 +119,6 @@ namespace CoI.Mod.Better.ModConfigs
             Config.VehicleEdicts.ResearchCostT2 = oldConfig.VehicleEdictsResearchCostT2;
             Config.VehicleEdicts.ResearchCostT3 = oldConfig.VehicleEdictsResearchCostT3;
             Config.VehicleEdicts.ResearchCostT4 = oldConfig.VehicleEdictsResearchCostT4;
-            Config.VehicleEdicts.ResearchCostT5 = oldConfig.VehicleEdictsResearchCostT5;
 
             Config.Tower.AreaMultiplier = oldConfig.TowerAreaMultiplier;
             Config.Tower.OverrideVanilla = oldConfig.OverrideBaseGameTower;

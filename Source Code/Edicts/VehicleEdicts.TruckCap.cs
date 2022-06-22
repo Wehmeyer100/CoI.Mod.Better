@@ -21,10 +21,10 @@ namespace CoI.Mod.Better.Edicts
     {
         private void AddTruckCap(ProtoRegistrator registrator)
         {
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2, 50, 1, null);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3, 75, 2, MyIDs.Eticts.Trucks.CapacityIncT2);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4, 100, 3, MyIDs.Eticts.Trucks.CapacityIncT3);
-            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT5, 200, 4, MyIDs.Eticts.Trucks.CapacityIncT4);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT1, 50, 1, null);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT2, 75, 2, MyIDs.Eticts.Trucks.CapacityIncT1);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT3, 100, 3, MyIDs.Eticts.Trucks.CapacityIncT2);
+            GenerateTruckCap(registrator, MyIDs.Eticts.Trucks.CapacityIncT4, 200, 4, MyIDs.Eticts.Trucks.CapacityIncT3);
 
             if (!BetterMod.Config.Systems.Cheats) return;
 

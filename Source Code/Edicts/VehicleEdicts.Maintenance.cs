@@ -23,10 +23,10 @@ namespace CoI.Mod.Better.Edicts
         private void AddMaintenance(ProtoRegistrator registrator)
         {
             // Generate Edicts
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2, 30, 2f, null);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3, 40, 2.7f, MyIDs.Eticts.Trucks.MaintenanceReductionT2);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4, 50, 3.3f, MyIDs.Eticts.Trucks.MaintenanceReductionT3);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT5, 60, 4f, MyIDs.Eticts.Trucks.MaintenanceReductionT4);
+            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT1, 30, 2f, null);
+            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2, 40, 2.7f, MyIDs.Eticts.Trucks.MaintenanceReductionT1);
+            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3, 50, 3.3f, MyIDs.Eticts.Trucks.MaintenanceReductionT2);
+            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4, 60, 4f, MyIDs.Eticts.Trucks.MaintenanceReductionT3);
 
 
             if (!BetterMod.Config.Systems.Cheats) return;

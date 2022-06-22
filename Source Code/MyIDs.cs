@@ -139,10 +139,10 @@ namespace CoI.Mod.Better.MyIDs
 
         public sealed class Trucks
         {
-            public readonly static ResearchNodeProto.ID CapacityIncT2 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "2");
-            public readonly static ResearchNodeProto.ID CapacityIncT3 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "3");
-            public readonly static ResearchNodeProto.ID CapacityIncT4 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "4");
-            public readonly static ResearchNodeProto.ID CapacityIncT5 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "5");
+            public readonly static ResearchNodeProto.ID CapacityIncT1 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "2");
+            public readonly static ResearchNodeProto.ID CapacityIncT2 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "3");
+            public readonly static ResearchNodeProto.ID CapacityIncT3 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "4");
+            public readonly static ResearchNodeProto.ID CapacityIncT4 = new ResearchNodeProto.ID(Utilities.CapacityIncStr + "5");
 
             public readonly static ResearchNodeProto.ID CapacityIncT1_CHEAT = new ResearchNodeProto.ID(Utilities.CapacityIncStr + Utilities.Cheat_1);
             public readonly static ResearchNodeProto.ID CapacityIncT2_CHEAT = new ResearchNodeProto.ID(Utilities.CapacityIncStr + Utilities.Cheat_2);
@@ -152,10 +152,10 @@ namespace CoI.Mod.Better.MyIDs
 
 
 
-            public readonly static ResearchNodeProto.ID FuelReductionT2 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "2");
-            public readonly static ResearchNodeProto.ID FuelReductionT3 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "3");
-            public readonly static ResearchNodeProto.ID FuelReductionT4 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "4");
-            public readonly static ResearchNodeProto.ID FuelReductionT5 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "5");
+            public readonly static ResearchNodeProto.ID FuelReductionT1 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "2");
+            public readonly static ResearchNodeProto.ID FuelReductionT2 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "3");
+            public readonly static ResearchNodeProto.ID FuelReductionT3 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "4");
+            public readonly static ResearchNodeProto.ID FuelReductionT4 = new ResearchNodeProto.ID(Utilities.FuelReductionStr + "5");
 
             public readonly static ResearchNodeProto.ID FuelReductionT1_CHEAT = new ResearchNodeProto.ID(Utilities.FuelReductionStr + Utilities.Cheat_1);
             public readonly static ResearchNodeProto.ID FuelReductionT2_CHEAT = new ResearchNodeProto.ID(Utilities.FuelReductionStr + Utilities.Cheat_2);
@@ -164,10 +164,10 @@ namespace CoI.Mod.Better.MyIDs
 
 
 
-            public readonly static ResearchNodeProto.ID MaintenanceReductionT2 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "2");
-            public readonly static ResearchNodeProto.ID MaintenanceReductionT3 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "3");
-            public readonly static ResearchNodeProto.ID MaintenanceReductionT4 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "4");
-            public readonly static ResearchNodeProto.ID MaintenanceReductionT5 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "5");
+            public readonly static ResearchNodeProto.ID MaintenanceReductionT1 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "2");
+            public readonly static ResearchNodeProto.ID MaintenanceReductionT2 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "3");
+            public readonly static ResearchNodeProto.ID MaintenanceReductionT3 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "4");
+            public readonly static ResearchNodeProto.ID MaintenanceReductionT4 = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + "5");
 
             public readonly static ResearchNodeProto.ID MaintenanceReductionT1_CHEAT = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + Utilities.Cheat_1);
             public readonly static ResearchNodeProto.ID MaintenanceReductionT2_CHEAT = new ResearchNodeProto.ID(Utilities.MaintenanceReductionStr + Utilities.Cheat_2);

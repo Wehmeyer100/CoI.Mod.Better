@@ -22,10 +22,10 @@ namespace CoI.Mod.Better.Edicts
 
         private void AddTruckFuelCons(ProtoRegistrator registrator)
         {
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT2, 30, 2f, null);
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT3, 45, 3f, MyIDs.Eticts.Trucks.FuelReductionT2);
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4, 60, 4f, MyIDs.Eticts.Trucks.FuelReductionT3);
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT5, 75, 5f, MyIDs.Eticts.Trucks.FuelReductionT4);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT1, 30, 2f, null);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT2, 45, 3f, MyIDs.Eticts.Trucks.FuelReductionT1);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT3, 60, 4f, MyIDs.Eticts.Trucks.FuelReductionT2);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4, 75, 5f, MyIDs.Eticts.Trucks.FuelReductionT3);
 
             if (!BetterMod.Config.Systems.Cheats) return;
 
