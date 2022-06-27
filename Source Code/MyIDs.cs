@@ -73,6 +73,11 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static ResearchNodeProto.ID StorageResearchT4 = new ResearchNodeProto.ID("MyStorageResearchT4");
         public readonly static ResearchNodeProto.ID StorageResearchT5 = new ResearchNodeProto.ID("MyStorageResearchT5");
 
+        public readonly static ResearchNodeProto.ID SteamStorageResearchT1 = new ResearchNodeProto.ID("MySteamStorageResearchT1");
+        public readonly static ResearchNodeProto.ID SteamStorageResearchT2 = new ResearchNodeProto.ID("MySteamStorageResearchT2");
+        public readonly static ResearchNodeProto.ID SteamStorageResearchT3 = new ResearchNodeProto.ID("MySteamStorageResearchT3");
+        public readonly static ResearchNodeProto.ID SteamStorageResearchT4 = new ResearchNodeProto.ID("MySteamStorageResearchT4");
+
     }
 
     public static class ToolbarCategories
@@ -102,6 +107,11 @@ namespace CoI.Mod.Better.MyIDs
         public static readonly StaticEntityProto.ID StorageFluidT3 = new StaticEntityProto.ID("MyStorageFluidT3");
         public static readonly StaticEntityProto.ID StorageFluidT2 = new StaticEntityProto.ID("MyStorageFluidT2");
         public static readonly StaticEntityProto.ID StorageFluidT1 = new StaticEntityProto.ID("MyStorageFluidT1");
+
+        public static readonly StaticEntityProto.ID StorageSteamT4 = new StaticEntityProto.ID("MyStorageSteamT4");
+        public static readonly StaticEntityProto.ID StorageSteamT3 = new StaticEntityProto.ID("MyStorageSteamT3");
+        public static readonly StaticEntityProto.ID StorageSteamT2 = new StaticEntityProto.ID("MyStorageSteamT2");
+        public static readonly StaticEntityProto.ID StorageSteamT1 = new StaticEntityProto.ID("MyStorageSteamT1");
 
         public static readonly StaticEntityProto.ID NuclearWasteStorage = new StaticEntityProto.ID("MyNuclearWasteStorage");
     }
@@ -194,6 +204,24 @@ namespace CoI.Mod.Better.MyIDs
             public readonly static Proto.ID ReduceServiceT3_CHEAT = new Proto.ID(Utilities.ReduceServiceStr + Utilities.Cheat_3);
             public readonly static Proto.ID ReduceServiceT4_CHEAT = new Proto.ID(Utilities.ReduceServiceStr + Utilities.Cheat_4);
             public readonly static Proto.ID ReduceServiceT5_CHEAT = new Proto.ID(Utilities.ReduceServiceStr + Utilities.Cheat_5);
+
+            public readonly static Proto.ID FarmMultiplierT1_CHEAT = new Proto.ID(Utilities.FarmMultiplierStr + Utilities.Cheat_1);
+            public readonly static Proto.ID FarmMultiplierT2_CHEAT = new Proto.ID(Utilities.FarmMultiplierStr + Utilities.Cheat_2);
+            public readonly static Proto.ID FarmMultiplierT3_CHEAT = new Proto.ID(Utilities.FarmMultiplierStr + Utilities.Cheat_3);
+            public readonly static Proto.ID FarmMultiplierT4_CHEAT = new Proto.ID(Utilities.FarmMultiplierStr + Utilities.Cheat_4);
+            public readonly static Proto.ID FarmMultiplierT5_CHEAT = new Proto.ID(Utilities.FarmMultiplierStr + Utilities.Cheat_5);
+
+            public readonly static Proto.ID FarmWaterConsumMultiplierT1_CHEAT = new Proto.ID(Utilities.FarmWaterConsumMultiplierStr + Utilities.Cheat_1);
+            public readonly static Proto.ID FarmWaterConsumMultiplierT2_CHEAT = new Proto.ID(Utilities.FarmWaterConsumMultiplierStr + Utilities.Cheat_2);
+            public readonly static Proto.ID FarmWaterConsumMultiplierT3_CHEAT = new Proto.ID(Utilities.FarmWaterConsumMultiplierStr + Utilities.Cheat_3);
+            public readonly static Proto.ID FarmWaterConsumMultiplierT4_CHEAT = new Proto.ID(Utilities.FarmWaterConsumMultiplierStr + Utilities.Cheat_4);
+            public readonly static Proto.ID FarmWaterConsumMultiplierT5_CHEAT = new Proto.ID(Utilities.FarmWaterConsumMultiplierStr + Utilities.Cheat_5);
+
+            public readonly static Proto.ID RecyclingRatioDiffT1_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_1);
+            public readonly static Proto.ID RecyclingRatioDiffT2_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_2);
+            public readonly static Proto.ID RecyclingRatioDiffT3_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_3);
+            public readonly static Proto.ID RecyclingRatioDiffT4_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_4);
+            public readonly static Proto.ID RecyclingRatioDiffT5_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_5);
         }
     }
 
@@ -206,6 +234,9 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static string MaintenanceReductionStr = "MyMaintenanceReductionT";
         public readonly static string UnityPlusStr = "MyUnityPlusT";
         public readonly static string ReduceServiceStr = "MyReduceServiceT";
+        public readonly static string FarmMultiplierStr = "MyFarmMultiplierT";
+        public readonly static string FarmWaterConsumMultiplierStr = "MyFarmWaterConsumMultiplierT";
+        public readonly static string RecyclingRatioDiffStr = "MyRecyclingRatioDiffT";
 
         public readonly static string Cheat_1 = "CHEAT1";
         public readonly static string Cheat_2 = "CHEAT2";

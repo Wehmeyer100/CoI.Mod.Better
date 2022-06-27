@@ -81,7 +81,7 @@ namespace CoI.Mod.Better.Buildings
             ResearchNodeProto research_t2 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherFluidCheat, "Void Crusher Fluid CHEAT", MyIDs.Machines.VoidCrusherFluidCheat, research_t1);
 
             // Generate Research T3
-            ResearchNodeProto research_t3 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherLooseCheat, "Void Crusher Loose CHEAT", MyIDs.Machines.VoidCrusherLooseCheat, research_t2);
+            GenerateResearch(registrator, MyIDs.Research.VoidCrusherLooseCheat, "Void Crusher Loose CHEAT", MyIDs.Machines.VoidCrusherLooseCheat, research_t2);
 
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs done.");
         }

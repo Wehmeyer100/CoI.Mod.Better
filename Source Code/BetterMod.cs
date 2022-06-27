@@ -55,7 +55,7 @@ namespace CoI.Mod.Better
         public const string MyVersion = "0.1.8.7";
 
         public static readonly GameVersion CurrentGameVersion = new GameVersion();
-        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "5", "a");
+        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "5", "b");
         public static bool IsCompatibility => CurrentGameVersion.Equals(CompatibilityVersion, true);
 
         public BetterMod()
@@ -144,6 +144,7 @@ namespace CoI.Mod.Better
             registrator.RegisterData<DieselGenerator>();
             registrator.RegisterData<PowerGenerators>();
             registrator.RegisterData<Customs>();
+            registrator.RegisterData<SteamStorages>();
 
         }
 

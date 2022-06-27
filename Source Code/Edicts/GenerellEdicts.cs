@@ -39,6 +39,9 @@ namespace CoI.Mod.Better.Edicts
 
             AddUnityPoints(registrator);
             AddReduceService(registrator);
+            AddFarmMultiplier(registrator);
+            AddFarmWaterConsumMultiplier(registrator);
+            AddRecyclingRatioDiff(registrator);
 
             GenerateResearch(registrator);
         }
@@ -47,13 +50,13 @@ namespace CoI.Mod.Better.Edicts
         {
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(Ids.Research.CaptainsOffice);
 
-            ResearchNodeProto research_t1 = ResearchProtoUtility.GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT1, "Generell Edict I", BetterMod.Config.GenerellEdicts.ResearchCostT1, false, new ResearchNodeUIData(master_research, true, BetterMod.UI_StepSize, (BetterMod.UI_StepSize * 2)), MyIDs.Eticts.Generell.UnityPointsT1);
-            ResearchNodeProto research_t2 = ResearchProtoUtility.GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT2, "Generell Edict II", BetterMod.Config.GenerellEdicts.ResearchCostT2, false, research_t1, false, MyIDs.Eticts.Generell.UnityPointsT2);
-            ResearchNodeProto research_t3 = ResearchProtoUtility.GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT3, "Generell Edict III", BetterMod.Config.GenerellEdicts.ResearchCostT3, false, research_t2, false, MyIDs.Eticts.Generell.UnityPointsT3);
-            ResearchNodeProto research_t4 = ResearchProtoUtility.GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT4, "Generell Edict IV", BetterMod.Config.GenerellEdicts.ResearchCostT4, false, research_t3, false, MyIDs.Eticts.Generell.UnityPointsT4);
-            ResearchNodeProto research_t5 = ResearchProtoUtility.GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT5, "Generell Edict V", BetterMod.Config.GenerellEdicts.ResearchCostT5, false, research_t4, false, MyIDs.Eticts.Generell.UnityPointsT5);
+            ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT1, "Generell Edict I", BetterMod.Config.GenerellEdicts.ResearchCostT1, false, new ResearchNodeUIData(master_research, false, BetterMod.UI_StepSize, (BetterMod.UI_StepSize * 2)));
+            ResearchNodeProto research_t2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT2, "Generell Edict II", BetterMod.Config.GenerellEdicts.ResearchCostT2, false, research_t1, false);
+            ResearchNodeProto research_t3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT3, "Generell Edict III", BetterMod.Config.GenerellEdicts.ResearchCostT3, false, research_t2, false);
+            ResearchNodeProto research_t4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT4, "Generell Edict IV", BetterMod.Config.GenerellEdicts.ResearchCostT4, false, research_t3, false);
+            GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT5, "Generell Edict V", BetterMod.Config.GenerellEdicts.ResearchCostT5, false, research_t4, false);
 
-            Debug.Log("GenerellEdicts >> Generell Edict created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> GenerellEdicts >> Generell Edict created!");
 
             if (BetterMod.Config.Systems.Cheats)
             {

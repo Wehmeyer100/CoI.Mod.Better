@@ -37,7 +37,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageLoose1FormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Loose storage", protoID)
@@ -55,9 +55,9 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageLoose).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 1).BuildAsLooseAndAdd();
+            ProductUtility.SetTransferLimitByT(creator, 1).BuildAsLooseAndAdd();
 
-            Debug.Log("BigStorages >> LooseStoragesT1 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> LooseStoragesT1 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void LooseStoragesT2(ProtoRegistrator registrator)
@@ -76,7 +76,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageLoose2FormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Loose storage II", protoID)
@@ -93,8 +93,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageLooseT2).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 2).BuildAsLooseAndAdd();
-            Debug.Log("BigStorages >> LooseStoragesT2 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 2).BuildAsLooseAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> LooseStoragesT2 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void LooseStoragesT3(ProtoRegistrator registrator)
@@ -115,7 +115,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageLoose3FormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Loose storage III", protoID)
@@ -133,8 +133,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageLooseT3).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 3).BuildAsLooseAndAdd();
-            Debug.Log("BigStorages >> LooseStoragesT3 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 3).BuildAsLooseAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> LooseStoragesT3 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void LooseStoragesT4(ProtoRegistrator registrator)
@@ -153,7 +153,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageLooseFormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageLoose4FormattedBase__desc", "Stores up to {0} units of a loose product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Loose storage IV", protoID)
@@ -179,8 +179,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageLooseT4).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 4).BuildAsLooseAndAdd();
-            Debug.Log("BigStorages >> LooseStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 4).BuildAsLooseAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> LooseStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         #endregion

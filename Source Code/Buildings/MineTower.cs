@@ -66,7 +66,7 @@ namespace CoI.Mod.Better.Buildings
                 .BuildAndAdd()
                 .AddParam(new DrawArrowWileBuildingProtoParam(4f));
 
-            Debug.Log("MineTower >> GenerateMineTower (name: " + Name + ", id: " + protoID + ") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> MineTower >> GenerateMineTower (name: " + Name + ", id: " + protoID + ") >> created!");
         }
     }
 }

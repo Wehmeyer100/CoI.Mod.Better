@@ -83,7 +83,7 @@ namespace CoI.Mod.Better.Buildings
                 )
             ));
 
-            Debug.Log("DieselGeneators >> GenerateDieselMachine (name: " + "Diesel generator " + kw_amount.Format().ToString() + ") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> DieselGeneators >> GenerateDieselMachine (name: " + "Diesel generator " + kw_amount.Format().ToString() + ") >> created!");
         }
 
         public static ProductProto.ID GetInputConfigType(int inputType)

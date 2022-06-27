@@ -29,7 +29,7 @@ namespace CoI.Mod.Better.Buildings
             registrator.PrototypesDb.RemoveOrThrow(MyIDs.Utilities.BeaconSchedule);
             registrator.PrototypesDb.Add(new BeaconScheduleProto(MyIDs.Utilities.BeaconSchedule, GenerateReward));
 
-            Debug.Log("Beacon >> RegisterData >> replace schedule!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Beacon >> RegisterData >> replace schedule!");
         }
 
         private void LoadData(ProtoRegistrator registrator)
@@ -78,12 +78,12 @@ namespace CoI.Mod.Better.Buildings
             amountOfRefugees = Mathf.Clamp(amountOfRefugees, 0, 100);
 
 
-            Debug.Log("Beacon >> GenerateReward >> reward_multiply: " + reward_multiply + " >> amountOfRefugees: " + amountOfRefugees + " >> durationMinMax: ( " + durationMin + " : " + durationMax + ") >> refugeesMinMax: ( " + refugeesMin + " : " + refugeesMax + " )");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Beacon >> GenerateReward >> reward_multiply: " + reward_multiply + " >> amountOfRefugees: " + amountOfRefugees + " >> durationMinMax: ( " + durationMin + " : " + durationMax + ") >> refugeesMinMax: ( " + refugeesMin + " : " + refugeesMax + " )");
 
             // To nothing then amount zero
             if (amountOfRefugees == 0)
             {
-                Debug.Log("Beacon >> GenerateReward >> generate noting.");
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Beacon >> GenerateReward >> generate noting.");
 
                 return new RefugeesReward(
                     possibleRewards: ImmutableArray.Create(GetRewardNothing()),
@@ -92,7 +92,7 @@ namespace CoI.Mod.Better.Buildings
                     minimalTier: 1);
             }
 
-            Debug.Log("Beacon >> GenerateReward >> generate randon reward.");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Beacon >> GenerateReward >> generate randon reward.");
             return new RefugeesReward(
                 possibleRewards: ImmutableArray.Create(
                         GetReward(reward_multiply, amountOfRefugees),

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace CoI.Mod.Better.Utilities
 {
@@ -27,7 +28,7 @@ namespace CoI.Mod.Better.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ResearchNodeProto GenerateResearchEdict(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, int researchCost, bool cheat, ResearchNodeProto parent_research, bool parent_only_for_grid, params Proto.ID[] unlockEdictProtoIDs)
         {
-            return GenerateResearchEdict(registrator, protoID, name, "", new ResearchCostsTpl(researchCost), cheat, new ResearchNodeUIData(parent_research, parent_only_for_grid));
+            return GenerateResearchEdict(registrator, protoID, name, "", new ResearchCostsTpl(researchCost), cheat, new ResearchNodeUIData(parent_research, parent_only_for_grid), unlockEdictProtoIDs);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -45,7 +46,10 @@ namespace CoI.Mod.Better.Utilities
         public static ResearchNodeProto GenerateResearchEdict(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, string desc, ResearchCostsTpl researchCost, bool cheat, ResearchNodeUIData uidata, params Proto.ID[] unlockEdictProtoIDs)
         {
             ResearchNodeProtoBuilder.State research_state = _generateResearch(registrator, protoID, name, desc, researchCost, cheat);
-            research_state.AddEdictToUnlock(unlockEdictProtoIDs);
+            if (unlockEdictProtoIDs != null && unlockEdictProtoIDs.Length > 0)
+            {
+                research_state.AddEdictToUnlock(unlockEdictProtoIDs);
+            }
             return _buildResearch(research_state, uidata);
         }
         #endregion
@@ -73,7 +77,10 @@ namespace CoI.Mod.Better.Utilities
         public static ResearchNodeProto GenerateResearchBuildings(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, string desc, ResearchCostsTpl researchCost, bool cheat, ResearchNodeUIData uidata, params StaticEntityProto.ID[] unlockProtoIDs)
         {
             ResearchNodeProtoBuilder.State research_state = _generateResearch(registrator, protoID, name, desc, researchCost, cheat);
-            research_state.AddLayoutEntityToUnlock(unlockProtoIDs);
+            if (unlockProtoIDs != null && unlockProtoIDs.Length > 0)
+            {
+                research_state.AddLayoutEntityToUnlock(unlockProtoIDs);
+            }
             return _buildResearch(research_state, uidata);
         }
         #endregion
@@ -181,6 +188,7 @@ namespace CoI.Mod.Better.Utilities
             {
                 research.AddParentPlusGridPos(parent_research, ui_stepSize_x, ui_stepSize_y);
             }
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> ResearchProtoUtility >> _buildResearch >> Research (id: '" + research.Id + "', name: '" + research.Strings.Name.ToString() + "', parent: '" + parent_research.Id.ToString() + "') has generated.");
             return research;
         }
     }

@@ -13,140 +13,30 @@ using Mafi.Localization;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static CoI.Mod.Better.Utilities.ResearchProtoUtility;
 
 namespace CoI.Mod.Better.Buildings
 {
     internal partial class BigStorages : IModData
     {
-        private static void GenerateResearch(ProtoRegistrator registrator)
+        private void GenerateResearch(ProtoRegistrator registrator)
         {
-            GenerateResearchT1(registrator);
-            GenerateResearchT2(registrator);
-            GenerateResearchT3(registrator);
-            GenerateResearchT4(registrator);
+            if (!BetterMod.Config.Storage.OverrideVanilla)
+            {
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> GenerateResearches...");
+
+                ResearchNodeProto parent = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO);
+
+                ResearchNodeProto research_t1 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT1, "Storage I", " ", 1, false, new ResearchNodeUIData(parent, false, 0, (BetterMod.UI_StepSize * 2)), MyIDs.Buildings.StorageFluidT1, MyIDs.Buildings.StorageLooseT1, MyIDs.Buildings.StorageUnitT1);
+                ResearchNodeProto research_t2 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT2, "Storage II", "", 4, false, new ResearchNodeUIData(research_t1, false), MyIDs.Buildings.StorageFluidT2, MyIDs.Buildings.StorageLooseT2, MyIDs.Buildings.StorageUnitT2);
+                ResearchNodeProto research_t3 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT3, "Storage III", "", 8, false, new ResearchNodeUIData(research_t2, false), MyIDs.Buildings.StorageFluidT3, MyIDs.Buildings.StorageLooseT3, MyIDs.Buildings.StorageUnitT3);
+                GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT4, "Storage IV", "", 16, false, new ResearchNodeUIData(research_t3, false), MyIDs.Buildings.StorageFluidT4, MyIDs.Buildings.StorageLooseT4, MyIDs.Buildings.StorageUnitT4);
+
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> GenerateResearches... done.");
+            }
         }
 
-        private static void GenerateResearchT1(ProtoRegistrator registrator)
-        {
-            ResearchNodeProto.ID storageResearch = MyIDs.Research.StorageResearchT1;
-
-            LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T1", "");
-            LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
-
-            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
-                .Start("Storage T1", storageResearch)
-                .Description(desc)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT1)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT1)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT1);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                result.SetCostsFree();
-            }
-            else
-            {
-                result.SetCostsOne();
-            }
-
-            result
-                .BuildAndAdd()
-                .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO), 0, BetterMod.UI_StepSize);
-
-            Debug.Log("BigStorages >> GenerateResearchT1 >> created!");
-        }
-
-        private static void GenerateResearchT2(ProtoRegistrator registrator)
-        {
-            ResearchNodeProto.ID storageResearch = MyIDs.Research.StorageResearchT2;
-
-            LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T2", "");
-            LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
-
-            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
-                .Start("Storage T2", storageResearch)
-                .Description(desc)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT2)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT2)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT2);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                result.SetCostsFree();
-            }
-            else
-            {
-                result.SetCosts(4);
-            }
-
-            result
-                .BuildAndAdd()
-                .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT1));
-
-            Debug.Log("BigStorages >> GenerateResearchT2 >> created!");
-        }
-
-        private static void GenerateResearchT3(ProtoRegistrator registrator)
-        {
-            ResearchNodeProto.ID storageResearch = MyIDs.Research.StorageResearchT3;
-
-            LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T3", "");
-            LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
-
-            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
-                .Start("Storage T3", storageResearch)
-                .Description(desc)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT3)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT3)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT3);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                result.SetCostsFree();
-            }
-            else
-            {
-                result.SetCosts(8);
-            }
-
-            result
-                .BuildAndAdd()
-                .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT2));
-
-            Debug.Log("BigStorages >> GenerateResearchT3 >> created!");
-        }
-
-        private static void GenerateResearchT4(ProtoRegistrator registrator)
-        {
-            ResearchNodeProto.ID storageResearch = MyIDs.Research.StorageResearchT4;
-
-            LocStr1 locStr = Loc.Str1(storageResearch.ToString() + "__desc", "Unlock Storages T4", "");
-            LocStr desc = LocalizationManager.CreateAlreadyLocalizedStr(storageResearch.ToString() + "_formatted", "");
-
-            ResearchNodeProtoBuilder.State result = registrator.ResearchNodeProtoBuilder
-                .Start("Storage T4", storageResearch)
-                .Description(desc)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageFluidT4)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageLooseT4)
-                .AddLayoutEntityToUnlock(MyIDs.Buildings.StorageUnitT4);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                result.SetCostsFree();
-            }
-            else
-            {
-                result.SetCosts(16);
-            }
-
-            result
-                .BuildAndAdd()
-                .AddParentPlusGridPos(registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.StorageResearchT3));
-
-            Debug.Log("BigStorages >> GenerateResearchT4 >> created!");
-        }
-
-        private static void GenerateResearchT5(ProtoRegistrator registrator)
+        private void GenerateResearchT5(ProtoRegistrator registrator)
         {
             ResearchNodeProto.ID storageResearch = MyIDs.Research.StorageResearchT5;
 

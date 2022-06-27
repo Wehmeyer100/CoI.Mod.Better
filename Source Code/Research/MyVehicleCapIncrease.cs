@@ -93,7 +93,7 @@ namespace CoI.Mod.Better.Research
                 .AddVehicleCapIncrease(StepSize, "Assets/Base/Icons/VehicleLimitIncrease.svg")
                 .BuildAndAdd();
 
-            Debug.Log("MyVehicleCapIncrease >> GenerateStage(id: "+protoID+", costlevel: "+costLevel+") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> MyVehicleCapIncrease >> GenerateStage(id: " + protoID+", costlevel: "+costLevel+") >> created!");
             return result.AddParentPlusGridPos(parent);
         }
 

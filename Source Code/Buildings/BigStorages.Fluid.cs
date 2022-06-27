@@ -38,7 +38,7 @@ namespace CoI.Mod.Better.Buildings
 
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolidFormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageFluid1FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
 
 
             // Add new to Database
@@ -59,8 +59,8 @@ namespace CoI.Mod.Better.Buildings
             }
 
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 1).BuildAsFluidAndAdd();
-            Debug.Log("BigStorages >> FluidStoragesT1 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 1).BuildAsFluidAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> FluidStoragesT1 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void FluidStoragesT2(ProtoRegistrator registrator)
@@ -79,7 +79,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluidFormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageFluid2FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Fluid storage II", protoID)
@@ -96,8 +96,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageFluidT2).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 2).BuildAsFluidAndAdd();
-            Debug.Log("BigStorages >> FluidStoragesT2 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 2).BuildAsFluidAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> FluidStoragesT2 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void FluidStoragesT3(ProtoRegistrator registrator)
@@ -118,7 +118,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluidFormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageFluid3FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Fluid storage III", protoID)
@@ -136,8 +136,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageFluidT3).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 3).BuildAsFluidAndAdd();
-            Debug.Log("BigStorages >> FluidStoragesT3 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 3).BuildAsFluidAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> FluidStoragesT3 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         private void FluidStoragesT4(ProtoRegistrator registrator)
@@ -156,7 +156,7 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluidFormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            LocStr1 locStr = Loc.Str1("StorageFluid4FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
 
             // Add new to Database
             var creator = registrator.StorageProtoBuilder.Start("Fluid storage IV", protoID)
@@ -173,8 +173,8 @@ namespace CoI.Mod.Better.Buildings
                 creator.SetCustomIconPath(registrator.PrototypesDb.GetOrThrow<StorageProto>(Ids.Buildings.StorageFluidT4).Graphics.IconPath);
             }
             creator = SetCategory(creator);
-            SetTransferLimitByT(creator, 4).BuildAsFluidAndAdd();
-            Debug.Log("BigStorages >> FluidStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+            ProductUtility.SetTransferLimitByT(creator, 4).BuildAsFluidAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> BigStorages >> FluidStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
         }
 
         #endregion
