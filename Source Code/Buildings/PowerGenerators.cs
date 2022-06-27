@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Base.Prototypes.Machines.PowerGenerators;
@@ -77,13 +78,13 @@ namespace CoI.Mod.Better.Buildings
                         "Assets/Base/Machines/PowerPlant/Generator.prefab",
                         "Assets/Base/Machines/PowerPlant/Generator/GeneratorSound.prefab",
                         registrator.GetCategoriesProtos(MyIDs.ToolbarCategories.MachinesElectricity),
-                        BetterMod.GetIconPath<ElectricityGeneratorFromMechPowerProto>(registrator, Ids.Machines.PowerGeneratorT1)
+                        EntityProtoUtility.GetIconPath<ElectricityGeneratorFromMechPowerProto>(registrator, Ids.Machines.PowerGeneratorT1)
                     )
                 )
             );
             generator.AddParam(new ShaftInertiaProtoParam(generator.InputMechPower, 2.Seconds()));
 
-            Debug.Log("PowerGenerators >> GeneratePowerMachine (name: " + "Power generator " + kw_amount.Format().ToString() + " | input: " + kwMech_amount.Format().ToString() + " | output: " + kw_amount.Format().ToString() + ") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> PowerGenerators >> GeneratePowerMachine (name: " + "Power generator " + kw_amount.Format().ToString() + " | input: " + kwMech_amount.Format().ToString() + " | output: " + kw_amount.Format().ToString() + ") >> created!");
         }
 
 

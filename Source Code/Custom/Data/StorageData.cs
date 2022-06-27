@@ -3,6 +3,7 @@ using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
+using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Mods;
 using Mafi.Core.Products;
 using Mafi.Core.Prototypes;
@@ -46,8 +47,8 @@ namespace CoI.Mod.Better.Custom.Data
         {
             ProtoID = loadData.Id.ToString();
 
-            Name = loadData.Strings.Name.ToString();
-            Description = loadData.Strings.DescShort.ToString();
+            Name = loadData.Strings.Name.Id.ToString();
+            Description = loadData.Strings.DescShort.Id.ToString();
 
             Costs = new CostsData();
             Costs.From(loadData.Costs);
@@ -132,101 +133,15 @@ namespace CoI.Mod.Better.Custom.Data
                 return Option<StorageProtoBuilder.State>.None;
             }
 
+            LocStr nameStr = LocalizationManager.LoadOrCreateLocalizedString0(Name, Name);
+            LocStr descriptionStr = LocalizationManager.LoadOrCreateLocalizedString0(Description, Description);
+
             if (overrideProtoID && overrideStorageProto.HasValue)
             {
-                StorageData overrideData = new StorageData();
-                overrideData.From(registrator, overrideStorageProto.Value);
-                if (Name == null || Name.IsEmpty())
-                {
-                    Name = overrideData.Name;
-                }
-                else
-                {
-                    Name.CheckNotNullOrEmpty();
-                }
+                OverrideData(registrator, overrideStorageProto);
 
-                if (Description == null || Description.IsEmpty())
-                {
-                    Description = overrideData.Description;
-                }
-                else
-                {
-                    Description.CheckNotNullOrEmpty();
-                }
-
-
-                if (PrefabPath == null || PrefabPath.IsEmpty())
-                {
-                    PrefabPath = overrideData.Description;
-                }
-                else
-                {
-                    PrefabPath.CheckNotNullOrEmpty();
-                }
-
-                if (Category == null || Category == default)
-                {
-                    Category = overrideData.Category;
-                }
-
-                if (Capacity == default)
-                {
-                    Capacity = overrideData.Capacity;
-                }
-                else
-                {
-                    Capacity.CheckGreater(0);
-                }
-
-                if (TransferLimit == null || TransferLimit == default)
-                {
-                    TransferLimit = overrideData.TransferLimit;
-                }
-                else
-                {
-                    TransferLimit.CheckNotNull();
-                    TransferLimit.Count.CheckGreater(0);
-                    TransferLimit.Duration.CheckGreater(0);
-                }
-
-                if (Layout == null || Layout.Count == 0)
-                {
-                    Layout = overrideData.Layout;
-                }
-                else
-                {
-                    Layout.Count.CheckGreater(0);
-                }
-
-                if ((PileGfxParams == null || PileGfxParams == default) && overrideData.PileGfxParams != null)
-                {
-                    PileGfxParams = overrideData.PileGfxParams;
-                }
-
-                if ((FluidIndicatorGfxParams == null || FluidIndicatorGfxParams == default) && overrideData.FluidIndicatorGfxParams != null)
-                {
-                    FluidIndicatorGfxParams = overrideData.FluidIndicatorGfxParams;
-                }
-
-                if (CustomIconPath == null || CustomIconPath.IsEmpty())
-                {
-                    CustomIconPath = overrideData.CustomIconPath;
-                }
-
-                if (StorageType == StorageType.None)
-                {
-                    StorageType = overrideData.StorageType;
-                }
-
-                if (Costs == null || Costs == default)
-                {
-                    Costs = overrideData.Costs;
-                }
-
-                if ((NextTier == null || NextTier == default) && (overrideData.NextTier != null && overrideData.NextTier != default))
-                {
-                    NextTier = overrideData.NextTier;
-                }
+                nameStr = LocalizationManager.LoadOrCreateLocalizedString0(overrideStorageProto.Value.Strings.Name.Id, overrideStorageProto.Value.Strings.Name.Id);
+                descriptionStr = LocalizationManager.LoadOrCreateLocalizedString0(overrideStorageProto.Value.Strings.DescShort.Id, overrideStorageProto.Value.Strings.DescShort.Id);
             }
             else
             {
@@ -240,11 +155,10 @@ namespace CoI.Mod.Better.Custom.Data
                 Layout.Count.CheckGreater(0);
             }
 
-            Proto.Str protoStr = Proto.CreateStr(protoID, Name, Description);
 
             StorageProtoBuilder.State creator = registrator.StorageProtoBuilder
-                .Start(protoStr.Name.ToString(), protoID)
-                .Description(protoStr.DescShort)
+                .Start(nameStr.ToString(), protoID)
+                .Description(descriptionStr.ToString())
                 .SetCapacity(Capacity)
                 .SetPrefabPath(PrefabPath);
 
@@ -303,16 +217,120 @@ namespace CoI.Mod.Better.Custom.Data
                 Debug.Log("StorageData >> Into >> NextTier cannot found!");
             }
 
-            creator = Utils.SetCategory(creator, Category);
-            creator = Utils.SetTransferLimit(creator, TransferLimit);
-
-            var resultLayout = Utils.SetLayout(creator, Layout);
-            if (resultLayout.HasValue)
+            Utils.SetCategory(ref creator, Category);
+            Utils.SetTransferLimit(ref creator, TransferLimit);
+            if (StorageType == StorageType.Radioactive)
             {
-                creator = resultLayout.Value;
+                CustomLayoutToken[] customTokens = new CustomLayoutToken[2]
+                {
+                    new CustomLayoutToken("-0]", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, -h)),
+                    new CustomLayoutToken("-0|", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, -h))
+                };
+                Utils.SetLayout(ref creator, new EntityLayoutParams(null, useNewLayoutSyntax: true, customTokens), Layout);
+            }
+            else
+            {
+                Utils.SetLayout(ref creator, Layout);
             }
 
             return creator;
+        }
+
+        private void OverrideData(ProtoRegistrator registrator, Option<StorageProto> overrideStorageProto)
+        {
+            StorageData overrideData = new StorageData();
+            overrideData.From(registrator, overrideStorageProto.Value);
+            if (Name == null || Name.IsEmpty())
+            {
+                Name = overrideData.Name;
+            }
+            else
+            {
+                Name.CheckNotNullOrEmpty();
+            }
+
+            if (Description == null || Description.IsEmpty())
+            {
+                Description = overrideData.Description;
+            }
+            else
+            {
+                Description.CheckNotNullOrEmpty();
+            }
+
+
+            if (PrefabPath == null || PrefabPath.IsEmpty())
+            {
+                PrefabPath = overrideData.Description;
+            }
+            else
+            {
+                PrefabPath.CheckNotNullOrEmpty();
+            }
+
+            if (Category == null || Category == default)
+            {
+                Category = overrideData.Category;
+            }
+
+            if (Capacity == default)
+            {
+                Capacity = overrideData.Capacity;
+            }
+            else
+            {
+                Capacity.CheckGreater(0);
+            }
+
+            if (TransferLimit == null || TransferLimit == default)
+            {
+                TransferLimit = overrideData.TransferLimit;
+            }
+            else
+            {
+                TransferLimit.CheckNotNull();
+                TransferLimit.Count.CheckGreater(0);
+                TransferLimit.Duration.CheckGreater(0);
+            }
+
+            if (Layout == null || Layout.Count == 0)
+            {
+                Layout = overrideData.Layout;
+            }
+            else
+            {
+                Layout.Count.CheckGreater(0);
+            }
+
+            if ((PileGfxParams == null || PileGfxParams == default) && overrideData.PileGfxParams != null)
+            {
+                PileGfxParams = overrideData.PileGfxParams;
+            }
+
+            if ((FluidIndicatorGfxParams == null || FluidIndicatorGfxParams == default) && overrideData.FluidIndicatorGfxParams != null)
+            {
+                FluidIndicatorGfxParams = overrideData.FluidIndicatorGfxParams;
+            }
+
+            if (CustomIconPath == null || CustomIconPath.IsEmpty())
+            {
+                CustomIconPath = overrideData.CustomIconPath;
+            }
+
+            if (StorageType == StorageType.None)
+            {
+                StorageType = overrideData.StorageType;
+            }
+
+            if (Costs == null || Costs == default)
+            {
+                Costs = overrideData.Costs;
+            }
+
+            if ((NextTier == null || NextTier == default) && (overrideData.NextTier != null && overrideData.NextTier != default))
+            {
+                NextTier = overrideData.NextTier;
+            }
         }
 
         public void Build(ProtoRegistrator registrator)
@@ -328,20 +346,17 @@ namespace CoI.Mod.Better.Custom.Data
                 registrator.PrototypesDb.RemoveOrThrow(new StaticEntityProto.ID(ProtoID));
             }
 
-            Option<StorageProto> result = Option<StorageProto>.None;
             switch (StorageType)
             {
+                case StorageType.Radioactive:
                 case StorageType.Flat:
-                    result = creator.Value.BuildAndAdd(CountableProductProto.ProductType);
+                    creator.Value.BuildAndAdd(CountableProductProto.ProductType);
                     break;
                 case StorageType.Fluid:
-                    result = creator.Value.BuildAsFluidAndAdd();
+                    creator.Value.BuildAsFluidAndAdd();
                     break;
                 case StorageType.Loose:
-                    result = creator.Value.BuildAsLooseAndAdd();
-                    break;
-                case StorageType.Radioactive:
-                    result = creator.Value.BuildAndAdd(CountableProductProto.ProductType);
+                    creator.Value.BuildAsLooseAndAdd();
                     break;
             }
         }

@@ -2,6 +2,7 @@
 using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Mods;
 using Mafi.Core.Prototypes;
+using Mafi.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace CoI.Mod.Better.Custom.Data
         public void From(ToolbarCategoryProto toolbarCategoryProto)
         {
             ProtoID = toolbarCategoryProto.Id.ToString();
-            Name = toolbarCategoryProto.Strings.Name.ToString();
+            Name = toolbarCategoryProto.Strings.Name.Id.ToString();
             Order = (int)toolbarCategoryProto.Order;
             IconPath = toolbarCategoryProto.IconPath;
             isTransportBuildAllowed = toolbarCategoryProto.IsTransportBuildAllowed;
@@ -61,42 +62,7 @@ namespace CoI.Mod.Better.Custom.Data
 
             if (overrideProtoID)
             {
-                ToolbarData overrideData = new ToolbarData();
-                overrideData.From(overrideProto.Value);
-
-                if (Name == null || Name.IsEmpty())
-                {
-                    Name = overrideData.Name;
-                }
-                else
-                {
-                    Name.CheckNotNullOrEmpty();
-                }
-
-                if (IconPath == null || IconPath.IsEmpty())
-                {
-                    IconPath = overrideData.IconPath;
-                }
-                else
-                {
-                    IconPath.CheckNotNullOrEmpty();
-                }
-
-                if (Order == default)
-                {
-                    Order = overrideData.Order;
-                }
-                else
-                {
-                    Order.CheckNotNegative();
-                }
-
-                if ((ShortcutID == null || ShortcutID.IsEmpty()) && overrideData.ShortcutID != null && !overrideData.ShortcutID.IsEmpty())
-                {
-                    ShortcutID = overrideData.ShortcutID;
-                }
-
-                isTransportBuildAllowed = overrideData.isTransportBuildAllowed;
+                OverrideData(overrideProto);
             }
             else
             {
@@ -111,15 +77,65 @@ namespace CoI.Mod.Better.Custom.Data
                 ShortcutID = "";
             }
 
-            Proto.Str protoStr = Proto.CreateStr(protoID, Name);
+            //Loc.Str(id.Value + "__name", name, "name" + translationComment), (descShort != null) ? Loc.Str(id.Value + "__desc", descShort, "short description" + translationComment) : LocStr.Empty
+
+            Proto.Str strings;
+            if (overrideProtoID)
+            {
+                strings = new Proto.Str(LocalizationManager.LoadOrCreateLocalizedString0(Name, Name), LocStr.Empty);
+            }
+            else
+            {
+                strings = new Proto.Str(Loc.Str(protoID.ToString() + "__name", protoID.ToString(), ""), LocStr.Empty);
+            }
             return Option<ToolbarCategoryProto>.Some(new ToolbarCategoryProto(
                         protoID,
-                        protoStr,
+                        strings,
                         Order,
                         IconPath,
                         isTransportBuildAllowed: isTransportBuildAllowed,
                         shortcutId: ShortcutID
                     ));
+        }
+
+        private void OverrideData(Option<ToolbarCategoryProto> overrideProto)
+        {
+            ToolbarData overrideData = new ToolbarData();
+            overrideData.From(overrideProto.Value);
+
+            if (Name == null || Name.IsEmpty())
+            {
+                Name = overrideData.Name;
+            }
+            else
+            {
+                Name.CheckNotNullOrEmpty();
+            }
+
+            if (IconPath == null || IconPath.IsEmpty())
+            {
+                IconPath = overrideData.IconPath;
+            }
+            else
+            {
+                IconPath.CheckNotNullOrEmpty();
+            }
+
+            if (Order == default)
+            {
+                Order = overrideData.Order;
+            }
+            else
+            {
+                Order.CheckNotNegative();
+            }
+
+            if ((ShortcutID == null || ShortcutID.IsEmpty()) && overrideData.ShortcutID != null && !overrideData.ShortcutID.IsEmpty())
+            {
+                ShortcutID = overrideData.ShortcutID;
+            }
+
+            isTransportBuildAllowed = overrideData.isTransportBuildAllowed;
         }
 
         public void Build(ProtoRegistrator registrator)
@@ -129,7 +145,6 @@ namespace CoI.Mod.Better.Custom.Data
             {
                 return;
             }
-
 
             if (overrideProtoID)
             {

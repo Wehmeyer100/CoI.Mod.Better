@@ -1,4 +1,5 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.Utilities;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core;
 using Mafi.Core.Entities.Static;
@@ -168,7 +169,7 @@ namespace CoI.Mod.Better.Custom.Types
             if (CustomFrom != null && !CustomFrom.Trim().IsEmpty())
             {
                 CustomFrom = CustomFrom.Trim();
-                IEnumerable<PropertyInfo> result = BetterMod.GetAllProperty(typeof(Mafi.Base.Costs));
+                IEnumerable<PropertyInfo> result = ReflectionUtility.GetAllProperty(typeof(Mafi.Base.Costs));
                 foreach (PropertyInfo data in result)
                 {
                     if (data.Name == CustomFrom)

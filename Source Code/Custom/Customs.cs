@@ -1,4 +1,6 @@
 ﻿using CoI.Mod.Better.Custom.Data;
+using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core;
@@ -22,11 +24,12 @@ namespace CoI.Mod.Better.Custom
 {
     public class Customs : IModData
     {
-        public static readonly string customFolder = BetterMod.MOD_ROOT_DIR_PATH + "/Mods/CoI.Mod.Better/Customs/";
-        public List<Func<ProtoRegistrator, List<CustomData>>> OnLoadCustoms = new List<Func<ProtoRegistrator, List<CustomData>>>();
+        public List<Func<ProtoRegistrator, List<object>>> OnLoadCustoms = new List<Func<ProtoRegistrator, List<object>>>();
         public List<Func<ProtoRegistrator, List<string>>> OnLoadFiles = new List<Func<ProtoRegistrator, List<string>>>();
 
-        private List<CustomData> customsData = new List<CustomData>();
+        private List<CustomData> customsData = new List<CustomData>() { new CustomData() };
+
+        public static readonly string FILE_EXT = ".json";
 
         public void RegisterData(ProtoRegistrator registrator)
         {
@@ -37,25 +40,17 @@ namespace CoI.Mod.Better.Custom
             Build(registrator);
 
             Test(registrator);
+
+            customsData.Clear();
         }
 
         private void LoadFiles(ProtoRegistrator registrator)
         {
-            List<string> foundedFiles = new List<string>();
+            List<(string, Type)> foundedFiles = new List<(string, Type)>();
 
-            if (Directory.Exists(customFolder))
-            {
-                string[] allFiles = Directory.GetFiles(customFolder);
-                foreach (string file_path in allFiles)
-                {
-                    string ext = Path.GetExtension(file_path);
-                    if (ext == ".json")
-                    {
-                        foundedFiles.Add(file_path);
-                    }
-                }
-            }
-
+            LoadData<CustomData>("", ref foundedFiles, false);
+            LoadData<StorageData>("Storages", ref foundedFiles, true);
+            LoadData<ToolbarData>("Toolbars", ref foundedFiles, true);
 
             foreach (Func<ProtoRegistrator, List<string>> call in OnLoadFiles)
             {
@@ -68,36 +63,53 @@ namespace CoI.Mod.Better.Custom
                     if (File.Exists(file_path))
                     {
                         string ext = Path.GetExtension(file_path);
-                        if (ext == ".json")
+                        if (ext == FILE_EXT)
                         {
-                            foundedFiles.Add(file_path);
+                            foundedFiles.Add((file_path, typeof(CustomData)));
                         }
                         else
                         {
-                            Debug.Log("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles has the wrong extension! Must .json!");
+                            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles has the wrong extension! Must .json!");
                         }
                     }
                     else
                     {
-                        Debug.Log("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles cannot find!");
+                        Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles cannot find!");
                     }
                 }
             }
 
 
 
-            foreach (string file_path in foundedFiles)
+            foreach ((string file_path, Type type) in foundedFiles)
             {
                 try
                 {
                     string content = File.ReadAllText(file_path);
-                    CustomData readData = JsonConvert.DeserializeObject<CustomData>(content, new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
-                    readData.FilePath = file_path;
-                    customsData.Add(readData);
+                    if (type == typeof(CustomData))
+                    {
+                        CustomData readData = (CustomData)JsonConvert.DeserializeObject(content, type, new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
+                        readData.FilePath = file_path;
+                        customsData.Add(readData);
+                    }
+                    else
+                    {
+                        if (type == typeof(StorageData))
+                        {
+                            StorageData data = (StorageData)JsonConvert.DeserializeObject(content, type, new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
+                            customsData[0].Add(data);
+                        }
+                        else if (type == typeof(ToolbarData))
+                        {
+                            ToolbarData data = (ToolbarData)JsonConvert.DeserializeObject(content, type, new JsonSerializerSettings() { Formatting = Formatting.Indented, NullValueHandling = NullValueHandling.Ignore });
+                            customsData[0].Add(data);
+                        }
+                    }
+                    Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> Loading file(file: " + file_path + ", type: " + type.FullName + ") >> Custom has loaded. ");
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Customs >> Loading file(file: " + file_path + ") >> Custom cannot reading! >> " + e.ToString());
+                    Debug.LogWarning("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> Loading file(file: " + file_path + ", type: " + type.FullName + ") >> Custom cannot reading! >> " + e.ToString());
                     continue;
                 }
             }
@@ -105,15 +117,57 @@ namespace CoI.Mod.Better.Custom
 
         private void ExternalCustoms(ProtoRegistrator registrator)
         {
-            foreach (Func<ProtoRegistrator, List<CustomData>> call in OnLoadCustoms)
+            foreach (Func<ProtoRegistrator, List<object>> call in OnLoadCustoms)
             {
-                List<CustomData> result = call?.Invoke(registrator);
-                foreach (CustomData data in result)
+                List<object> result = call?.Invoke(registrator);
+                foreach (object data in result)
                 {
                     if (data == null || data == default)
                         continue;
 
-                    customsData.Add(data);
+                    if (data is CustomData castData)
+                    {
+                        customsData.Add(castData);
+                    }
+                    else
+                    {
+                        if (data is StorageData castData1)
+                        {
+                            customsData[0].Add(castData1);
+                        }
+                        else if (data is ToolbarData castData2)
+                        {
+                            customsData[0].Add(castData2);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void LoadData<T>(string directory, ref List<(string, Type)> foundedFiles, bool recusive) where T : class
+        {
+            string dir_path = Path.Combine(BetterMod.CUSTOMS_DIR_PATH, directory);
+
+            if (!Directory.Exists(dir_path))
+            {
+                return;
+            }
+
+            if (recusive)
+            {
+                foreach (string dir in Directory.GetDirectories(dir_path))
+                {
+                    LoadData<T>(dir, ref foundedFiles, recusive);
+                }
+            }
+
+            string[] allFiles = Directory.GetFiles(dir_path);
+            foreach (string file_path in allFiles)
+            {
+                string ext = Path.GetExtension(file_path);
+                if (ext == FILE_EXT)
+                {
+                    foundedFiles.Add((file_path, typeof(T)));
                 }
             }
         }
@@ -128,7 +182,7 @@ namespace CoI.Mod.Better.Custom
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("Customs >> Building Data(file: " + data.FilePath + ") >> Custom cannot build! >> " + e.ToString());
+                    Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> Building Data(file: " + data.FilePath + ") >> Custom cannot build! >> " + e.ToString());
                     continue;
                 }
             }
@@ -162,7 +216,7 @@ namespace CoI.Mod.Better.Custom
             //var result = JsonUtility.ToJson(storageData, true);
             string file_path = BetterMod.MOD_DIR_PATH + "/testStorages.json";
             var result = JsonConvert.SerializeObject(testData, settings);
-            if (File.Exists(file_path)) 
+            if (File.Exists(file_path))
             {
                 File.Delete(file_path);
             }
@@ -173,7 +227,7 @@ namespace CoI.Mod.Better.Custom
         private List<Prototype> AllVanillaBuildings<Prototype>(ProtoRegistrator registrator) where Prototype : Proto
         {
             List<Prototype> results = new List<Prototype>();
-            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.Buildings));
+            IEnumerable<FieldInfo> result = ReflectionUtility.GetAllFields(typeof(Ids.Buildings));
 
             foreach (FieldInfo field in result)
             {
@@ -187,7 +241,7 @@ namespace CoI.Mod.Better.Custom
                     if (resultProduct.HasValue)
                     {
                         results.Add(resultProduct.Value);
-                        Debug.Log("Customs >> AllVanillaBuildings<" + typeof(Prototype) + "> >> name: " + resultProduct.Value.Strings.Name.ToString() + " | id: " + resultProduct.Value.Id);
+                        Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> AllVanillaBuildings<" + typeof(Prototype) + "> >> name: " + resultProduct.Value.Strings.Name.ToString() + " | id: " + resultProduct.Value.Id);
                     }
                 }
             }
@@ -195,10 +249,10 @@ namespace CoI.Mod.Better.Custom
         }
 
 
-        private List<ToolbarCategoryProto> AllVanillaToolbars(ProtoRegistrator registrator) 
+        private List<ToolbarCategoryProto> AllVanillaToolbars(ProtoRegistrator registrator)
         {
             List<ToolbarCategoryProto> results = new List<ToolbarCategoryProto>();
-            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.ToolbarCategories));
+            IEnumerable<FieldInfo> result = ReflectionUtility.GetAllFields(typeof(Ids.ToolbarCategories));
 
             foreach (FieldInfo field in result)
             {
@@ -212,7 +266,7 @@ namespace CoI.Mod.Better.Custom
                     if (resultProduct.HasValue)
                     {
                         results.Add(resultProduct.Value);
-                        Debug.Log("Customs >> AllVanillaToolbars<" + typeof(ToolbarCategoryProto) + "> >> name: " + resultProduct.Value.Strings.Name.ToString() + " | id: " + resultProduct.Value.Id);
+                        Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> Customs >> AllVanillaToolbars<" + typeof(ToolbarCategoryProto) + "> >> name: " + resultProduct.Value.Strings.Name.ToString() + " | id: " + resultProduct.Value.Id);
                     }
                 }
             }

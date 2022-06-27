@@ -17,5 +17,6 @@ namespace CoI.Mod.Better.ModConfigs.Configs
         public bool DieselGeneators = true;
         public bool PowerGeneators = true;
         public bool Customs = true;
+        public bool SteamStorage = true;
     }
 }

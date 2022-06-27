@@ -8,5 +8,7 @@ namespace CoI.Mod.Better.ModConfigs.Configs
     {
         public bool UnlockAllCheatsResearches = false;
         public float CheatUpkeepEdicts = -2.0f;
+
+        public int CheatResearchCosts = 1;
     }
 }

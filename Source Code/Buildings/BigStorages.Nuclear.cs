@@ -1,4 +1,5 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.Utilities;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
@@ -46,7 +47,7 @@ namespace CoI.Mod.Better.Buildings
                     id: protoID,
                     Proto.CreateStr(protoID, "Spent fuel storage", "A special underground storage facility that can safely manage any radioactive waste without causing any danger to the island’s population. Leaving a legacy for the next generations to come."),
                     layout,
-                    productsFilter: radioactiveProductFilter,
+                    productsFilter: ProductUtility.RadioactiveProductFilter,
                     productType: CountableProductProto.ProductType,
                     capacity: capacity_nuclear.Quantity(),
                     costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),

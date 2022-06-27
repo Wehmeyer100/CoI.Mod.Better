@@ -1,6 +1,6 @@
 # CoI.Mod.Better
 
-Game Version(Comptability): 0.4.5a
+Game Version(Comptability): 0.4.5b
 
 Savegame Comptability: You need to start a new game!
 

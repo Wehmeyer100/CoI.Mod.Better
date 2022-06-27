@@ -1,4 +1,5 @@
-﻿using Mafi.Core.Game;
+﻿using CoI.Mod.Better.Utilities;
+using Mafi.Core.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace CoI.Mod.Better.ModConfigs.Configs
         public void Print(object sender)
         {
             Debug.Log("- Config: " + sender.GetType().Name);
-            foreach (FieldInfo field in BetterMod.GetAllFields(sender.GetType()))
+            foreach (FieldInfo field in ReflectionUtility.GetAllFields(sender.GetType()))
             {
                 object result = field.GetValue(sender);
                 if (result is IConfigBase)

@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Entities.Animations;
@@ -6,8 +7,8 @@ using Mafi.Core.Factory.Machines;
 using Mafi.Core.Factory.Recipes;
 using Mafi.Core.Mods;
 using Mafi.Core.Products;
+using Mafi.Core.Prototypes;
 using Mafi.Core.Research;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -17,309 +18,341 @@ using UnityEngine;
 
 namespace CoI.Mod.Better.Buildings
 {
+    public class VoidCrusherData
+    {
+        public MachineProto Machine;
+
+        public Duration currentDuration = 20.Seconds();
+        public int currentInputAmount = 0;
+
+        public bool hasOutput = false;
+
+        public ProductProto.ID output = Ids.Products.Recyclables;
+        public ProductProto.ID outputNoneRecyclables = Ids.Products.Gravel;
+    }
+
     public class VoidCrusher : IModData
     {
-        private Duration currentDuration = 20.Seconds();
-        private int currentInputAmount = 0;
-        private bool hasOutput = false;
-
-        private MachineProto machine;
-
-        private ProductProto.ID output = Ids.Products.Recyclables;
-        private ProductProto.ID outputNoneRecyclables = Ids.Products.Gravel;
-
         public void RegisterData(ProtoRegistrator registrator)
         {
             if (!BetterMod.Config.Systems.VoidCrusher) return;
 
-            Debug.Log("VoidCrusher >> Generate Research");
 
-            GenerateMachineVanilla(registrator);
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate vanilla machines.");
+            GenerateVanillaMachine(registrator);
 
-            // Generate Research
-            ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Crusher", MyIDs.Research.VoidCrusher)
-                .SetCosts(3)
-                .AddMachineToUnlock(MyIDs.Machines.VoidCrusher)
-                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusher)
-                .AddParent(Ids.Research.ConcreteProduction);
-
-            ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
-            // Load Master Research Proto
-            ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(Ids.Research.ConcreteProduction);
-            // Add parent to my research T1
-            research_t1.AddParentPlusGridPos(master_research, ui_stepSize_x: BetterMod.UI_StepSize * 2, ui_stepSize_y: -6);
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate vanilla research.");
+            GenerateVanillaResearch(registrator);
 
             // Add Cheats
             if (BetterMod.Config.Systems.Cheats)
             {
-                Cheats(registrator);
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate cheat machines.");
+                GenerateCheatsMachine(registrator);
+
+                Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate cheat researches.");
+                GenerateCheatsResearch(registrator);
             }
         }
 
-        private void Cheats(ProtoRegistrator registrator)
+        #region Researches
+        private void GenerateVanillaResearch(ProtoRegistrator registrator)
         {
-            Debug.Log("VoidCrusher >> Generate Cheat Research");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Researchs..");
 
-            GenerateMachineCheat(registrator);
-            GenerateMachineCheatFluid(registrator);
-            GenerateMachineCheatLoose(registrator);
+            // Generate Research T1
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, "Void Crusher", MyIDs.Machines.VoidCrusher, Ids.Research.ConcreteProduction, BetterMod.UI_StepSize * 2, (int)(-(BetterMod.UI_StepSize * 1.5f)), new ResearchCostsTpl(3));
 
-            GenerateMachineRecyclables(registrator);
 
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Researchs done.");
+        }
+
+        private void GenerateCheatsResearch(ProtoRegistrator registrator)
+        {
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs..");
+
+            // Generate Research T1
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherCheat, "Void Crusher CHEAT", MyIDs.Machines.VoidCrusherCheat, MyIDs.Research.VehicleCapIncreaseID_ZERO, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
+
+            // Generate Research T1
+            ResearchNodeProto research_t1 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherRecyclablesCheat, "Void Crusher Recyclables CHEAT", MyIDs.Machines.VoidCrusherRecyclablesCheat, research_t0);
+
+            // Generate Research T2
+            ResearchNodeProto research_t2 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherFluidCheat, "Void Crusher Fluid CHEAT", MyIDs.Machines.VoidCrusherFluidCheat, research_t1);
+
+            // Generate Research T3
+            GenerateResearch(registrator, MyIDs.Research.VoidCrusherLooseCheat, "Void Crusher Loose CHEAT", MyIDs.Machines.VoidCrusherLooseCheat, research_t2);
+
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs done.");
+        }
+
+        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto.ID previusResearchID, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
+        {
+            return GenerateResearch(registrator, protoID, name, machineID, registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(previusResearchID), ui_stepSize_x, ui_stepSize_y, costs);
+        }
+
+        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto previusResearch, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
+        {
             // Generate Research
-            ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Crusher CHEAT", MyIDs.Research.VoidCrusherCheat)
-                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherCheat)
-                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherRecyclablesCheat)
-                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherCheat)
-                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherRecyclablesCheat);
+            ResearchNodeProtoBuilder.State research_state = registrator.ResearchNodeProtoBuilder
+                .Start(name, protoID)
+                .AddMachineToUnlock(machineID)
+                .AddAllRecipesOfMachineToUnlock(machineID);
 
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+            if (costs == null)
             {
-                research_state_t1.SetCostsFree();
+                if (BetterMod.Config.Default.UnlockAllCheatsResearches)
+                {
+                    research_state.SetCostsFree();
+                }
+                else
+                {
+                    research_state.SetCostsOne();
+                }
             }
             else
             {
-                research_state_t1.SetCostsOne();
+                research_state.SetCosts(costs);
             }
-            ResearchNodeProto research_t1 = research_state_t1.BuildAndAdd();
-
-            // Add parent to my research T2
-            ResearchNodeProto parent_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO);
-            research_t1.AddParentPlusGridPos(parent_research, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
-
-            // Generate Research
-            ResearchNodeProtoBuilder.State research_state_t2 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Crusher Fluid CHEAT", MyIDs.Research.VoidCrusherFluidCheat)
-                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat)
-                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherFluidCheat);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                research_state_t2.SetCostsFree();
-            }
-            else
-            {
-                research_state_t2.SetCostsOne();
-            }
-            ResearchNodeProto research_t2 = research_state_t2.BuildAndAdd();
-
-            // Add parent to my research T3
-            research_t2.AddParentPlusGridPos(research_t1);
-
-            // Generate Research
-            ResearchNodeProtoBuilder.State research_state_t3 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Crusher Loose CHEAT", MyIDs.Research.VoidCrusherLooseCheat)
-                .AddMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat)
-                .AddAllRecipesOfMachineToUnlock(MyIDs.Machines.VoidCrusherLooseCheat);
-
-            if (BetterMod.Config.Default.UnlockAllCheatsResearches)
-            {
-                research_state_t3.SetCostsFree();
-            }
-            else
-            {
-                research_state_t3.SetCostsOne();
-            }
-            ResearchNodeProto research_t3 = research_state_t3.BuildAndAdd();
+            ResearchNodeProto research = research_state.BuildAndAdd();
 
             // Add parent to my research T1
-            research_t3.AddParentPlusGridPos(research_t2);
+            research.AddParentPlusGridPos(previusResearch, ui_stepSize_x, ui_stepSize_y);
+            return research;
         }
 
-        private void GenerateMachineVanilla(ProtoRegistrator registrator)
+        #endregion
+
+        #region Machines
+
+        private void GenerateVanillaMachine(ProtoRegistrator registrator)
         {
-            currentDuration = 20.Seconds();
-            currentInputAmount = 20;
-            hasOutput = true;
+            MachineProto machine = GenerateMachine
+            (
+                registrator,
+                MyIDs.Machines.VoidCrusher,
+                "Void Crusher",
+                "Destroy Products with waste",
+                Costs.Machines.Crusher,
+                150,
+                10,
+                MyIDs.ToolbarCategories.MachinesMetallurgy,
+                " # >3A[4][3][3][3]X3> ~ "
+            );
 
-            // Generate Machine
-            machine = registrator.MachineProtoBuilder
-                .Start("Void Crusher", MyIDs.Machines.VoidCrusher)
-                .Description("Destroy Products with waste", "short description of a machine")
-                .SetCost(Costs.Machines.Crusher)
-                .SetElectricityConsumption(150.Kw())
-                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
-                .SetLayout(
-                    "   [3][4][3][3][3][3]   ",
-                    " # >3A[4][3][3][3]X3> ~ ",
-                    "   [3][4][3][3][3][3]   ",
-                    "   [2][3][2][2]         ")
-                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
-                .SetAnimationParams(AnimationParams.Loop())
-                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(10)
-                .SetAsLockedOnInit()
-                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
-                .BuildAndAdd();
-
-            output = Ids.Products.Recyclables;
-            outputNoneRecyclables = Ids.Products.Gravel;
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct<CountableProductAttribute>(registrator);
+            VoidCrusherData crusherData = new VoidCrusherData()
+            {
+                Machine = machine,
+                currentDuration = 20.Seconds(),
+                currentInputAmount = 20,
+
+                hasOutput = true,
+                output = Ids.Products.Recyclables,
+                outputNoneRecyclables = Ids.Products.Gravel
+            };
+            GenerateProductRecipes(registrator, crusherData);
         }
 
-        private void GenerateMachineCheat(ProtoRegistrator registrator)
+        private void GenerateCheatsMachine(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
-            hasOutput = false;
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Machines..");
 
-            machine = registrator.MachineProtoBuilder
-                .Start("Void Crusher Cheat", MyIDs.Machines.VoidCrusherCheat)
-                .Description("Destroy Products without waste", "short description of a machine")
-                .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
-                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
-                .SetLayout(
-                "   [3][4][3][3][3][3]   ",
-                "#3 >3A[4][3][3][3][3]   ",
-                "   [3][4][3][3][3][3]   ",
-                "   [2][3][2][2]         ")
-                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
-                .SetAnimationParams(AnimationParams.Loop())
-                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
-                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
-                .SetAsLockedOnInit()
-                .BuildAndAdd();
+            GenerateMachineCountable(registrator);
+            GenerateMachineCheatFluid(registrator);
+            GenerateMachineCheatLoose(registrator);
+            GenerateMachineCheatRecyclables(registrator);
 
-            // Generate Products Recipes for the Machine
-            GenerateCountableProduct<CountableProductAttribute>(registrator, true);
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Machines done.");
         }
 
-        private void GenerateMachineRecyclables(ProtoRegistrator registrator)
+        private void GenerateMachineCountable(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
-            hasOutput = true;
-
-            machine = registrator.MachineProtoBuilder
-                .Start("Void Crusher Cheat Recyclables", MyIDs.Machines.VoidCrusherRecyclablesCheat)
-                .Description("Destroy Products to recyclables", "short description of a machine")
-                .SetCost(Costs.Machines.Crusher)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
-                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
-                .SetLayout(
-                    "   [3][4][3][3][3][3]   ",
-                    " # >3A[4][3][3][3]X3> ~ ",
-                    "   [3][4][3][3][3][3]   ",
-                    "   [2][3][2][2]         ")
-                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
-                .SetAnimationParams(AnimationParams.Loop())
-                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
-                .SetAsLockedOnInit()
-                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
-                .BuildAndAdd();
-
-            output = Ids.Products.Recyclables;
-            outputNoneRecyclables = Ids.Products.Recyclables;
+            MachineProto machine = GenerateMachine
+            (
+                registrator,
+                MyIDs.Machines.VoidCrusherCheat,
+                "Void Crusher Cheat",
+                "Destroy Products without waste",
+                Costs.Machines.Crusher,
+                BetterMod.Config.VoidDestroy.PowerConsume,
+                BetterMod.Config.VoidDestroy.Emission,
+                MyIDs.ToolbarCategories.MachinesMetallurgy,
+                "#3 >3A[4][3][3][3][3]   "
+            );
 
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct<CountableProductAttribute>(registrator, true, "Recyclables");
+            VoidCrusherData crusherData = new VoidCrusherData()
+            {
+                Machine = machine,
+                currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds(),
+                currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput,
+
+                hasOutput = false
+            };
+            GenerateProductRecipes(registrator, crusherData, true);
+        }
+
+        private void GenerateMachineCheatRecyclables(ProtoRegistrator registrator)
+        {
+            MachineProto machine = GenerateMachine
+            (
+                registrator,
+                MyIDs.Machines.VoidCrusherRecyclablesCheat,
+                "Void Crusher Recyclables",
+                "Destroy Products to recyclables",
+                Costs.Machines.Crusher,
+                BetterMod.Config.VoidDestroy.PowerConsume,
+                BetterMod.Config.VoidDestroy.Emission,
+                MyIDs.ToolbarCategories.MachinesMetallurgy,
+                " # >3A[4][3][3][3]X3> ~ "
+            );
+
+            // Generate Products Recipes for the Machine
+            VoidCrusherData crusherData = new VoidCrusherData()
+            {
+                Machine = machine,
+                currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds(),
+                currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput,
+
+                hasOutput = true,
+                output = Ids.Products.Recyclables,
+                outputNoneRecyclables = Ids.Products.Recyclables,
+            };
+            GenerateProductRecipes(registrator, crusherData, true, "Recyclables");
         }
 
         private void GenerateMachineCheatLoose(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
-            hasOutput = false;
-
-            machine = registrator.MachineProtoBuilder
-                .Start("Void Crusher Loose Cheat", MyIDs.Machines.VoidCrusherLooseCheat)
-                .Description("Destroy Loose without waste", "short description of a machine")
-                .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
-                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
-                .SetLayout(
-                "   [3][4][3][3][3][3]   ",
-                "~3 >3A[4][3][3][3][3]   ",
-                "   [3][4][3][3][3][3]   ",
-                "   [2][3][2][2]         ")
-                .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
-                .SetAnimationParams(AnimationParams.Loop())
-                .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
-                .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
-                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
-                .SetAsLockedOnInit()
-                .BuildAndAdd();
+            MachineProto machine = GenerateMachine
+            (
+                registrator,
+                MyIDs.Machines.VoidCrusherLooseCheat,
+                "Void Crusher Loose Cheat",
+                "Destroy Loose without waste",
+                Costs.Machines.Crusher,
+                BetterMod.Config.VoidDestroy.PowerConsume,
+                BetterMod.Config.VoidDestroy.Emission,
+                MyIDs.ToolbarCategories.MachinesMetallurgy,
+                "~3 >3A[4][3][3][3][3]   "
+            );
 
             // Generate Products Recipes for the Machine
-            GenerateCountableProduct<LooseProductAttribute>(registrator, true, "loose");
+            VoidCrusherData crusherData = new VoidCrusherData()
+            {
+                Machine = machine,
+                currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds(),
+                currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput,
+                hasOutput = false
+            };
+            GenerateLooseRecipes(registrator, crusherData, true, "loose");
         }
 
         private void GenerateMachineCheatFluid(ProtoRegistrator registrator)
         {
-            currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds();
-            currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput;
-            hasOutput = false;
+            MachineProto machine = GenerateMachine
+            (
+                registrator,
+                MyIDs.Machines.VoidCrusherFluidCheat,
+                "Void Crusher Fluid Cheat",
+                "Destroy fluid without waste",
+                Costs.Machines.Crusher,
+                BetterMod.Config.VoidDestroy.PowerConsume,
+                BetterMod.Config.VoidDestroy.Emission,
+                MyIDs.ToolbarCategories.MachinesMetallurgy,
+                "@3 >3A[4][3][3][3][3]   "
+            );
 
-            machine = registrator.MachineProtoBuilder
-                .Start("Void Crusher Fluid Cheat", MyIDs.Machines.VoidCrusherFluidCheat)
-                .Description("Destroy fluid without waste", "short description of a machine")
-                .SetCost(Costs.Machines.SmokeStack)
-                .SetElectricityConsumption(Electricity.FromKw(BetterMod.Config.VoidDestroy.PowerConsume))
-                .SetCategories(MyIDs.ToolbarCategories.MachinesMetallurgy)
+            // Generate Products Recipes for the Machine
+            VoidCrusherData crusherData = new VoidCrusherData()
+            {
+                Machine = machine,
+                currentDuration = BetterMod.Config.VoidDestroy.Duration.Seconds(),
+                currentInputAmount = BetterMod.Config.VoidDestroy.AmountInput,
+                hasOutput = false
+            };
+            GenerateFluidRecipes(registrator, crusherData, true, "fluid");
+        }
+
+        private MachineProto GenerateMachine(ProtoRegistrator registrator, MachineProto.ID protoID, string name, string desc, EntityCostsTpl costs, int powerConsume, int emission, Proto.ID categorie, string middleLayout)
+        {
+            return registrator.MachineProtoBuilder
+                .Start(name, protoID)
+                .Description(desc, "short description of a machine")
+                .SetCost(costs)
+                .SetElectricityConsumption(Electricity.FromKw(powerConsume))
+                .SetCategories(categorie)
                 .SetLayout(
                 "   [3][4][3][3][3][3]   ",
-                "@3 >3A[4][3][3][3][3]   ",
+                middleLayout,
                 "   [3][4][3][3][3][3]   ",
                 "   [2][3][2][2]         ")
                 .SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
                 .SetAnimationParams(AnimationParams.Loop())
                 .SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
                 .SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
-                .SetCustomIconPath(BetterMod.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
+                .SetCustomIconPath(EntityProtoUtility.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
                 .SetAsLockedOnInit()
                 .BuildAndAdd();
-
-            // Generate Products Recipes for the Machine
-            GenerateCountableProduct<FluidProductAttribute>(registrator, true, "fluid");
         }
+       
+        #endregion
 
-        private void GenerateCountableProduct<T>(ProtoRegistrator registrator, bool cheat = false, string title_addr = "") where T : ProductAttribute
+        #region Recipes
+
+        private void GenerateProductRecipes(ProtoRegistrator registrator, VoidCrusherData data, bool cheat = false, string title_addr = "")
         {
-            IEnumerable<FieldInfo> result = BetterMod.GetAllFields(typeof(Ids.Products));
-
-            foreach (FieldInfo field in result)
+            List<(string, ProductProto)> result = ProductUtility.GetCountableProducts(registrator, ignorList: new List<ProductProto.ID>() { data.output });
+            foreach ((string fieldName, ProductProto product) in result)
             {
-                string fieldName = field.Name;
-                object value = field.GetValue(null);
-                if (field.IsStatic && value != null && value is ProductProto.ID && field.GetCustomAttributes(typeof(T), false).Length > 0)
-                {
-                    ProductProto.ID fieldValue = (ProductProto.ID)value;
-                    if (fieldValue == output)
-                    {
-                        continue;
-                    }
-
-                    Option<ProductProto> resultProduct = registrator.PrototypesDb.Get<ProductProto>(fieldValue);
-                    if (resultProduct.HasValue && resultProduct.Value.IsStorable && resultProduct.Value.Radioactivity == 0)
-                    {
-                        GenerateRecipes(registrator, new RecipeProto.ID("MyVoidCrusherRecipeDynamic" + title_addr + (cheat ? "Cheat" : "") + fieldName.Trim()), resultProduct.Value, cheat, title_addr);
-                    }
-                }
+                RecipeProto.ID recipeID = _getRecipeID(title_addr, fieldName, cheat);
+                GenerateRecipes(registrator, data, recipeID, product, cheat, title_addr);
             }
         }
 
-        private void GenerateRecipes(ProtoRegistrator registrator, RecipeProto.ID recipeID, ProductProto inputProduct, bool cheat, string title_addr)
+        private void GenerateLooseRecipes(ProtoRegistrator registrator, VoidCrusherData data, bool cheat = false, string title_addr = "") 
+        {
+            List<(string, ProductProto)> result = ProductUtility.GetLooseProducts(registrator, ignorList: new List<ProductProto.ID>() { data.output });
+            foreach ((string fieldName, ProductProto product) in result)
+            {
+                RecipeProto.ID recipeID = _getRecipeID(title_addr, fieldName, cheat);
+                GenerateRecipes(registrator, data, recipeID, product, cheat, title_addr);
+            }
+        }
+
+        private void GenerateFluidRecipes(ProtoRegistrator registrator, VoidCrusherData data, bool cheat = false, string title_addr = "")
+        {
+            List<(string, ProductProto)> result = ProductUtility.GetFluidProducts(registrator, ignorList: new List<ProductProto.ID>() { data.output });
+            foreach ((string fieldName, ProductProto product) in result)
+            {
+                RecipeProto.ID recipeID = _getRecipeID(title_addr, fieldName, cheat);
+                GenerateRecipes(registrator, data, recipeID, product, cheat, title_addr);
+            }
+        }
+
+        private void GenerateRecipes(ProtoRegistrator registrator, VoidCrusherData data, RecipeProto.ID recipeID, ProductProto inputProduct, bool cheat, string title_addr)
         {
             RecipeProtoBuilder.State result = registrator.RecipeProtoBuilder
-                .Start("Destroy" + title_addr + (cheat ? " Cheat" : "") + " " + inputProduct.Strings.Name, recipeID, machine)
-                .SetDuration(currentDuration)
-                .AddInput("A", inputProduct, currentInputAmount.Quantity());
+                .Start("Destroy" + title_addr + (cheat ? " Cheat" : "") + " " + inputProduct.Strings.Name, recipeID, data.Machine)
+                .SetDuration(data.currentDuration)
+                .AddInput("A", inputProduct, data.currentInputAmount.Quantity());
 
-            ProductProto.ID output_product = (inputProduct.IsRecyclable ? output : outputNoneRecyclables);
-            if (hasOutput)
+            ProductProto.ID output_product = (inputProduct.IsRecyclable ? data.output : data.outputNoneRecyclables);
+            if (data.hasOutput)
             {
-                result.AddOutput("X", registrator.PrototypesDb.GetOrThrow<ProductProto>(output_product), currentInputAmount.Quantity());
+                result.AddOutput("X", registrator.PrototypesDb.GetOrThrow<ProductProto>(output_product), data.currentInputAmount.Quantity());
             }
 
             result.BuildAndAdd();
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> GenerateRecipes(id: " + recipeID + ") >> Input: " + inputProduct.Id + "(IsRecyclable: " + inputProduct.IsRecyclable + "), Output: " + (data.hasOutput ? output_product.ToString() : "none"));
+        }
 
-            Debug.Log("VoidCrusher >> GenerateRecipes(id: " + recipeID + ") >> Input: " + inputProduct.Id + "(IsRecyclable: " + inputProduct.IsRecyclable + "), Output: " + output_product);
+        #endregion
+
+
+        private RecipeProto.ID _getRecipeID(string title_addr, string fieldName, bool cheat)
+        {
+            return new RecipeProto.ID("MyVoidCrusherRecipeDynamic" + title_addr + (cheat ? "Cheat" : "") + fieldName.Trim());
         }
     }
 }

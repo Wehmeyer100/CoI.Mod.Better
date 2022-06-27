@@ -24,7 +24,8 @@ namespace CoI.Mod.Better.ModConfigs.Configs
         public int TransferLimitT4Count = 10; // vanilla
         public int TransferLimitT4Duration = 5; // vanilla
 
-        public int FluidCapacityMultiplier = 3; // vanilla * 2
+        public int FluidCapacityMultiplier = 2; // vanilla * 2
+        public int SteamCapacityMultiplier = 2; // FluidCapacity * 2
 
         public int CapacityNuclearWaste = 12000; // vanilla * 3
         public int NuclearWasteCapacityMultiplier = 2; // = Vanilla * 2
