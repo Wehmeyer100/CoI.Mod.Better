@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.lang;
 using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
@@ -32,7 +33,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Power Energy CHEAT", MyIDs.Research.VoidPowerEnergyCheat)
+                .Start(LangManager.Instance.Get("research_power_generator"), MyIDs.Research.VoidPowerEnergyCheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT1Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT2Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidPowerEnergyT3Cheat)
@@ -63,7 +64,7 @@ namespace CoI.Mod.Better.Buildings
             (
                 new ElectricityGeneratorFromMechPowerProto(
                     protoID,
-                    Proto.CreateStr(protoID, "Power generator " + kw_amount.Format().ToString(), "Converts mechanical power to electricity. The slower it spins the lower its efficiency is."),
+                    Proto.CreateStr(protoID, LangManager.Instance.Get("power_generator") + " " + kw_amount.Format().ToString(), LangManager.Instance.Get("power_generator_desc")),
                     registrator.LayoutParser.ParseLayoutOrThrow("   [2][2]   ", "   [3][3]   ", " | >3PQ3> | ", "   [3][3]   ", "   [2][2]   "),
                     Costs.Machines.PowerGeneratorT1.MapToEntityCosts(registrator),
                     registrator.PrototypesDb.GetOrThrow<ProductProto>(IdsCore.Products.MechanicalPower),

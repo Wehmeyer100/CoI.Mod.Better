@@ -42,6 +42,7 @@ namespace CoI.Mod.Better.Edicts
             AddFarmMultiplier(registrator);
             AddFarmWaterConsumMultiplier(registrator);
             AddRecyclingRatioDiff(registrator);
+            AddSolarPower(registrator);
 
             GenerateResearch(registrator);
         }

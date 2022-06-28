@@ -68,7 +68,7 @@ namespace CoI.Mod.Better.Edicts
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -(maintenance).Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/MaintenanceReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg))
             );
         }
 

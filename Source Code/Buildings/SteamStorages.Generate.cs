@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.lang;
 using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
@@ -27,11 +28,12 @@ namespace CoI.Mod.Better.Buildings
 
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSteam1FormattedBase__desc", "Stores up to {0} units of a steam(Hi, Lo, Depleted).", "description for storage");
+            string Name = LangManager.Instance.Get("steam_storage");
+            string desc = LangManager.Instance.Get("steam_storage_desc", capacity_steam_T1.ToString());
 
             // Add new to Database
-            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start("Steam storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_steam_T1.ToString()).Value))
+            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start(Name + " I", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluid)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_steam_T1)
@@ -54,11 +56,12 @@ namespace CoI.Mod.Better.Buildings
             StaticEntityProto.ID protoID = MyIDs.Buildings.StorageSteamT2;
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSteam2FormattedBase__desc", "Stores up to {0} units of a steam(Hi, Lo, Depleted).", "description for storage");
+            string Name = LangManager.Instance.Get("steam_storage");
+            string desc = LangManager.Instance.Get("steam_storage_desc", capacity_steam_T2.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Steam storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_steam_T2.ToString()).Value))
+            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start(Name + " II", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT2)
                 .SetCapacity(capacity_steam_T2)
                 .SetProductsFilter(ProductUtility.SteamFilter)
@@ -79,11 +82,12 @@ namespace CoI.Mod.Better.Buildings
             StaticEntityProto.ID protoNextTier = MyIDs.Buildings.StorageSteamT4;
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSteam3FormattedBase__desc", "Stores up to {0} units of a steam(Hi, Lo, Depleted).", "description for storage");
+            string Name = LangManager.Instance.Get("steam_storage");
+            string desc = LangManager.Instance.Get("steam_storage_desc", capacity_steam_T3.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Steam storage III", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_steam_T3.ToString()).Value))
+            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start(Name + " III", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT3)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_steam_T3)
@@ -104,11 +108,12 @@ namespace CoI.Mod.Better.Buildings
             StaticEntityProto.ID protoID = MyIDs.Buildings.StorageSteamT4;
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSteam4FormattedBase__desc", "Stores up to {0} units of a steam(Hi, Lo, Depleted).", "description for storage");
+            string Name = LangManager.Instance.Get("steam_storage");
+            string desc = LangManager.Instance.Get("steam_storage_desc", capacity_steam_T4.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Steam storage IV", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_steam_T4.ToString()).Value))
+            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start(Name + " IV", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT4)
                 .SetCapacity(capacity_steam_T4)
                 .SetProductsFilter(ProductUtility.SteamFilter)

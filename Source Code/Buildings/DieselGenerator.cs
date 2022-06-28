@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.lang;
 using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
@@ -31,7 +32,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Generate Research
             ResearchNodeProtoBuilder.State research_state_t1 = registrator.ResearchNodeProtoBuilder
-                .Start("Void Energy CHEAT", MyIDs.Research.VoidDieselEnergyCheat)
+                .Start(LangManager.Instance.Get("research_diesel_generator"), MyIDs.Research.VoidDieselEnergyCheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy10Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy50Cheat)
                 .AddLayoutEntityToUnlock(MyIDs.Machines.VoidDieselEnergy100Cheat)
@@ -59,9 +60,12 @@ namespace CoI.Mod.Better.Buildings
         {
             Electricity kw_amount = kwAmount.Kw().ScaledBy(registrator.DifficultyConfig.PowerProductionMult);
 
+            string Name = LangManager.Instance.Get("diesel_generator", kw_amount.Format().ToString());
+            string desc = LangManager.Instance.Get("diesel_generator_desc");
+
             registrator.PrototypesDb.Add(new ElectricityGeneratorFromProductProto(
                 protoID,
-                Proto.CreateStr(protoID, "Diesel generator " + kw_amount.Format().ToString(), "Burns diesel to electricity."),
+                Proto.CreateStr(protoID, Name + " " + kw_amount.Format().ToString(), desc),
                 registrator.LayoutParser.ParseLayoutOrThrow("[2][2][2]", "[2][2][2]", "^2F[2][2]", " @       "),
                 Costs.Machines.SmokeStack.MapToEntityCosts(registrator),
                 kw_amount,

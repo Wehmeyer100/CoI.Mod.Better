@@ -19,26 +19,27 @@ namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
-        private void AddFarmMultiplier(ProtoRegistrator registrator)
+        private void AddSolarPower(ProtoRegistrator registrator)
         {
+            // Add Cheats
             if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
-            GenerateFarmMultiplier(registrator, MyIDs.Eticts.Generell.FarmMultiplierT1_CHEAT, 25, null, true);
-            GenerateFarmMultiplier(registrator, MyIDs.Eticts.Generell.FarmMultiplierT2_CHEAT, 50, MyIDs.Eticts.Generell.FarmMultiplierT1_CHEAT, true);
-            GenerateFarmMultiplier(registrator, MyIDs.Eticts.Generell.FarmMultiplierT3_CHEAT, 100, MyIDs.Eticts.Generell.FarmMultiplierT2_CHEAT, true);
-            GenerateFarmMultiplier(registrator, MyIDs.Eticts.Generell.FarmMultiplierT4_CHEAT, 200, MyIDs.Eticts.Generell.FarmMultiplierT3_CHEAT, true);
-            GenerateFarmMultiplier(registrator, MyIDs.Eticts.Generell.FarmMultiplierT5_CHEAT, 300, MyIDs.Eticts.Generell.FarmMultiplierT4_CHEAT, true);
+            GenerateSolarPower(registrator, MyIDs.Eticts.Generell.SolarPowerT1_CHEAT, 25, null, true);
+            GenerateSolarPower(registrator, MyIDs.Eticts.Generell.SolarPowerT2_CHEAT, 50, MyIDs.Eticts.Generell.SolarPowerT1_CHEAT, true);
+            GenerateSolarPower(registrator, MyIDs.Eticts.Generell.SolarPowerT3_CHEAT, 100, MyIDs.Eticts.Generell.SolarPowerT2_CHEAT, true);
+            GenerateSolarPower(registrator, MyIDs.Eticts.Generell.SolarPowerT4_CHEAT, 200, MyIDs.Eticts.Generell.SolarPowerT3_CHEAT, true);
+            GenerateSolarPower(registrator, MyIDs.Eticts.Generell.SolarPowerT5_CHEAT, 300, MyIDs.Eticts.Generell.SolarPowerT4_CHEAT, true);
         }
 
-        private int countFarmMultiplierEdicts = 1;
-        private void GenerateFarmMultiplier(ProtoRegistrator registrator, Proto.ID protoID, int multiplier, Proto.ID? previusEdict, bool cheat = false)
+        private int countSolarPowerEdicts = 1;
+        private void GenerateSolarPower(ProtoRegistrator registrator, Proto.ID protoID, int multiplier, Proto.ID? previusEdict, bool cheat = false)
         {
-            countFarmMultiplierEdicts++;
+            countSolarPowerEdicts++;
 
             LocStr1 locStr = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "All Farms produce increased by {0}%",
+                "Solar power increased by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + multiplier + "%"
             );
 
@@ -55,12 +56,12 @@ namespace CoI.Mod.Better.Edicts
 
             registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
-                Proto.CreateStr(protoID, "Farm yield multiplier T" + countFarmMultiplierEdicts.ToString(), descShort, translationComment),
+                Proto.CreateStr(protoID, "Solar Power T" + countSolarPowerEdicts.ToString(), descShort, translationComment),
                 (cheat ? categoryCheats : category),
                 CheatUpkeepEdicts.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FarmYieldMultiplier, multiplier.Percent())),
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.SolarPowerMultiplier, multiplier.Percent())),
                 previousTier,
-                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.SolarBoost_svg))
             );
         }
     }

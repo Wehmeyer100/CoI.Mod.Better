@@ -38,7 +38,7 @@ namespace CoI.Mod.Better.Edicts
 
             LocStr1 locStr = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "All Farms consume decreased by {0}",
+                "All Farms consume decreased by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + multiplier + "%"
             );
 
@@ -58,9 +58,9 @@ namespace CoI.Mod.Better.Edicts
                 Proto.CreateStr(protoID, "Farm Water Consumption Multiplier T" + countFarmWaterConsumMultiplierEdicts.ToString(), descShort, translationComment),
                 (cheat ? categoryCheats : category),
                 CheatUpkeepEdicts.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, multiplier.Percent())),
+                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, (-multiplier).Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FoodReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg))
             );
         }
     }

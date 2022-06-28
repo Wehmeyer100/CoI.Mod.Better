@@ -16,6 +16,12 @@ namespace CoI.Mod.Better.ModConfigs
     {
         public DefaultConfig Default = new DefaultConfig();
         public EnableConfig Systems = new EnableConfig();
+
+        public GameConfig GameSettings = new GameConfig();
+        public NewGameConfig StartSettings = new NewGameConfig();
+
+        public UIConfig UI = new UIConfig();
+
         public BeaconConfig Beacon = new BeaconConfig();
         public TowerConfig Tower = new TowerConfig();
         public StorageConfig Storage = new StorageConfig();

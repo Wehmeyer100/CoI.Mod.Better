@@ -43,7 +43,7 @@ namespace CoI.Mod.Better.Edicts
 
             LocStr1 locStr3 = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "Vehicles fuel consumption reduced by {0}",
+                "Vehicles fuel consumption reduced by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + fuelMultiplierReduction + "%"
             );
 
@@ -65,7 +65,7 @@ namespace CoI.Mod.Better.Edicts
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.VehiclesFuelConsumptionMultiplier, -(consume).Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FuelReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png))
             );
         }
 

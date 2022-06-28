@@ -24,11 +24,11 @@ namespace CoI.Mod.Better.Edicts
             if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, 25, null, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, 50, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, 100, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, 200, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT, 300, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, true);
+            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, 20, null, true);
+            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, 40, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, true);
+            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, 60, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, true);
+            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, 80, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, true);
+            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT, 100, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, true);
         }
 
         private int countRecyclingRatioDiffEdicts = 1;
@@ -38,7 +38,7 @@ namespace CoI.Mod.Better.Edicts
 
             LocStr1 locStr = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "Recycling ratio increased by {0}",
+                "Recycling ratio increased by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + multiplier + "%"
             );
 
@@ -60,7 +60,7 @@ namespace CoI.Mod.Better.Edicts
                 CheatUpkeepEdicts.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.RecyclingRatioDiff, multiplier.Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FoodReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg))
             );
         }
     }

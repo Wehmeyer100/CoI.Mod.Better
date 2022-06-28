@@ -222,6 +222,12 @@ namespace CoI.Mod.Better.MyIDs
             public readonly static Proto.ID RecyclingRatioDiffT3_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_3);
             public readonly static Proto.ID RecyclingRatioDiffT4_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_4);
             public readonly static Proto.ID RecyclingRatioDiffT5_CHEAT = new Proto.ID(Utilities.RecyclingRatioDiffStr + Utilities.Cheat_5);
+
+            public readonly static Proto.ID SolarPowerT1_CHEAT = new Proto.ID(Utilities.SolarPowerStr + Utilities.Cheat_1);
+            public readonly static Proto.ID SolarPowerT2_CHEAT = new Proto.ID(Utilities.SolarPowerStr + Utilities.Cheat_2);
+            public readonly static Proto.ID SolarPowerT3_CHEAT = new Proto.ID(Utilities.SolarPowerStr + Utilities.Cheat_3);
+            public readonly static Proto.ID SolarPowerT4_CHEAT = new Proto.ID(Utilities.SolarPowerStr + Utilities.Cheat_4);
+            public readonly static Proto.ID SolarPowerT5_CHEAT = new Proto.ID(Utilities.SolarPowerStr + Utilities.Cheat_5);
         }
     }
 
@@ -237,6 +243,7 @@ namespace CoI.Mod.Better.MyIDs
         public readonly static string FarmMultiplierStr = "MyFarmMultiplierT";
         public readonly static string FarmWaterConsumMultiplierStr = "MyFarmWaterConsumMultiplierT";
         public readonly static string RecyclingRatioDiffStr = "MyRecyclingRatioDiffT";
+        public readonly static string SolarPowerStr = "MySolarT";
 
         public readonly static string Cheat_1 = "CHEAT1";
         public readonly static string Cheat_2 = "CHEAT2";

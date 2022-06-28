@@ -38,7 +38,7 @@ namespace CoI.Mod.Better.Edicts
 
             LocStr1 locStr = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "All settlement services consumption increased by {0}",
+                "All settlement services consumption increased by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + reduceServiceConsum + "%"
             );
 
@@ -60,7 +60,7 @@ namespace CoI.Mod.Better.Edicts
                 CheatUpkeepEdicts.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FoodConsumptionMultiplier, reduceServiceConsum.Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FoodReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png))
             );
         }
     }

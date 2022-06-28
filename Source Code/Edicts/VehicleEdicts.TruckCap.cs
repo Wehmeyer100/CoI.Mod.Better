@@ -66,7 +66,7 @@ namespace CoI.Mod.Better.Edicts
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.TrucksCapacityMultiplier, Capacity.Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/TrucksCapacity.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.TrucksCapacity_svg))
             );
         }
     }

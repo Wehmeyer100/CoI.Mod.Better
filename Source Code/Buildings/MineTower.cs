@@ -1,4 +1,5 @@
-﻿using Mafi;
+﻿using CoI.Mod.Better.lang;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Mine;
 using Mafi.Core.Buildings.Storages;
@@ -41,22 +42,23 @@ namespace CoI.Mod.Better.Buildings
 
             // Remove from Database
             registrator.PrototypesDb.RemoveOrThrow(protoID);
+            string Name = LangManager.Instance.Get("mine_tower");
 
             // Add override to Database
             if (BetterMod.Config.Tower.OverrideVanilla)
             {
-                GenerateMineTower(registrator, protoID, "Mine control tower", (int)(defaultTowerRange * towerAreaMultiplier));
-                GenerateMineTower(registrator, MyIDs.Buildings.MineTowerNormal, "Mine control tower: Vanilla", defaultTowerRange);
+                GenerateMineTower(registrator, protoID, Name, (int)(defaultTowerRange * towerAreaMultiplier));
+                GenerateMineTower(registrator, MyIDs.Buildings.MineTowerNormal, Name+": Vanilla", defaultTowerRange);
             }
 
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, "Mine control tower T2(x1.5)", (int)(defaultTowerRange * (towerAreaMultiplier * 1.5f)));
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, "Mine control tower T3(x2)", (int)(defaultTowerRange * (towerAreaMultiplier * 2)));
+            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, Name + " x1.5", (int)(defaultTowerRange * (towerAreaMultiplier * 1.5f)));
+            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, Name + " x2", (int)(defaultTowerRange * (towerAreaMultiplier * 2)));
         }
 
         private void GenerateMineTower(ProtoRegistrator registrator, StaticEntityProto.ID protoID, string Name, int towerRange)
         {
             registrator.MineTowerProtoBuilder.Start(Name, protoID)
-                .Description("Enables assignment of excavators and trucks to designated mine areas. Only designated mining areas within the influence of the tower can be mined.")
+                .Description(LangManager.Instance.Get("mine_tower_desc"))
                 .SetCost(Costs.Buildings.MineTower)
                 .ShowTerrainDesignatorsOnCreation()
                 .SetLayout("(3)(3)(8)(8)", "(3)(8)(9)(9)", "(3)(8)(9)(9)", "(3)(3)(8)(8)")
