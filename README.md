@@ -1,12 +1,13 @@
 # CoI.Mod.Better
 
-Game Version(Comptability): 0.4.5b
+Game Version(Comptability): 0.4.6
 
 Savegame Comptability: You need to start a new game!
 
 # Current overview of the functions:
 - Void Destroyer - Shreds products(no liquids, no losse), has as output stones. and causes emissions.
 - All vanilla storages have 3x more space. 
+- Steam Storage(Hi, Lo, Deplated, chiller water)
 - The liquid stores have 30x more than the vanilla building.
 - The refugee system has been overhauled so that refugees are now arriving forever. However, the rhythm has been changed, the number of refugees varies, the gift amounts are now also randomly generated and it can also happen that you do not receive any gifts. The number of refugees and the gifts increase at the beginning and stop increasing after a certain limit, but these can also fluctuate strongly.
 - More edict have been added that offer your load amount of trucks, their consumption and their maintenance more slopes.
@@ -20,6 +21,8 @@ Savegame Comptability: You need to start a new game!
 
 Machine:
 - Void Destroyer - Shreds products(no liquids, no losse), has no waste and also no emissions.
+- Void Destroyer Liquids - Shreds products liquids, has no waste and also no emissions.
+- Void Destroyer Loose - Shreds losse, has no waste and also no emissions.
 - Void Producer Liquids - You can produce all liquids
 - Void Producer Products - You can produce all Products
 - Void Producer Loose - You can produce all Loose
@@ -30,14 +33,24 @@ Research:
 - Vehicle Capacity +250
 
 Edicts: 
-- Maintenance reduce: -30%, -40%, -50%, -60%
-- Fuel consume reduce: -25%, -50%, -75%, -95%
-- Truck load size increase: 100%, 200%, 300%, 400%, 500%
-- Unity Plus(increase unity produce)): 5%, 10%, 20%, 50%, 100%
-- Reduce all Services: -30%, -40%, -50%, -60%, -75%
+- Maintenance reduce: 
+	-Vanilla: -30%, -40%, -50%, -60%
+	- Cheat: -30%, -50%, -75%, -100%
+- Fuel consume reduce:
+	- Vanilla: -30%, -45%, -60%, -75%
+	- Cheat: -25%, -50%, -75%, -100%
+- Truck load size increase:
+	- Vanilla: 50%, 75%, 100%, 200%
+	- Cheat: 100%, 200%, 300%, 400%, 500%
+- Unity Points: 5, 10, 20, 50, 100
+- Reduce all Services: -30%, -40%, -50%, -75%, -100%
+- Farm yield multiplier: 25%, 50%, 100%, 200%, 300%
+- Farm Water Consumption Multiplier: 20%, 40%, 50%, 75%, 95%
+- Recycling Ratio: 20%, 40%, 60%, 80%, 100%
+- Solar power: 25%, 50%, 100%, 200%, 300%
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.6
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.9
 
 1. Open your documents folder. Here you should find the "Captain Of Industry" folder. 
 
