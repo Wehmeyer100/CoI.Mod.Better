@@ -181,6 +181,13 @@ namespace CoI.Mod.Better
             registrator.RegisterData<Customs>();
             registrator.RegisterData<SteamStorages>();
 
+
+            // https://github.com/Wehmeyer100/CoI.Mod.Better/issues/22
+            int offsetY = 50;
+            foreach (ResearchNodeProto result in registrator.PrototypesDb.All<ResearchNodeProto>()) 
+            {
+                result.GridPosition += new Vector2i(0, offsetY);
+            }
         }
 
         private static void LoadModConfig()

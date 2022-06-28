@@ -171,4 +171,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="UserInterface\Research\" />
+  </ItemGroup>
 </Project>
