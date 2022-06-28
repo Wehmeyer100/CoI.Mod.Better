@@ -29,7 +29,7 @@ namespace CoI.Mod.Better.Custom
 
         private List<CustomData> customsData = new List<CustomData>() { new CustomData() };
 
-        public static readonly string FILE_EXT = ".json";
+        public const string FILE_EXT = ".json";
 
         public void RegisterData(ProtoRegistrator registrator)
         {

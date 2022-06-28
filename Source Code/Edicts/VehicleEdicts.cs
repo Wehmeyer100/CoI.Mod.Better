@@ -23,7 +23,6 @@ namespace CoI.Mod.Better.Edicts
     {
         private int countTruckCapEdicts = 1;
         private int countTruckFuelConsEdicts = 1;
-        private int countMaintenanceEdicts = 1;
 
         private const string translationComment = "policy / edict which can enabled by the player in their Captain's office.";
         private float CheatUpkeepEdicts = -0.5f;

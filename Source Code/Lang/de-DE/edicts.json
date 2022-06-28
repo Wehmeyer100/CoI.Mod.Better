@@ -1,0 +1,306 @@
+﻿[
+  {
+    "Key": "farm_multiplier_t1",
+    "Value": "Farm yield multiplier I"
+  },
+  {
+    "Key": "farm_multiplier_t1_desc",
+    "Value": "All Farms produce increased by {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t2",
+    "Value": "Farm yield multiplier II"
+  },
+  {
+    "Key": "farm_multiplier_t2_desc",
+    "Value": "All Farms produce increased by {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t3",
+    "Value": "Farm yield multiplier III"
+  },
+  {
+    "Key": "farm_multiplier_t3_desc",
+    "Value": "All Farms produce increased by {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t4",
+    "Value": "Farm yield multiplier IV"
+  },
+  {
+    "Key": "farm_multiplier_t4_desc",
+    "Value": "All Farms produce increased by {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t5",
+    "Value": "Farm yield multiplier V"
+  },
+  {
+    "Key": "farm_multiplier_t5_desc",
+    "Value": "All Farms produce increased by {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t1",
+    "Value": "Farm Water Consumption multiplier I"
+  },
+  {
+    "Key": "farm_consume_multiplier_t1_desc",
+    "Value": "All Farms consume decreased by {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t2",
+    "Value": "Farm Water Consumption multiplier II"
+  },
+  {
+    "Key": "farm_consume_multiplier_t2_desc",
+    "Value": "All Farms consume decreased by {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t3",
+    "Value": "Farm Water Consumption multiplier III"
+  },
+  {
+    "Key": "farm_consume_multiplier_t3_desc",
+    "Value": "All Farms consume decreased by {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t4",
+    "Value": "Farm Water Consumption multiplier IV"
+  },
+  {
+    "Key": "farm_consume_multiplier_t4_desc",
+    "Value": "All Farms consume decreased by {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t5",
+    "Value": "Farm Water Consumption multiplier V"
+  },
+  {
+    "Key": "farm_consume_multiplier_t5_desc",
+    "Value": "All Farms consume decreased by {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t1",
+    "Value": "Recycling Ratio I"
+  },
+  {
+    "Key": "recycling_ratio_t1_desc",
+    "Value": "Recycling ratio increased by {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t2",
+    "Value": "Recycling Ratio II"
+  },
+  {
+    "Key": "recycling_ratio_t2_desc",
+    "Value": "Recycling ratio increased by {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t3",
+    "Value": "Recycling Ratio III"
+  },
+  {
+    "Key": "recycling_ratio_t3_desc",
+    "Value": "Recycling ratio increased by {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t4",
+    "Value": "Recycling Ratio IV"
+  },
+  {
+    "Key": "recycling_ratio_t4_desc",
+    "Value": "Recycling ratio increased by {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t5",
+    "Value": "Recycling Ratio V"
+  },
+  {
+    "Key": "recycling_ratio_t5_desc",
+    "Value": "Recycling ratio increased by {0}%"
+  },
+  {
+    "Key": "reduce_service_t1",
+    "Value": "Settlement Consumption I"
+  },
+  {
+    "Key": "reduce_service_t1_desc",
+    "Value": "All settlement services consumption increased by {0}%"
+  },
+  {
+    "Key": "reduce_service_t2",
+    "Value": "Settlement Consumption II"
+  },
+  {
+    "Key": "reduce_service_t2_desc",
+    "Value": "All settlement services consumption increased by {0}%"
+  },
+  {
+    "Key": "reduce_service_t3",
+    "Value": "Settlement Consumption III"
+  },
+  {
+    "Key": "reduce_service_t3_desc",
+    "Value": "All settlement services consumption increased by {0}%"
+  },
+  {
+    "Key": "reduce_service_t4",
+    "Value": "Settlement Consumption IV"
+  },
+  {
+    "Key": "reduce_service_t4_desc",
+    "Value": "All settlement services consumption increased by {0}%"
+  },
+  {
+    "Key": "reduce_service_t5",
+    "Value": "Settlement Consumption V"
+  },
+  {
+    "Key": "reduce_service_t5_desc",
+    "Value": "All settlement services consumption increased by {0}%"
+  },
+  {
+    "Key": "solar_power_t1",
+    "Value": "Solar Power I"
+  },
+  {
+    "Key": "solar_power_t1_desc",
+    "Value": "Solar power increased by {0}%"
+  },
+  {
+    "Key": "solar_power_t2",
+    "Value": "Solar Power II"
+  },
+  {
+    "Key": "solar_power_t2_desc",
+    "Value": "Solar power increased by {0}%"
+  },
+  {
+    "Key": "solar_power_t3",
+    "Value": "Solar Power III"
+  },
+  {
+    "Key": "solar_power_t3_desc",
+    "Value": "Solar power increased by {0}%"
+  },
+  {
+    "Key": "solar_power_t4",
+    "Value": "Solar Power IV"
+  },
+  {
+    "Key": "solar_power_t4_desc",
+    "Value": "Solar power increased by {0}%"
+  },
+  {
+    "Key": "solar_power_t5",
+    "Value": "Solar Power V"
+  },
+  {
+    "Key": "solar_power_t5_desc",
+    "Value": "Solar power increased by {0}%"
+  },
+  {
+    "Key": "unity_points_t1",
+    "Value": "Unity Plus I"
+  },
+  {
+    "Key": "unity_points_t1_desc",
+    "Value": "Unity increase by {0} points."
+  },
+  {
+    "Key": "unity_points_t2",
+    "Value": "Unity Plus II"
+  },
+  {
+    "Key": "unity_points_t2_desc",
+    "Value": "Unity increase by {0} points."
+  },
+  {
+    "Key": "unity_points_t3",
+    "Value": "Unity Plus III"
+  },
+  {
+    "Key": "unity_points_t3_desc",
+    "Value": "Unity increase by {0} points."
+  },
+  {
+    "Key": "unity_points_t4",
+    "Value": "Unity Plus IV"
+  },
+  {
+    "Key": "unity_points_t4_desc",
+    "Value": "Unity increase by {0} points."
+  },
+  {
+    "Key": "unity_points_t5",
+    "Value": "Unity Plus V"
+  },
+  {
+    "Key": "unity_points_t5_desc",
+    "Value": "Unity increase by {0} points."
+  },
+  {
+    "Key": "maintenance_reduction_t1",
+    "Value": "Maintenance Reduce I"
+  },
+  {
+    "Key": "maintenance_reduction_t1_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t2",
+    "Value": "Maintenance Reduce II"
+  },
+  {
+    "Key": "maintenance_reduction_t2_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t3",
+    "Value": "Maintenance Reduce III"
+  },
+  {
+    "Key": "maintenance_reduction_t3_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t4",
+    "Value": "Maintenance Reduce IV"
+  },
+  {
+    "Key": "maintenance_reduction_t4_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t1_cheat",
+    "Value": "Maintenance Reduce I"
+  },
+  {
+    "Key": "maintenance_reduction_t1_cheat_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t2_cheat",
+    "Value": "Maintenance Reduce II"
+  },
+  {
+    "Key": "maintenance_reduction_t2_cheat_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t3_cheat",
+    "Value": "Maintenance Reduce III"
+  },
+  {
+    "Key": "maintenance_reduction_t3_cheat_desc",
+    "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t4_cheat",
+    "Value": "Maintenance Reduce IV"
+  },
+  {
+    "Key": "maintenance_reduction_t4_cheat_desc",
+    "Value": "Maintenance reduced by {0}%"
+  }
+]

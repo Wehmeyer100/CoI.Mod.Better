@@ -5,6 +5,7 @@
     <Configurations>Debug;Release</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <Authors>Luxgor | K. Wehmeyer</Authors>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,7 +91,7 @@
       <CopyLocal>False</CopyLocal>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.dll</HintPath> 
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -104,6 +105,30 @@
     <Reference Include="UnityEngine.LocalizationModule">
       <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Lang\de-DE\research.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\de-DE\edicts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\en-US\research.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\en-US\common.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\de-DE\common.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\en-US\edicts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
   <ItemGroup>
@@ -157,5 +182,9 @@
       <CopyLocal>True</CopyLocal>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="UserInterface\Research\" />
   </ItemGroup>
 </Project>

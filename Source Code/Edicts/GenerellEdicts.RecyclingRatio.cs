@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Collections.ImmutableCollections;
@@ -23,45 +24,11 @@ namespace CoI.Mod.Better.Edicts
         {
             if (!BetterMod.Config.Systems.Cheats) return;
 
-            // Add Cheats
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, 25, null, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, 50, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, 100, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, 200, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, true);
-            GenerateRecyclingRatioDiff(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT, 300, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, true);
-        }
-
-        private int countRecyclingRatioDiffEdicts = 1;
-        private void GenerateRecyclingRatioDiff(ProtoRegistrator registrator, Proto.ID protoID, int multiplier, Proto.ID? previusEdict, bool cheat = false)
-        {
-            countRecyclingRatioDiffEdicts++;
-
-            LocStr1 locStr = Loc.Str1(
-                protoID.ToString() + "__desc",
-                "Recycling ratio increased by {0}",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + multiplier + "%"
-            );
-
-            LocStr descShort = LocalizationManager.CreateAlreadyLocalizedStr(
-                protoID.ToString() + "_formatted",
-                locStr.Format(multiplier.ToString()).Value
-            );
-
-            Option<EdictProto> previousTier = Option<EdictProto>.None;
-            if (previusEdict.HasValue)
-            {
-                previousTier = registrator.PrototypesDb.GetOrThrow<EdictProto>(previusEdict.Value);
-            }
-
-            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
-                protoID,
-                Proto.CreateStr(protoID, "Recycling Ratio T" + countRecyclingRatioDiffEdicts.ToString(), descShort, translationComment),
-                (cheat ? categoryCheats : category),
-                CheatUpkeepEdicts.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.RecyclingRatioDiff, multiplier.Percent())),
-                previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FoodReduced.svg"))
-            );
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, categoryCheats, "recycling_ratio_t1", CheatUpkeepEdicts, IdsCore.PropertyIds.RecyclingRatioDiff, 20, null, Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, categoryCheats, "recycling_ratio_t2", CheatUpkeepEdicts, IdsCore.PropertyIds.RecyclingRatioDiff, 40, MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, categoryCheats, "recycling_ratio_t3", CheatUpkeepEdicts, IdsCore.PropertyIds.RecyclingRatioDiff, 60, MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, categoryCheats, "recycling_ratio_t4", CheatUpkeepEdicts, IdsCore.PropertyIds.RecyclingRatioDiff, 80, MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT, categoryCheats, "recycling_ratio_t5", CheatUpkeepEdicts, IdsCore.PropertyIds.RecyclingRatioDiff, 100, MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.RecyclingIncrease2_svg);
         }
     }
 }

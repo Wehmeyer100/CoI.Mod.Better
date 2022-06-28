@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Collections.ImmutableCollections;
@@ -22,55 +23,20 @@ namespace CoI.Mod.Better.Edicts
 
         private void AddMaintenance(ProtoRegistrator registrator)
         {
-            // Generate Edicts
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT1, 30, 2f, null);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2, 40, 2.7f, MyIDs.Eticts.Trucks.MaintenanceReductionT1);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3, 50, 3.3f, MyIDs.Eticts.Trucks.MaintenanceReductionT2);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4, 60, 4f, MyIDs.Eticts.Trucks.MaintenanceReductionT3);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT1, GenerellEdicts.category, "maintenance_reduction_t1", 2, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -30, null, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2, GenerellEdicts.category, "maintenance_reduction_t2", 2.7f, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -40, MyIDs.Eticts.Trucks.MaintenanceReductionT1, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3, GenerellEdicts.category, "maintenance_reduction_t3", 3.3f, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -50, MyIDs.Eticts.Trucks.MaintenanceReductionT2, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4, GenerellEdicts.category, "maintenance_reduction_t4", 4, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -60, MyIDs.Eticts.Trucks.MaintenanceReductionT3, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
 
 
             if (!BetterMod.Config.Systems.Cheats) return;
 
             // Add Cheats
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT1_CHEAT, GenerellEdicts.categoryCheats, "maintenance_reduction_t1_cheat", CheatUpkeepEdicts, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -30, null, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2_CHEAT, GenerellEdicts.categoryCheats, "maintenance_reduction_t2_cheat", CheatUpkeepEdicts, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -50, MyIDs.Eticts.Trucks.MaintenanceReductionT1_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3_CHEAT, GenerellEdicts.categoryCheats, "maintenance_reduction_t3_cheat", CheatUpkeepEdicts, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -75, MyIDs.Eticts.Trucks.MaintenanceReductionT2_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4_CHEAT, GenerellEdicts.categoryCheats, "maintenance_reduction_t4_cheat", CheatUpkeepEdicts, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -100, MyIDs.Eticts.Trucks.MaintenanceReductionT3_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.MaintenanceReduced_svg);
 
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT1_CHEAT, 30, CheatUpkeepEdicts, null, true);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT2_CHEAT, 50, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.MaintenanceReductionT1_CHEAT, true);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT3_CHEAT, 75, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.MaintenanceReductionT2_CHEAT, true);
-            GenerateMaintenance(registrator, MyIDs.Eticts.Trucks.MaintenanceReductionT4_CHEAT, 95, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.MaintenanceReductionT3_CHEAT, true);
         }
-
-        private void GenerateMaintenance(ProtoRegistrator registrator, Proto.ID protoID, int maintenance, float monthlyUpointsCost, Proto.ID? previusEdict, bool cheat = false)
-        {
-            countMaintenanceEdicts++;
-            Percent maintenanceMultiplierReduction = maintenance.Percent();
-
-            LocStr1 locStr8 = Loc.Str1(
-                protoID.ToString() + "__desc",
-                "Maintenance reduced by {0}",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + maintenanceMultiplierReduction + "%"
-            );
-
-            LocStr descShort8 = LocalizationManager.CreateAlreadyLocalizedStr(
-                protoID.ToString() + "_formatted",
-                locStr8.Format(maintenanceMultiplierReduction.ToString()).Value
-            );
-
-            Option<EdictProto> previousTier = Option<EdictProto>.None;
-            if (previusEdict.HasValue)
-            {
-                previousTier = registrator.PrototypesDb.GetOrThrow<EdictProto>(previusEdict.Value);
-            }
-
-            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
-                protoID,
-                Proto.CreateStr(protoID, "Maintenance reducer T" + countMaintenanceEdicts.ToString(), descShort8, translationComment),
-                (cheat ? GenerellEdicts.categoryCheats : GenerellEdicts.category),
-                monthlyUpointsCost.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, -(maintenance).Percent())),
-                previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/MaintenanceReduced.svg"))
-            );
-        }
-
     }
 }

@@ -1,0 +1,106 @@
+﻿[
+  {
+    "Key": "test",
+    "Value": "testValue"
+  },
+  {
+    "Key": "clock",
+    "Value": "{0} Hour"
+  },
+  {
+    "Key": "unit_storage",
+    "Value": "Better unit Storage"
+  },
+  {
+    "Key": "unit_storage_desc",
+    "Value": "Stores up to {0} units of a solid product."
+  },
+  {
+    "Key": "loose_storage",
+    "Value": "Better loose Storage"
+  },
+  {
+    "Key": "loose_storage_desc",
+    "Value": "Stores up to {0} units of a loose product."
+  },
+  {
+    "Key": "fluid_storage",
+    "Value": "Better fluid Storage"
+  },
+  {
+    "Key": "fluid_storage_desc",
+    "Value": "Stores up to {0} units of a liquid or gas product."
+  },
+  {
+    "Key": "steam_storage",
+    "Value": "Better steam storage"
+  },
+  {
+    "Key": "steam_storage_desc",
+    "Value": "Stores up to {0} units of a steam(Hi, Lo, Depleted, chiller water)."
+  },
+  {
+    "Key": "diesel_generator",
+    "Value": "Better diesel generator"
+  },
+  {
+    "Key": "diesel_generator_desc",
+    "Value": "Burns diesel to electricity."
+  },
+  {
+    "Key": "mine_tower",
+    "Value": "Mine controll tower"
+  },
+  {
+    "Key": "mine_tower_desc",
+    "Value": "Enables assignment of excavators and trucks to designated mine areas. Only designated mining areas within the influence of the tower can be mined."
+  },
+  {
+    "Key": "power_generator",
+    "Value": "Power generator"
+  },
+  {
+    "Key": "power_generator_desc",
+    "Value": "Converts mechanical power to electricity. The slower it spins the lower its efficiency is."
+  },
+  {
+    "Key": "void_crusher_machine",
+    "Value": "Better Crusher"
+  },
+  {
+    "Key": "void_crusher_machine_desc",
+    "Value": "Destroy Products with waste"
+  },
+  {
+    "Key": "void_crusher_machine_cheat",
+    "Value": "Better Crusher(Cheat)"
+  },
+  {
+    "Key": "void_crusher_machine_cheat_desc",
+    "Value": "Destroy Products without waste"
+  },
+  {
+    "Key": "void_crusher_machine_recyclables_cheat",
+    "Value": "Better Crusher Recyclables(Cheat)"
+  },
+  {
+    "Key": "void_crusher_machine_recyclables_cheat_desc",
+    "Value": "Destroy Products to recyclables"
+  },
+  {
+    "Key": "void_crusher_machine_loose_cheat",
+    "Value": "Better Crusher Loose(Cheat)"
+  },
+  {
+    "Key": "void_crusher_machine_loose_cheat_desc",
+    "Value": "Destroy Loose without waste"
+  },
+  {
+    "Key": "void_crusher_machine_fluid_cheat",
+    "Value": "Better Crusher Fluid(Cheat)"
+  },
+  {
+    "Key": "void_crusher_machine_fluid_cheat_desc",
+    "Value": "Destroy fluid without waste"
+  }
+]

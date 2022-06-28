@@ -33,7 +33,7 @@ namespace CoI.Mod.Better.Edicts
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT, 25, CheatUpkeepEdicts, null, true);
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT2_CHEAT, 50, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT, true);
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, 70, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT2_CHEAT, true);
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4_CHEAT, 95, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, true);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4_CHEAT, 100, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, true);
         }
 
         private void GenerateTruckFuelCons(ProtoRegistrator registrator, Proto.ID protoID, int consume, float monthlyUpointsCost, Proto.ID? previusEdict, bool cheat = false)
@@ -43,7 +43,7 @@ namespace CoI.Mod.Better.Edicts
 
             LocStr1 locStr3 = Loc.Str1(
                 protoID.ToString() + "__desc",
-                "Vehicles fuel consumption reduced by {0}",
+                "Vehicles fuel consumption reduced by {0}%",
                 "policy / edict which can enabled by the player in their Captain's office. {0}=" + fuelMultiplierReduction + "%"
             );
 
@@ -65,7 +65,7 @@ namespace CoI.Mod.Better.Edicts
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.VehiclesFuelConsumptionMultiplier, -(consume).Percent())),
                 previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/FuelReduced.svg"))
+                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png))
             );
         }
 

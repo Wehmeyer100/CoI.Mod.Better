@@ -28,6 +28,8 @@ namespace CoI.Mod.Better.Research
                     .AddVehicleCapIncrease(1, "Assets/Base/Icons/VehicleLimitIncrease.svg")
                     .BuildAndAdd();
 
+            
+
             master_research.GridPosition += new Vector2i(0, -2);
 
             if (!BetterMod.Config.Systems.VehicleCapIncrease)
@@ -93,7 +95,7 @@ namespace CoI.Mod.Better.Research
                 .AddVehicleCapIncrease(StepSize, "Assets/Base/Icons/VehicleLimitIncrease.svg")
                 .BuildAndAdd();
 
-            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> MyVehicleCapIncrease >> GenerateStage(id: " + protoID+", costlevel: "+costLevel+") >> created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> MyVehicleCapIncrease >> GenerateStage(id: " + protoID + ", costlevel: " + costLevel + ") >> created!");
             return result.AddParentPlusGridPos(parent);
         }
 

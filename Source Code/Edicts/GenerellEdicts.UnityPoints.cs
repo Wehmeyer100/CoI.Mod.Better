@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Collections.ImmutableCollections;
@@ -24,44 +25,12 @@ namespace CoI.Mod.Better.Edicts
             // Add Cheats
             if (!BetterMod.Config.Systems.Cheats) return;
 
-            // Add Cheats
-            GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, 5.0f, null, true);
-            GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, 10.0f, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, true);
-            GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, 20.0f, MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, true);
-            GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, 50.0f, MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, true);
-            GenerateUnityPoints(registrator, MyIDs.Eticts.Generell.UnityPointsT5_CHEAT, 100.0f, MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, true);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, categoryCheats, "unity_points_t1", -5, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0, null, Mafi.Base.Assets.Base.Icons.Edicts.UnityIncreased_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, categoryCheats, "unity_points_t2", -10, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0, MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.UnityIncreased_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, categoryCheats, "unity_points_t3", -20, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0, MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.UnityIncreased_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, categoryCheats, "unity_points_t4", -50, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0, MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.UnityIncreased_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.UnityPointsT5_CHEAT, categoryCheats, "unity_points_t5", -100, IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0, MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.UnityIncreased_svg);
         }
 
-        private void GenerateUnityPoints(ProtoRegistrator registrator, Proto.ID protoID, float monthlyUpointsCost, Proto.ID? previusEdict, bool cheat = false)
-        {
-            countUnityPointsEdicts++;
-
-            LocStr1 locStr = Loc.Str1(
-                protoID.ToString() + "__desc",
-                "Unity increase by {0}",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + monthlyUpointsCost + "%"
-            );
-
-            LocStr descShort = LocalizationManager.CreateAlreadyLocalizedStr(
-                protoID.ToString() + "_formatted",
-                locStr.Format(monthlyUpointsCost.ToString()).Value
-            );
-
-            Option<EdictProto> previousTier = Option<EdictProto>.None;
-            if (previusEdict.HasValue)
-            {
-                previousTier = registrator.PrototypesDb.GetOrThrow<EdictProto>(previusEdict.Value);
-            }
-
-            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
-                protoID,
-                Proto.CreateStr(protoID, "Unity Plus T" + countUnityPointsEdicts.ToString(), descShort, translationComment),
-                (cheat ? categoryCheats : category),
-                (-monthlyUpointsCost).Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.MaintenanceConsumptionMultiplier, 0.Percent())),
-                previousTier,
-                new EdictProto.Gfx("Assets/Base/Icons/Edicts/UnityIncreased.svg"))
-            );
-        }
     }
 }

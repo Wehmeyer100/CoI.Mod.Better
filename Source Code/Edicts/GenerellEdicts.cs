@@ -21,11 +21,7 @@ namespace CoI.Mod.Better.Edicts
 {
     internal partial class GenerellEdicts : IModData
     {
-        private int countUnityPointsEdicts = 1;
-        private int countReduceServiceEdicts = 1;
         private float CheatUpkeepEdicts = -0.5f;
-
-        private readonly string translationComment = "policy / edict which can enabled by the player in their Captain's office.";
         public static EdictCategoryProto category;
         public static EdictCategoryProto categoryCheats;
 
@@ -42,6 +38,7 @@ namespace CoI.Mod.Better.Edicts
             AddFarmMultiplier(registrator);
             AddFarmWaterConsumMultiplier(registrator);
             AddRecyclingRatioDiff(registrator);
+            AddSolarPower(registrator);
 
             GenerateResearch(registrator);
         }

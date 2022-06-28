@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.lang;
 using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
@@ -61,7 +62,8 @@ namespace CoI.Mod.Better.Buildings
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Researchs..");
 
             // Generate Research T1
-            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, "Void Crusher", MyIDs.Machines.VoidCrusher, Ids.Research.ConcreteProduction, BetterMod.UI_StepSize * 2, (int)(-(BetterMod.UI_StepSize * 1.5f)), new ResearchCostsTpl(3));
+            string Name = LangManager.Instance.Get("void_crusher_machine");
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, Name, MyIDs.Machines.VoidCrusher, Ids.Research.ConcreteProduction, BetterMod.UI_StepSize * 2, (int)(-(BetterMod.UI_StepSize * 1.5f)), new ResearchCostsTpl(3));
 
 
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Researchs done.");
@@ -72,16 +74,20 @@ namespace CoI.Mod.Better.Buildings
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs..");
 
             // Generate Research T1
-            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherCheat, "Void Crusher CHEAT", MyIDs.Machines.VoidCrusherCheat, MyIDs.Research.VehicleCapIncreaseID_ZERO, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
+            string name_t0 = LangManager.Instance.Get("void_crusher_machine_cheat");
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherCheat, name_t0, MyIDs.Machines.VoidCrusherCheat, MyIDs.Research.VehicleCapIncreaseID_ZERO, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
 
             // Generate Research T1
-            ResearchNodeProto research_t1 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherRecyclablesCheat, "Void Crusher Recyclables CHEAT", MyIDs.Machines.VoidCrusherRecyclablesCheat, research_t0);
+            string name_t1 = LangManager.Instance.Get("void_crusher_machine_recyclables_cheat");
+            ResearchNodeProto research_t1 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherRecyclablesCheat, name_t1, MyIDs.Machines.VoidCrusherRecyclablesCheat, research_t0);
 
             // Generate Research T2
-            ResearchNodeProto research_t2 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherFluidCheat, "Void Crusher Fluid CHEAT", MyIDs.Machines.VoidCrusherFluidCheat, research_t1);
+            string name_t2 = LangManager.Instance.Get("void_crusher_machine_fluid_cheat");
+            ResearchNodeProto research_t2 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherFluidCheat, name_t2, MyIDs.Machines.VoidCrusherFluidCheat, research_t1);
 
             // Generate Research T3
-            GenerateResearch(registrator, MyIDs.Research.VoidCrusherLooseCheat, "Void Crusher Loose CHEAT", MyIDs.Machines.VoidCrusherLooseCheat, research_t2);
+            string name_t3 = LangManager.Instance.Get("void_crusher_machine_loose_cheat");
+            GenerateResearch(registrator, MyIDs.Research.VoidCrusherLooseCheat, name_t3, MyIDs.Machines.VoidCrusherLooseCheat, research_t2);
 
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs done.");
         }
@@ -131,8 +137,8 @@ namespace CoI.Mod.Better.Buildings
             (
                 registrator,
                 MyIDs.Machines.VoidCrusher,
-                "Void Crusher",
-                "Destroy Products with waste",
+                LangManager.Instance.Get("void_crusher_machine"),
+                LangManager.Instance.Get("void_crusher_machine_desc"),
                 Costs.Machines.Crusher,
                 150,
                 10,
@@ -172,8 +178,8 @@ namespace CoI.Mod.Better.Buildings
             (
                 registrator,
                 MyIDs.Machines.VoidCrusherCheat,
-                "Void Crusher Cheat",
-                "Destroy Products without waste",
+                LangManager.Instance.Get("void_crusher_machine_cheat"),
+                LangManager.Instance.Get("void_crusher_machine_cheat_desc"),
                 Costs.Machines.Crusher,
                 BetterMod.Config.VoidDestroy.PowerConsume,
                 BetterMod.Config.VoidDestroy.Emission,
@@ -199,8 +205,8 @@ namespace CoI.Mod.Better.Buildings
             (
                 registrator,
                 MyIDs.Machines.VoidCrusherRecyclablesCheat,
-                "Void Crusher Recyclables",
-                "Destroy Products to recyclables",
+                LangManager.Instance.Get("void_crusher_machine_recyclables_cheat"),
+                LangManager.Instance.Get("void_crusher_machine_recyclables_cheat_desc"),
                 Costs.Machines.Crusher,
                 BetterMod.Config.VoidDestroy.PowerConsume,
                 BetterMod.Config.VoidDestroy.Emission,
@@ -228,8 +234,8 @@ namespace CoI.Mod.Better.Buildings
             (
                 registrator,
                 MyIDs.Machines.VoidCrusherLooseCheat,
-                "Void Crusher Loose Cheat",
-                "Destroy Loose without waste",
+                LangManager.Instance.Get("void_crusher_machine_loose_cheat"),
+                LangManager.Instance.Get("void_crusher_machine_loose_cheat_desc"),
                 Costs.Machines.Crusher,
                 BetterMod.Config.VoidDestroy.PowerConsume,
                 BetterMod.Config.VoidDestroy.Emission,
@@ -254,8 +260,8 @@ namespace CoI.Mod.Better.Buildings
             (
                 registrator,
                 MyIDs.Machines.VoidCrusherFluidCheat,
-                "Void Crusher Fluid Cheat",
-                "Destroy fluid without waste",
+                LangManager.Instance.Get("void_crusher_machine_fluid_cheat"),
+                LangManager.Instance.Get("void_crusher_machine_fluid_cheat_desc"),
                 Costs.Machines.Crusher,
                 BetterMod.Config.VoidDestroy.PowerConsume,
                 BetterMod.Config.VoidDestroy.Emission,
@@ -278,7 +284,7 @@ namespace CoI.Mod.Better.Buildings
         {
             return registrator.MachineProtoBuilder
                 .Start(name, protoID)
-                .Description(desc, "short description of a machine")
+                .Description(desc)
                 .SetCost(costs)
                 .SetElectricityConsumption(Electricity.FromKw(powerConsume))
                 .SetCategories(categorie)
@@ -295,7 +301,7 @@ namespace CoI.Mod.Better.Buildings
                 .SetAsLockedOnInit()
                 .BuildAndAdd();
         }
-       
+
         #endregion
 
         #region Recipes
@@ -310,7 +316,7 @@ namespace CoI.Mod.Better.Buildings
             }
         }
 
-        private void GenerateLooseRecipes(ProtoRegistrator registrator, VoidCrusherData data, bool cheat = false, string title_addr = "") 
+        private void GenerateLooseRecipes(ProtoRegistrator registrator, VoidCrusherData data, bool cheat = false, string title_addr = "")
         {
             List<(string, ProductProto)> result = ProductUtility.GetLooseProducts(registrator, ignorList: new List<ProductProto.ID>() { data.output });
             foreach ((string fieldName, ProductProto product) in result)
@@ -333,7 +339,7 @@ namespace CoI.Mod.Better.Buildings
         private void GenerateRecipes(ProtoRegistrator registrator, VoidCrusherData data, RecipeProto.ID recipeID, ProductProto inputProduct, bool cheat, string title_addr)
         {
             RecipeProtoBuilder.State result = registrator.RecipeProtoBuilder
-                .Start("Destroy" + title_addr + (cheat ? " Cheat" : "") + " " + inputProduct.Strings.Name, recipeID, data.Machine)
+                .Start("Destroy" + title_addr + (cheat ? "(Cheat)" : "") + " " + inputProduct.Strings.Name.TranslatedString, recipeID, data.Machine)
                 .SetDuration(data.currentDuration)
                 .AddInput("A", inputProduct, data.currentInputAmount.Quantity());
 

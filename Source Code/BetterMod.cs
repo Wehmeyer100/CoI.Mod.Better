@@ -2,6 +2,7 @@
 using CoI.Mod.Better.Custom;
 using CoI.Mod.Better.Edicts;
 using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.lang;
 using CoI.Mod.Better.ModConfigs;
 using CoI.Mod.Better.Research;
 using CoI.Mod.Better.Toolbars;
@@ -19,7 +20,9 @@ using Mafi.Core.Prototypes;
 using Mafi.Core.Research;
 using Mafi.Core.Terrain.Generation;
 using Mafi.Localization;
+using Mafi.Serialization;
 using Mafi.Unity;
+using Mafi.Unity.UiFramework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -47,12 +50,16 @@ namespace CoI.Mod.Better
         public static readonly string MOD_DIR_PATH = Path.Combine(MOD_ROOT_DIR_PATH, "CoI.Mod.Better");
         public static readonly string PLUGIN_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Plugins");
         public static readonly string CUSTOMS_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Customs");
+        public static readonly string LANG_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Lang");
 
         public const int OldConfigVersion = 4;
         public const int CurrentConfigVersion = 5;
 
         public const int UI_StepSize = 4;
-        public const string MyVersion = "0.1.8.8";
+        public const string MyVersion = "0.1.9";
+
+
+        public const string JSON_EXT = ".json";
 
         public static readonly GameVersion CurrentGameVersion = new GameVersion();
         public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "6", "");
@@ -102,6 +109,31 @@ namespace CoI.Mod.Better
             ReflectionUtility.PrintAllProperties<BaseModConfig>(resolver);
             ReflectionUtility.PrintAllProperties<StartingFactoryConfig>(resolver);
             ReflectionUtility.PrintAllProperties<UnityModConfig>(resolver);
+
+            if (!gameWasLoaded && Config.StartSettings.OverrideStartSettings)
+            {
+                if (resolver.TryGetResolvedDependency(out CoreModConfig coreConfig))
+                {
+                    coreConfig.InitialVehiclesCap = Config.StartSettings.InitialVehiclesCap;
+                    coreConfig.StartingPopulation = Config.StartSettings.StartingPopulation;
+                    coreConfig.ShouldUnlockAllProtosOnInit = Config.StartSettings.UnlockAll;
+                }
+            }
+            if (Config.GameSettings.OverrideGameConfig)
+            {
+                if (resolver.TryGetResolvedDependency(out CoreModConfig coreConfig))
+                {
+                    coreConfig.BaseRoundsToEscape = Config.GameSettings.BattleRoundsToEscape;
+                    coreConfig.IsGodModeEnabled = Config.GameSettings.IsGodMode;
+                    coreConfig.IsInstaBuildEnabled = Config.GameSettings.IsInstaBuild;
+                    coreConfig.BaseRoundsToEscape = Config.GameSettings.BattleRoundsToEscape;
+                    coreConfig.FreeElectricityPerTick = Config.GameSettings.FreeElectricity.Kw();
+                }
+                if (resolver.TryGetResolvedDependency(out BaseModConfig baseConfig))
+                {
+                    baseConfig.DisableFuelConsumption = Config.GameSettings.DisableFuelConsumption;
+                }
+            }
         }
 
         public void RegisterPrototypes(ProtoRegistrator registrator)
@@ -123,12 +155,15 @@ namespace CoI.Mod.Better
             Debug.Log(" - MOD_DIR_PATH: " + MOD_DIR_PATH);
             Debug.Log(" - PLUGIN_DIR_PATH: " + PLUGIN_DIR_PATH);
             Debug.Log(" - CUSTOMS_DIR_PATH: " + CUSTOMS_DIR_PATH);
+            Debug.Log(" - LANG_DIR_PATH: " + LANG_DIR_PATH);
 
-            // Registers all products from this assembly. See MyIds.Products.cs for examples.
-            registrator.RegisterAllProducts();
 
             Debug.Log("BetterMod(V: " + MyVersion + ") Config loading..");
             LoadModConfig();
+
+
+            // Init LangManager
+            LangManager.Instance.Load();
 
             Debug.Log("BetterMod(V: " + MyVersion + ") RegisterPrototypes..");
             // Use data class registration to register other protos such as machines, recipes, etc.
@@ -146,6 +181,13 @@ namespace CoI.Mod.Better
             registrator.RegisterData<Customs>();
             registrator.RegisterData<SteamStorages>();
 
+
+            // https://github.com/Wehmeyer100/CoI.Mod.Better/issues/22
+            int offsetY = 50;
+            foreach (ResearchNodeProto result in registrator.PrototypesDb.All<ResearchNodeProto>()) 
+            {
+                result.GridPosition += new Vector2i(0, offsetY);
+            }
         }
 
         private static void LoadModConfig()

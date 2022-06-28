@@ -1,4 +1,5 @@
-﻿using CoI.Mod.Better.Utilities;
+﻿using CoI.Mod.Better.lang;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
@@ -38,11 +39,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolid1FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            string Name = LangManager.Instance.Get("unit_storage");
+            string desc = LangManager.Instance.Get("unit_storage_desc", capacity_T1.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Unit storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_T1.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + "I", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageUnit)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_T1)
@@ -75,11 +77,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolid2FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            string Name = LangManager.Instance.Get("unit_storage");
+            string desc = LangManager.Instance.Get("unit_storage_desc", capacity_T2.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Unit storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_T2.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + " II", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageUnitT2)
                 .SetCapacity(capacity_T2)
                 .SetProductsFilter(ProductUtility.ProductFilter)
@@ -113,11 +116,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolid3FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            string Name = LangManager.Instance.Get("unit_storage");
+            string desc = LangManager.Instance.Get("unit_storage_desc", capacity_T3.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Unit storage III", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_T3.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + " III", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageUnitT3)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_T3)
@@ -151,11 +155,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageSolid4FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            string Name = LangManager.Instance.Get("unit_storage");
+            string desc = LangManager.Instance.Get("unit_storage_desc", capacity_T4.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Unit storage IV", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_T4.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + " IV", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageUnitT4)
                 .SetCapacity(capacity_T4)
                 .SetProductsFilter(ProductUtility.ProductFilter)

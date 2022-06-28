@@ -1,4 +1,5 @@
-﻿using CoI.Mod.Better.Utilities;
+﻿using CoI.Mod.Better.lang;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
@@ -38,12 +39,13 @@ namespace CoI.Mod.Better.Buildings
 
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluid1FormattedBase__desc", "Stores up to {0} units of a solid product.", "description for storage");
+            string Name = LangManager.Instance.Get("fluid_storage");
+            string desc = LangManager.Instance.Get("fluid_storage_desc", capacity_fluid_T1.ToString());
 
 
             // Add new to Database
-            StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start("Fluid storage", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_T1.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + "I", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluid)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_fluid_T1)
@@ -79,11 +81,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluid2FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            string Name = LangManager.Instance.Get("fluid_storage");
+            string desc = LangManager.Instance.Get("fluid_storage_desc", capacity_fluid_T2.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Fluid storage II", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_T2.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + "II", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT2)
                 .SetCapacity(capacity_fluid_T2)
                 .SetProductsFilter(ProductUtility.ProductFilter)
@@ -118,11 +121,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluid3FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            string Name = LangManager.Instance.Get("fluid_storage");
+            string desc = LangManager.Instance.Get("fluid_storage_desc", capacity_fluid_T3.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Fluid storage III", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_T3.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + "III", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT3)
                 .SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
                 .SetCapacity(capacity_fluid_T3)
@@ -156,11 +160,12 @@ namespace CoI.Mod.Better.Buildings
             }
 
             // Generate LocStr
-            LocStr1 locStr = Loc.Str1("StorageFluid4FormattedBase__desc", "Stores up to {0} units of a liquid or gas product.", "description for storage");
+            string Name = LangManager.Instance.Get("fluid_storage");
+            string desc = LangManager.Instance.Get("fluid_storage_desc", capacity_fluid_T4.ToString());
 
             // Add new to Database
-            var creator = registrator.StorageProtoBuilder.Start("Fluid storage IV", protoID)
-                .Description(LocalizationManager.CreateAlreadyLocalizedStr(protoID.Value + "__desc", locStr.Format(capacity_fluid_T4.ToString()).Value))
+            var creator = registrator.StorageProtoBuilder.Start(Name + "IV", protoID)
+                .Description(desc)
                 .SetCost(Costs.Buildings.StorageFluidT4)
                 .SetCapacity(capacity_fluid_T4)
                 .SetProductsFilter(ProductUtility.ProductFilter)
