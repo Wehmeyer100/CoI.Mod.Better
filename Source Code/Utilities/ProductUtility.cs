@@ -25,7 +25,7 @@ namespace CoI.Mod.Better.Utilities
 
         public static bool SteamFilter(ProductProto x)
         {
-            return x.Id == Ids.Products.SteamHi || x.Id == Ids.Products.SteamLo || x.Id == Ids.Products.SteamDepleted;
+            return x.Id == Ids.Products.SteamHi || x.Id == Ids.Products.SteamLo || x.Id == Ids.Products.SteamDepleted || x.Id == Ids.Products.ChilledWater;
         }
 
         public static bool ProductFilter(ProductProto x)

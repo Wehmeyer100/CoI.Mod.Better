@@ -52,10 +52,10 @@ namespace CoI.Mod.Better
         public const int CurrentConfigVersion = 5;
 
         public const int UI_StepSize = 4;
-        public const string MyVersion = "0.1.8.7";
+        public const string MyVersion = "0.1.8.8";
 
         public static readonly GameVersion CurrentGameVersion = new GameVersion();
-        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "5", "b");
+        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "6", "");
         public static bool IsCompatibility => CurrentGameVersion.Equals(CompatibilityVersion, true);
 
         public BetterMod()

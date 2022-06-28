@@ -208,6 +208,8 @@ namespace CoI.Mod.Better.Buildings
 
                 Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidProducer >> GenerateLooseProduct(id: " + recipeID + ") >> Output: " + product.Id);
             }
+
+            GenerateRecipes(registrator, data, _getRecipeID(typeName, "Recyclables"), registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.Recyclables));
         }
 
         private void GenerateFluidProduct(ProtoRegistrator registrator, VoidProducerData data, string typeName)
@@ -219,6 +221,7 @@ namespace CoI.Mod.Better.Buildings
 
                 Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidProducer >> GenerateFluidProduct(id: " + recipeID + ") >> Output: " + product.Id);
             }
+
         }
 
         private void GenerateRecipes(ProtoRegistrator registrator, VoidProducerData data, RecipeProto.ID recipeID, ProductProto inputProduct)
