@@ -111,7 +111,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="Lang\de-DE\research.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Lang\de-DE\edicts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Lang\en-US\research.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Lang\en-US\common.json">
