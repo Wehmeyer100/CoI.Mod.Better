@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Collections.ImmutableCollections;
@@ -24,44 +25,11 @@ namespace CoI.Mod.Better.Edicts
             // Add Cheats
             if (!BetterMod.Config.Systems.Cheats) return;
 
-            // Add Cheats
-            GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, 30, null, true);
-            GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT, 40, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, true);
-            GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT, 50, MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT, true);
-            GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT, 60, MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT, true);
-            GenerateReduceService(registrator, MyIDs.Eticts.Generell.ReduceServiceT5_CHEAT, 75, MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT, true);
-        }
-
-        private void GenerateReduceService(ProtoRegistrator registrator, Proto.ID protoID, int reduceServiceConsum, Proto.ID? previusEdict, bool cheat = false)
-        {
-            countReduceServiceEdicts++;
-
-            LocStr1 locStr = Loc.Str1(
-                protoID.ToString() + "__desc",
-                "All settlement services consumption increased by {0}%",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + reduceServiceConsum + "%"
-            );
-
-            LocStr descShort = LocalizationManager.CreateAlreadyLocalizedStr(
-                protoID.ToString() + "_formatted",
-                locStr.Format(reduceServiceConsum.ToString()).Value
-            );
-
-            Option<EdictProto> previousTier = Option<EdictProto>.None;
-            if (previusEdict.HasValue)
-            {
-                previousTier = registrator.PrototypesDb.GetOrThrow<EdictProto>(previusEdict.Value);
-            }
-
-            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
-                protoID,
-                Proto.CreateStr(protoID, "Settlement Consumption T" + countReduceServiceEdicts.ToString(), descShort, translationComment),
-                (cheat ? categoryCheats : category),
-                CheatUpkeepEdicts.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FoodConsumptionMultiplier, reduceServiceConsum.Percent())),
-                previousTier,
-                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png))
-            );
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, categoryCheats, "reduce_service_t1", CheatUpkeepEdicts, IdsCore.PropertyIds.FoodConsumptionMultiplier, 20, null, Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT, categoryCheats, "reduce_service_t2", CheatUpkeepEdicts, IdsCore.PropertyIds.FoodConsumptionMultiplier, 40, MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT, categoryCheats, "reduce_service_t3", CheatUpkeepEdicts, IdsCore.PropertyIds.FoodConsumptionMultiplier, 60, MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT, categoryCheats, "reduce_service_t4", CheatUpkeepEdicts, IdsCore.PropertyIds.FoodConsumptionMultiplier, 80, MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.ReduceServiceT5_CHEAT, categoryCheats, "reduce_service_t5", CheatUpkeepEdicts, IdsCore.PropertyIds.FoodConsumptionMultiplier, 100, MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FoodReduced_png);
         }
     }
 }

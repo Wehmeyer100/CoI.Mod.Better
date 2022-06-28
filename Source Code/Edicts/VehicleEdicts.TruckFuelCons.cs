@@ -33,7 +33,7 @@ namespace CoI.Mod.Better.Edicts
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT, 25, CheatUpkeepEdicts, null, true);
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT2_CHEAT, 50, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT1_CHEAT, true);
             GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, 70, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT2_CHEAT, true);
-            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4_CHEAT, 95, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, true);
+            GenerateTruckFuelCons(registrator, MyIDs.Eticts.Trucks.FuelReductionT4_CHEAT, 100, CheatUpkeepEdicts, MyIDs.Eticts.Trucks.FuelReductionT3_CHEAT, true);
         }
 
         private void GenerateTruckFuelCons(ProtoRegistrator registrator, Proto.ID protoID, int consume, float monthlyUpointsCost, Proto.ID? previusEdict, bool cheat = false)

@@ -1,4 +1,5 @@
 ﻿using CoI.Mod.Better.Extensions;
+using CoI.Mod.Better.Utilities;
 using Mafi;
 using Mafi.Base;
 using Mafi.Collections.ImmutableCollections;
@@ -23,45 +24,11 @@ namespace CoI.Mod.Better.Edicts
         {
             if (!BetterMod.Config.Systems.Cheats) return;
 
-            // Add Cheats
-            GenerateFarmWaterConsumMultiplier(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT, 20, null, true);
-            GenerateFarmWaterConsumMultiplier(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT, 40, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT, true);
-            GenerateFarmWaterConsumMultiplier(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT, 50, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT, true);
-            GenerateFarmWaterConsumMultiplier(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT, 75, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT, true);
-            GenerateFarmWaterConsumMultiplier(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT5_CHEAT, 95, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT, true);
-        }
-
-        private int countFarmWaterConsumMultiplierEdicts = 1;
-        private void GenerateFarmWaterConsumMultiplier(ProtoRegistrator registrator, Proto.ID protoID, int multiplier, Proto.ID? previusEdict, bool cheat = false)
-        {
-            countFarmWaterConsumMultiplierEdicts++;
-
-            LocStr1 locStr = Loc.Str1(
-                protoID.ToString() + "__desc",
-                "All Farms consume decreased by {0}%",
-                "policy / edict which can enabled by the player in their Captain's office. {0}=" + multiplier + "%"
-            );
-
-            LocStr descShort = LocalizationManager.CreateAlreadyLocalizedStr(
-                protoID.ToString() + "_formatted",
-                locStr.Format(multiplier.ToString()).Value
-            );
-
-            Option<EdictProto> previousTier = Option<EdictProto>.None;
-            if (previusEdict.HasValue)
-            {
-                previousTier = registrator.PrototypesDb.GetOrThrow<EdictProto>(previusEdict.Value);
-            }
-
-            registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
-                protoID,
-                Proto.CreateStr(protoID, "Farm Water Consumption Multiplier T" + countFarmWaterConsumMultiplierEdicts.ToString(), descShort, translationComment),
-                (cheat ? categoryCheats : category),
-                CheatUpkeepEdicts.Upoints(),
-                ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, (-multiplier).Percent())),
-                previousTier,
-                new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg))
-            );
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT, categoryCheats, "farm_consume_multiplier_t1", CheatUpkeepEdicts, IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, -20, null, Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT, categoryCheats, "farm_consume_multiplier_t2", CheatUpkeepEdicts, IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, -40, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT, categoryCheats, "farm_consume_multiplier_t3", CheatUpkeepEdicts, IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, -50, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT, categoryCheats, "farm_consume_multiplier_t4", CheatUpkeepEdicts, IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, -75, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg);
+            EdictUtility.GenerateEdict2(registrator, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT5_CHEAT, categoryCheats, "farm_consume_multiplier_t5", CheatUpkeepEdicts, IdsCore.PropertyIds.FarmWaterConsumptionMultiplier, -95, MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT, Mafi.Base.Assets.Base.Icons.Edicts.FarmingBoost_svg);
         }
     }
 }

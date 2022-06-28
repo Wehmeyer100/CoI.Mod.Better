@@ -37,6 +37,7 @@ namespace CoI.Mod.Better.lang
 
         public string Get(string key, params string[] replace)
         {
+            key = key.ToLower().Trim();
             string txt = GetRaw(key);
             if (replace.Length > 0)
             {
@@ -50,6 +51,7 @@ namespace CoI.Mod.Better.lang
 
         public string GetRaw(string key)
         {
+            key = key.ToLower().Trim();
             if (!langData.ContainsKey(key))
             {
                 Debug.LogWarning("BetterMod(V: " + BetterMod.MyVersion + ") >> LangManager >> Get(key: " + key + ") >> Key not found! >> ");

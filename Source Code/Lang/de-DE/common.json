@@ -32,10 +32,6 @@
     "Value": "Kann {0}L Flüssigkeit einlagern."
   },
   {
-    "Key": "research_steam_storage",
-    "Value": "Better Druckbehälter"
-  },
-  {
     "Key": "steam_storage",
     "Value": "Better Druckbehälter"
   },
@@ -44,20 +40,12 @@
     "Value": "Kann {0}L flüssigkeiten lagern die unterdruck(Hoch, Niedrig, Drucklos und gekühltes Wasser) stehen."
   },
   {
-    "Key": "research_storage",
-    "Value": "Better Storage"
-  },
-  {
     "Key": "diesel_generator",
     "Value": "Dieselgenerator"
   },
   {
     "Key": "diesel_generator_desc",
     "Value": "Verbrennt Diesel um Strom zu produzieren."
-  },
-  {
-    "Key": "research_diesel_generator",
-    "Value": "Better Dieselgenerator(Cheat)"
   },
   {
     "Key": "mine_tower",
@@ -74,10 +62,6 @@
   {
     "Key": "power_generator_desc",
     "Value": "Wandelt mechanische Energie in Elektrizität um. Je langsamer sie sich dreht, desto geringer ist ihr Wirkungsgrad."
-  },
-  {
-    "Key": "research_power_generator",
-    "Value": "Better Stromgenerator"
   },
   {
     "Key": "void_crusher_machine",

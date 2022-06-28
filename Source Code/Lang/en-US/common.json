@@ -32,10 +32,6 @@
     "Value": "Stores up to {0} units of a liquid or gas product."
   },
   {
-    "Key": "research_steam_storage",
-    "Value": "Better steam storage"
-  },
-  {
     "Key": "steam_storage",
     "Value": "Better steam storage"
   },
@@ -44,20 +40,12 @@
     "Value": "Stores up to {0} units of a steam(Hi, Lo, Depleted, chiller water)."
   },
   {
-    "Key": "research_storage",
-    "Value": "Better storage"
-  },
-  {
     "Key": "diesel_generator",
     "Value": "Better diesel generator"
   },
   {
     "Key": "diesel_generator_desc",
     "Value": "Burns diesel to electricity."
-  },
-  {
-    "Key": "research_diesel_generator",
-    "Value": "Better diesel generator(Cheat)"
   },
   {
     "Key": "mine_tower",
@@ -74,10 +62,6 @@
   {
     "Key": "power_generator_desc",
     "Value": "Converts mechanical power to electricity. The slower it spins the lower its efficiency is."
-  },
-  {
-    "Key": "research_power_generator",
-    "Value": "Better power generator"
   },
   {
     "Key": "void_crusher_machine",
