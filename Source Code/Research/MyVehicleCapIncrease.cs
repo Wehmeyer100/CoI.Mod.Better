@@ -78,7 +78,7 @@ namespace CoI.Mod.Better.Research
                 }
                 ResearchNodeProto cheat_research = cheat_research_proto.BuildAndAdd();
 
-                cheat_research.GridPosition = master_research.GridPosition + new Vector2i((BetterMod.UI_StepSize * 2), -BetterMod.UI_StepSize);
+                cheat_research.GridPosition = master_research.GridPosition + new Vector2i((BetterMod.UIStepSize * 2), -BetterMod.UIStepSize);
                 cheat_research.AddParent(master_research);
             }
         }

@@ -73,7 +73,7 @@ namespace CoI.Mod.Better.Extensions
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ResearchNodeProto AddParentPlusGridPos(this ResearchNodeProto builder, ResearchNodeProto parentProto, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0)
+        public static ResearchNodeProto AddParentPlusGridPos(this ResearchNodeProto builder, ResearchNodeProto parentProto, int ui_stepSize_x = BetterMod.UIStepSize, int ui_stepSize_y = 0)
         {
             builder.AddGridPos(parentProto, ui_stepSize_x, ui_stepSize_y);
             builder.AddParent(parentProto);
@@ -81,7 +81,7 @@ namespace CoI.Mod.Better.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ResearchNodeProto AddGridPos(this ResearchNodeProto builder, ResearchNodeProto parentProto, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0)
+        public static ResearchNodeProto AddGridPos(this ResearchNodeProto builder, ResearchNodeProto parentProto, int ui_stepSize_x = BetterMod.UIStepSize, int ui_stepSize_y = 0)
         {
             builder.GridPosition = parentProto.GridPosition + new Vector2i(ui_stepSize_x, ui_stepSize_y);
             return builder;

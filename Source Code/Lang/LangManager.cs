@@ -27,7 +27,7 @@ namespace CoI.Mod.Better.lang
         {
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> LangManager >> Init");
             CurrentLang = LocalizationManager.CurrentLangInfo.CultureInfoId;
-            if (!Directory.Exists(Path.Combine(BetterMod.LANG_DIR_PATH, CurrentLang)))
+            if (!Directory.Exists(Path.Combine(BetterMod.LangDirPath, CurrentLang)))
             {
                 CurrentLang = "en-US";
             }
@@ -94,7 +94,7 @@ namespace CoI.Mod.Better.lang
 
         private void LoadData(string directory, ref List<string> foundedFiles, bool recusive = true)
         {
-            string dir_path = Path.Combine(BetterMod.LANG_DIR_PATH, directory);
+            string dir_path = Path.Combine(BetterMod.LangDirPath, directory);
 
             if (!Directory.Exists(dir_path))
             {
@@ -113,7 +113,7 @@ namespace CoI.Mod.Better.lang
             foreach (string file_path in allFiles)
             {
                 string ext = Path.GetExtension(file_path);
-                if (ext == BetterMod.JSON_EXT)
+                if (ext == BetterMod.JsonExt)
                 {
                     foundedFiles.Add(file_path);
                 }

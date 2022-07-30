@@ -46,23 +46,23 @@ namespace CoI.Mod.Better
 
         public static ModConfigV2 Config = new ModConfigV2();
 
-        public static readonly string MOD_ROOT_DIR_PATH = new FileSystemHelper().GetDirPath(FileType.Mod, false);
-        public static readonly string MOD_DIR_PATH = Path.Combine(MOD_ROOT_DIR_PATH, "CoI.Mod.Better");
-        public static readonly string PLUGIN_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Plugins");
-        public static readonly string CUSTOMS_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Customs");
-        public static readonly string LANG_DIR_PATH = Path.Combine(MOD_DIR_PATH, "Lang");
+        public static readonly string ModRootDirPath = new FileSystemHelper().GetDirPath(FileType.Mod, false);
+        public static readonly string ModDirPath = Path.Combine(ModRootDirPath, "CoI.Mod.Better");
+        public static readonly string PluginDirPath = Path.Combine(ModDirPath, "Plugins");
+        public static readonly string CustomsDirPath = Path.Combine(ModDirPath, "Customs");
+        public static readonly string LangDirPath = Path.Combine(ModDirPath, "Lang");
 
         public const int OldConfigVersion = 4;
         public const int CurrentConfigVersion = 5;
 
-        public const int UI_StepSize = 4;
+        public const int UIStepSize = 4;
         public const string MyVersion = "0.1.9";
 
 
-        public const string JSON_EXT = ".json";
+        public const string JsonExt = ".json";
 
         public static readonly GameVersion CurrentGameVersion = new GameVersion();
-        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "6", "");
+        public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "8", "");
         public static bool IsCompatibility => CurrentGameVersion.Equals(CompatibilityVersion, true);
 
         public BetterMod()
@@ -72,7 +72,7 @@ namespace CoI.Mod.Better
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            string assemblyPath = Path.Combine(PLUGIN_DIR_PATH, new AssemblyName(args.Name).Name + ".dll");
+            string assemblyPath = Path.Combine(PluginDirPath, new AssemblyName(args.Name).Name + ".dll");
             if (!File.Exists(assemblyPath))
             {
                 Debug.Log("BetterMod(V: " + MyVersion + ") Assembly cannot loaded from Plugins, Assembly not found >> " + assemblyPath);
@@ -151,11 +151,11 @@ namespace CoI.Mod.Better
             }
 
             Debug.Log("BetterMod(V: " + MyVersion + ") Directories ..");
-            Debug.Log(" - MOD_ROOT_DIR_PATH: " + MOD_ROOT_DIR_PATH);
-            Debug.Log(" - MOD_DIR_PATH: " + MOD_DIR_PATH);
-            Debug.Log(" - PLUGIN_DIR_PATH: " + PLUGIN_DIR_PATH);
-            Debug.Log(" - CUSTOMS_DIR_PATH: " + CUSTOMS_DIR_PATH);
-            Debug.Log(" - LANG_DIR_PATH: " + LANG_DIR_PATH);
+            Debug.Log(" - MOD_ROOT_DIR_PATH: " + ModRootDirPath);
+            Debug.Log(" - MOD_DIR_PATH: " + ModDirPath);
+            Debug.Log(" - PLUGIN_DIR_PATH: " + PluginDirPath);
+            Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
+            Debug.Log(" - LANG_DIR_PATH: " + LangDirPath);
 
 
             Debug.Log("BetterMod(V: " + MyVersion + ") Config loading..");
@@ -172,7 +172,7 @@ namespace CoI.Mod.Better
             registrator.RegisterData<MineTower>();
             registrator.RegisterData<BigStorages>();
             registrator.RegisterData<Beacon>();
-            registrator.RegisterData<GenerellEdicts>();
+            registrator.RegisterData<GenerelEdicts>();
             registrator.RegisterData<VehicleEdicts>();
             registrator.RegisterData<VoidCrusher>();
             registrator.RegisterData<VoidProducer>();
@@ -194,8 +194,8 @@ namespace CoI.Mod.Better
         {
             JsonSerializerSettings settings = new JsonSerializerSettings() { Formatting = Formatting.Indented, MaxDepth = 500, MissingMemberHandling = MissingMemberHandling.Ignore, NullValueHandling = NullValueHandling.Ignore, ReferenceLoopHandling = ReferenceLoopHandling.Serialize };
 
-            string oldConfigFile = MOD_DIR_PATH + "/globalconfig" + OldConfigVersion + ".json";
-            string newConfigFile = MOD_DIR_PATH + "/globalconfig" + CurrentConfigVersion + ".json";
+            string oldConfigFile = ModDirPath + "/globalconfig" + OldConfigVersion + ".json";
+            string newConfigFile = ModDirPath + "/globalconfig" + CurrentConfigVersion + ".json";
 
             if (File.Exists(oldConfigFile) && !File.Exists(newConfigFile))
             {

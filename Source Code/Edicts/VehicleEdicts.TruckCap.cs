@@ -62,7 +62,7 @@ namespace CoI.Mod.Better.Edicts
             registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Overloaded trucks T" + countTruckCapEdicts.ToString(), descShort4, translationComment),
-                (cheat ? GenerellEdicts.categoryCheats : GenerellEdicts.category),
+                (cheat ? GenerelEdicts.CategoryCheats : GenerelEdicts.Category),
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.TrucksCapacityMultiplier, Capacity.Percent())),
                 previousTier,

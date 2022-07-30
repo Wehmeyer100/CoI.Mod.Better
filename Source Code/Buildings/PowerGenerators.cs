@@ -52,7 +52,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Add parent to my research CHEAT
             ResearchNodeProto master_cheat_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VoidDieselEnergyCheat);
-            research_t1.AddGridPos(master_cheat_research, -BetterMod.UI_StepSize, 0);
+            research_t1.AddGridPos(master_cheat_research, -BetterMod.UIStepSize, 0);
         }
 
         private static void GeneratePowerMachine(ProtoRegistrator registrator, StaticEntityProto.ID protoID, int inputKwMech, int outputKW)

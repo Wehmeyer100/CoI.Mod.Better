@@ -177,7 +177,7 @@ namespace CoI.Mod.Better.Utilities
             return _buildResearch(state, data.parent, data.parent_only_for_grid, data.ui_stepSize_x, data.ui_stepSize_y);
         }
 
-        private static ResearchNodeProto _buildResearch(ResearchNodeProtoBuilder.State state, ResearchNodeProto parent_research, bool parent_only_for_grid, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0)
+        private static ResearchNodeProto _buildResearch(ResearchNodeProtoBuilder.State state, ResearchNodeProto parent_research, bool parent_only_for_grid, int ui_stepSize_x = BetterMod.UIStepSize, int ui_stepSize_y = 0)
         {
             ResearchNodeProto research = state.BuildAndAdd();
             if (parent_only_for_grid)

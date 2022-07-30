@@ -61,7 +61,7 @@ namespace CoI.Mod.Better.Edicts
             registrator.PrototypesDb.Add(new EdictWithPropertiesProto(
                 protoID,
                 Proto.CreateStr(protoID, "Fuel saver T" + countTruckFuelConsEdicts.ToString(), descShort3, translationComment),
-                (cheat ? GenerellEdicts.categoryCheats : GenerellEdicts.category),
+                (cheat ? GenerelEdicts.CategoryCheats : GenerelEdicts.Category),
                 monthlyUpointsCost.Upoints(),
                 ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.VehiclesFuelConsumptionMultiplier, -(consume).Percent())),
                 previousTier,

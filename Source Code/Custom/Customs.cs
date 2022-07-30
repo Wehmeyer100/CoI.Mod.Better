@@ -146,7 +146,7 @@ namespace CoI.Mod.Better.Custom
 
         private void LoadData<T>(string directory, ref List<(string, Type)> foundedFiles, bool recusive) where T : class
         {
-            string dir_path = Path.Combine(BetterMod.CUSTOMS_DIR_PATH, directory);
+            string dir_path = Path.Combine(BetterMod.CustomsDirPath, directory);
 
             if (!Directory.Exists(dir_path))
             {
@@ -214,7 +214,7 @@ namespace CoI.Mod.Better.Custom
 
 
             //var result = JsonUtility.ToJson(storageData, true);
-            string file_path = BetterMod.MOD_DIR_PATH + "/testStorages.json";
+            string file_path = BetterMod.ModDirPath + "/testStorages.json";
             var result = JsonConvert.SerializeObject(testData, settings);
             if (File.Exists(file_path))
             {

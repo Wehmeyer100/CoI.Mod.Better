@@ -19,7 +19,7 @@ using static CoI.Mod.Better.Utilities.ResearchProtoUtility;
 
 namespace CoI.Mod.Better.Edicts
 {
-    internal partial class GenerellEdicts : IModData
+    internal partial class GenerelEdicts : IModData
     {
 
         private static void Cheats(ProtoRegistrator registrator)
@@ -28,7 +28,7 @@ namespace CoI.Mod.Better.Edicts
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_CHEAT);
 
             // Generate Cheat Research
-            ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, "Generell Edict Cheat I", BetterMod.Config.Default.CheatResearchCosts, true, new ResearchNodeUIData(master_research, true, BetterMod.UI_StepSize * 2, -BetterMod.UI_StepSize), 
+            ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, "Generell Edict Cheat I", BetterMod.Config.Default.CheatResearchCosts, true, new ResearchNodeUIData(master_research, true, BetterMod.UIStepSize * 2, -BetterMod.UIStepSize), 
                 MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, 
                 MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, 
                 MyIDs.Eticts.Generell.FarmMultiplierT1_CHEAT, 
@@ -68,7 +68,7 @@ namespace CoI.Mod.Better.Edicts
                 MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT,
                 MyIDs.Eticts.Generell.SolarPowerT5_CHEAT);
 
-            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> GenerellEdicts >> Generell edict cheats created!");
+            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> GenerelEdicts >> Generell edict cheats created!");
         }
     }
 }

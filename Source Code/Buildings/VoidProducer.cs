@@ -75,7 +75,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Add parent to my research T1
             ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VoidCrusherCheat);
-            research_t1.AddGridPos(master_research, -BetterMod.UI_StepSize);
+            research_t1.AddGridPos(master_research, -BetterMod.UIStepSize);
         }
         #endregion
 

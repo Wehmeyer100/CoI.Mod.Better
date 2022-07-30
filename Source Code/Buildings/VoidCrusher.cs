@@ -63,7 +63,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Generate Research T1
             string Name = LangManager.Instance.Get("void_crusher_machine");
-            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, Name, MyIDs.Machines.VoidCrusher, Ids.Research.ConcreteProduction, BetterMod.UI_StepSize * 2, (int)(-(BetterMod.UI_StepSize * 1.5f)), new ResearchCostsTpl(3));
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, Name, MyIDs.Machines.VoidCrusher, Ids.Research.ConcreteProduction, BetterMod.UIStepSize * 2, (int)(-(BetterMod.UIStepSize * 1.5f)), new ResearchCostsTpl(3));
 
 
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Researchs done.");
@@ -75,7 +75,7 @@ namespace CoI.Mod.Better.Buildings
 
             // Generate Research T1
             string name_t0 = LangManager.Instance.Get("void_crusher_machine_cheat");
-            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherCheat, name_t0, MyIDs.Machines.VoidCrusherCheat, MyIDs.Research.VehicleCapIncreaseID_ZERO, BetterMod.UI_StepSize, BetterMod.UI_StepSize);
+            ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusherCheat, name_t0, MyIDs.Machines.VoidCrusherCheat, MyIDs.Research.VehicleCapIncreaseID_ZERO, BetterMod.UIStepSize, BetterMod.UIStepSize);
 
             // Generate Research T1
             string name_t1 = LangManager.Instance.Get("void_crusher_machine_recyclables_cheat");
@@ -92,12 +92,12 @@ namespace CoI.Mod.Better.Buildings
             Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidCrusher >> Generate Cheat Researchs done.");
         }
 
-        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto.ID previusResearchID, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
+        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto.ID previusResearchID, int ui_stepSize_x = BetterMod.UIStepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
         {
             return GenerateResearch(registrator, protoID, name, machineID, registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(previusResearchID), ui_stepSize_x, ui_stepSize_y, costs);
         }
 
-        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto previusResearch, int ui_stepSize_x = BetterMod.UI_StepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
+        private ResearchNodeProto GenerateResearch(ProtoRegistrator registrator, ResearchNodeProto.ID protoID, string name, MachineProto.ID machineID, ResearchNodeProto previusResearch, int ui_stepSize_x = BetterMod.UIStepSize, int ui_stepSize_y = 0, ResearchCostsTpl costs = null)
         {
             // Generate Research
             ResearchNodeProtoBuilder.State research_state = registrator.ResearchNodeProtoBuilder

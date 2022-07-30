@@ -29,7 +29,7 @@ namespace CoI.Mod.Better.Buildings
 
                 ResearchNodeProto parent = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_ZERO);
 
-                ResearchNodeProto research_t1 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT1, Name + " I", "", 1, false, new ResearchNodeUIData(parent, false, 0, (BetterMod.UI_StepSize * 2)), MyIDs.Buildings.StorageFluidT1, MyIDs.Buildings.StorageLooseT1, MyIDs.Buildings.StorageUnitT1);
+                ResearchNodeProto research_t1 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT1, Name + " I", "", 1, false, new ResearchNodeUIData(parent, false, 0, (BetterMod.UIStepSize * 2)), MyIDs.Buildings.StorageFluidT1, MyIDs.Buildings.StorageLooseT1, MyIDs.Buildings.StorageUnitT1);
                 ResearchNodeProto research_t2 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT2, Name + " II", "", 4, false, new ResearchNodeUIData(research_t1, false), MyIDs.Buildings.StorageFluidT2, MyIDs.Buildings.StorageLooseT2, MyIDs.Buildings.StorageUnitT2);
                 ResearchNodeProto research_t3 = GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT3, Name + " III", "", 8, false, new ResearchNodeUIData(research_t2, false), MyIDs.Buildings.StorageFluidT3, MyIDs.Buildings.StorageLooseT3, MyIDs.Buildings.StorageUnitT3);
                 GenerateResearchBuildings(registrator, MyIDs.Research.StorageResearchT4, Name + " IV", "", 16, false, new ResearchNodeUIData(research_t3, false), MyIDs.Buildings.StorageFluidT4, MyIDs.Buildings.StorageLooseT4, MyIDs.Buildings.StorageUnitT4);

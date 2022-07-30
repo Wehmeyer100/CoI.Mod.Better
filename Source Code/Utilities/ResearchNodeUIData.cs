@@ -9,7 +9,7 @@ namespace CoI.Mod.Better.Utilities
         {
             public ResearchNodeProto parent;
             public bool parent_only_for_grid = false;
-            public int ui_stepSize_x = BetterMod.UI_StepSize;
+            public int ui_stepSize_x = BetterMod.UIStepSize;
             public int ui_stepSize_y = 0;
 
             public ResearchNodeUIData(ResearchNodeProto parent)
