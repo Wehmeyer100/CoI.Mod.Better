@@ -41,7 +41,7 @@
   },
   {
     "Key": "farm_consume_multiplier_t1",
-    "Value": "农业用水倍数 I"
+    "Value": "农业用水倍率 I"
   },
   {
     "Key": "farm_consume_multiplier_t1_desc",
@@ -49,7 +49,7 @@
   },
   {
     "Key": "farm_consume_multiplier_t2",
-    "Value": "农业用水倍数 II"
+    "Value": "农业用水倍率 II"
   },
   {
     "Key": "farm_consume_multiplier_t2_desc",
@@ -57,7 +57,7 @@
   },
   {
     "Key": "farm_consume_multiplier_t3",
-    "Value": "农业用水倍数 III"
+    "Value": "农业用水倍率 III"
   },
   {
     "Key": "farm_consume_multiplier_t3_desc",
@@ -65,7 +65,7 @@
   },
   {
     "Key": "farm_consume_multiplier_t4",
-    "Value": "农业用水倍数 IV"
+    "Value": "农业用水倍率 IV"
   },
   {
     "Key": "farm_consume_multiplier_t4_desc",
@@ -73,7 +73,7 @@
   },
   {
     "Key": "farm_consume_multiplier_t5",
-    "Value": "农业用水倍数 V"
+    "Value": "农业用水倍率 V"
   },
   {
     "Key": "farm_consume_multiplier_t5_desc",
@@ -201,43 +201,43 @@
   },
   {
     "Key": "unity_points_t1",
-    "Value": "Unity 加 I"
+    "Value": "凝聚力增强 I"
   },
   {
     "Key": "unity_points_t1_desc",
-    "Value": "Unity 增加 {0} 点。"
+    "Value": "凝聚力增加 {0} 点。"
   },
   {
     "Key": "unity_points_t2",
-    "Value": "Unity 加 II"
+    "Value": "凝聚力增强 II"
   },
   {
     "Key": "unity_points_t2_desc",
-    "Value": "Unity 增加 {0} 点。"
+    "Value": "凝聚力增加 {0} 点。"
   },
   {
     "Key": "unity_points_t3",
-    "Value": "Unity 加 III"
+    "Value": "凝聚力增强 III"
   },
   {
     "Key": "unity_points_t3_desc",
-    "Value": "Unity 增加 {0} 点。"
+    "Value": "凝聚力增加 {0} 点。"
   },
   {
     "Key": "unity_points_t4",
-    "Value": "Unity 加 IV"
+    "Value": "凝聚力增强 IV"
   },
   {
     "Key": "unity_points_t4_desc",
-    "Value": "Unity 增加 {0} 点。"
+    "Value": "凝聚力增加 {0} 点。"
   },
   {
     "Key": "unity_points_t5",
-    "Value": "Unity 加 V"
+    "Value": "凝聚力增强 V"
   },
   {
     "Key": "unity_points_t5_desc",
-    "Value": "Unity 增加 {0} 点。"
+    "Value": "凝聚力增加 {0} 点。"
   },
   {
     "Key": "maintenance_reduction_t1",

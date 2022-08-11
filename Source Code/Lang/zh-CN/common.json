@@ -9,19 +9,19 @@
   },
   {
     "Key": "unit_storage",
-    "Value": "更好的存储仓库"
+    "Value": "更好的单位存储"
   },
   {
     "Key": "unit_storage_desc",
-    "Value": "可存储高达 {0} 单位的固体产品。"
+    "Value": "可存储高达 {0} 单位的固体产物。"
   },
   {
     "Key": "loose_storage",
-    "Value": "更好松散的存储"
+    "Value": "更好散装物的存储"
   },
   {
     "Key": "loose_storage_desc",
-    "Value": "可存储高达 {0} 单位的松散产品。"
+    "Value": "可存储高达 {0} 单位的散装物产物。"
   },
   {
     "Key": "fluid_storage",
@@ -29,7 +29,7 @@
   },
   {
     "Key": "fluid_storage_desc",
-    "Value": "可存储高达 {0} 单位的液体或气体产品。"
+    "Value": "可存储高达 {0} 单位的液体或气体产物。"
   },
   {
     "Key": "steam_storage",
@@ -49,7 +49,7 @@
   },
   {
     "Key": "mine_tower",
-    "Value": "矿区控制塔"
+    "Value": "矿山控制塔"
   },
   {
     "Key": "mine_tower_desc",
@@ -69,38 +69,38 @@
   },
   {
     "Key": "void_crusher_machine_desc",
-    "Value": "用废物销毁产品"
+    "Value": "粉碎产物产生碎石"
   },
   {
     "Key": "void_crusher_machine_cheat",
-    "Value": "更好的粉碎机(作弊)"
+    "Value": "更好的粉碎机（作弊）"
   },
   {
     "Key": "void_crusher_machine_cheat_desc",
-    "Value": "没有浪费地销毁产品"
+    "Value": "没有浪费地粉碎产物"
   },
   {
     "Key": "void_crusher_machine_recyclables_cheat",
-    "Value": "更好的粉碎机机回收(作弊)"
+    "Value": "更好的粉碎机机-回收(作弊)"
   },
   {
     "Key": "void_crusher_machine_recyclables_cheat_desc",
-    "Value": "将产品销毁为可回收物"
+    "Value": "将产物粉碎为可回收物"
   },
   {
     "Key": "void_crusher_machine_loose_cheat",
-    "Value": "更好的粉碎机松散存储(作弊)"
+    "Value": "更好的粉碎机-散装物(作弊)"
   },
   {
     "Key": "void_crusher_machine_loose_cheat_desc",
-    "Value": "破坏松散存储而不浪费"
+    "Value": "粉碎散装物而不浪费"
   },
   {
     "Key": "void_crusher_machine_fluid_cheat",
-    "Value": "更好的粉碎机流体(作弊)"
+    "Value": "更好的粉碎机-流体(作弊)"
   },
   {
     "Key": "void_crusher_machine_fluid_cheat_desc",
-    "Value": "销毁液体而不产生废物"
+    "Value": "粉粹流体而不产生废弃物"
   }
 ]
