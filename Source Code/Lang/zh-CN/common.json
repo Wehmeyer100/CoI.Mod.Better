@@ -1,0 +1,106 @@
+﻿[
+  {
+    "Key": "test",
+    "Value": "测试值"
+  },
+  {
+    "Key": "clock",
+    "Value": "{0} 小时"
+  },
+  {
+    "Key": "unit_storage",
+    "Value": "更好的单位存储"
+  },
+  {
+    "Key": "unit_storage_desc",
+    "Value": "可存储高达 {0} 单位的固体产物。"
+  },
+  {
+    "Key": "loose_storage",
+    "Value": "更好散装物的存储"
+  },
+  {
+    "Key": "loose_storage_desc",
+    "Value": "可存储高达 {0} 单位的散装物产物。"
+  },
+  {
+    "Key": "fluid_storage",
+    "Value": "更好的流体存储"
+  },
+  {
+    "Key": "fluid_storage_desc",
+    "Value": "可存储高达 {0} 单位的液体或气体产物。"
+  },
+  {
+    "Key": "steam_storage",
+    "Value": "更好的蒸汽存储"
+  },
+  {
+    "Key": "steam_storage_desc",
+    "Value": "可存储高达 {0} 单位的蒸汽(高温、低温、电镀、冷却机组水)。"
+  },
+  {
+    "Key": "diesel_generator",
+    "Value": "更好的柴油发电机"
+  },
+  {
+    "Key": "diesel_generator_desc",
+    "Value": "燃烧柴油发电。"
+  },
+  {
+    "Key": "mine_tower",
+    "Value": "矿山控制塔"
+  },
+  {
+    "Key": "mine_tower_desc",
+    "Value": "能够将挖掘机和卡车分配到指定的矿区。只有在塔的影响范围内的指定矿区才能开采。"
+  },
+  {
+    "Key": "power_generator",
+    "Value": "发电机"
+  },
+  {
+    "Key": "power_generator_desc",
+    "Value": "把机械能转换成电能。旋转越慢，效率越低。"
+  },
+  {
+    "Key": "void_crusher_machine",
+    "Value": "更好的粉碎机"
+  },
+  {
+    "Key": "void_crusher_machine_desc",
+    "Value": "粉碎产物产生碎石"
+  },
+  {
+    "Key": "void_crusher_machine_cheat",
+    "Value": "更好的粉碎机（作弊）"
+  },
+  {
+    "Key": "void_crusher_machine_cheat_desc",
+    "Value": "没有浪费地粉碎产物"
+  },
+  {
+    "Key": "void_crusher_machine_recyclables_cheat",
+    "Value": "更好的粉碎机机-回收(作弊)"
+  },
+  {
+    "Key": "void_crusher_machine_recyclables_cheat_desc",
+    "Value": "将产物粉碎为可回收物"
+  },
+  {
+    "Key": "void_crusher_machine_loose_cheat",
+    "Value": "更好的粉碎机-散装物(作弊)"
+  },
+  {
+    "Key": "void_crusher_machine_loose_cheat_desc",
+    "Value": "粉碎散装物而不浪费"
+  },
+  {
+    "Key": "void_crusher_machine_fluid_cheat",
+    "Value": "更好的粉碎机-流体(作弊)"
+  },
+  {
+    "Key": "void_crusher_machine_fluid_cheat_desc",
+    "Value": "粉粹流体而不产生废弃物"
+  }
+]

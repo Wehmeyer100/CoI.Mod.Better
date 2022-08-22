@@ -1,0 +1,306 @@
+﻿[
+  {
+    "Key": "farm_multiplier_t1",
+    "Value": "农场收益倍率 I"
+  },
+  {
+    "Key": "farm_multiplier_t1_desc",
+    "Value": "所有农场的产量都增加了 {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t2",
+    "Value": "农场收益倍率 II"
+  },
+  {
+    "Key": "farm_multiplier_t2_desc",
+    "Value": "所有农场的产量都增加了 {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t3",
+    "Value": "农场收益倍率 III"
+  },
+  {
+    "Key": "farm_multiplier_t3_desc",
+    "Value": "所有农场的产量都增加了 {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t4",
+    "Value": "农场收益倍率 IV"
+  },
+  {
+    "Key": "farm_multiplier_t4_desc",
+    "Value": "所有农场的产量都增加了 {0}%"
+  },
+  {
+    "Key": "farm_multiplier_t5",
+    "Value": "农场收益倍率 V"
+  },
+  {
+    "Key": "farm_multiplier_t5_desc",
+    "Value": "所有农场的产量都增加了 {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t1",
+    "Value": "农业用水倍率 I"
+  },
+  {
+    "Key": "farm_consume_multiplier_t1_desc",
+    "Value": "所有农场消耗减少 {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t2",
+    "Value": "农业用水倍率 II"
+  },
+  {
+    "Key": "farm_consume_multiplier_t2_desc",
+    "Value": "所有农场消耗减少 {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t3",
+    "Value": "农业用水倍率 III"
+  },
+  {
+    "Key": "farm_consume_multiplier_t3_desc",
+    "Value": "所有农场消耗减少 {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t4",
+    "Value": "农业用水倍率 IV"
+  },
+  {
+    "Key": "farm_consume_multiplier_t4_desc",
+    "Value": "所有农场消耗减少 {0}%"
+  },
+  {
+    "Key": "farm_consume_multiplier_t5",
+    "Value": "农业用水倍率 V"
+  },
+  {
+    "Key": "farm_consume_multiplier_t5_desc",
+    "Value": "所有农场消耗减少 {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t1",
+    "Value": "回收比 I"
+  },
+  {
+    "Key": "recycling_ratio_t1_desc",
+    "Value": "回收比增加了 {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t2",
+    "Value": "回收比 II"
+  },
+  {
+    "Key": "recycling_ratio_t2_desc",
+    "Value": "回收比增加了 {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t3",
+    "Value": "回收比 III"
+  },
+  {
+    "Key": "recycling_ratio_t3_desc",
+    "Value": "回收比增加了 {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t4",
+    "Value": "回收比 IV"
+  },
+  {
+    "Key": "recycling_ratio_t4_desc",
+    "Value": "回收比增加了 {0}%"
+  },
+  {
+    "Key": "recycling_ratio_t5",
+    "Value": "回收比 V"
+  },
+  {
+    "Key": "recycling_ratio_t5_desc",
+    "Value": "回收比增加了 {0}%"
+  },
+  {
+    "Key": "reduce_service_t1",
+    "Value": "定居点消费 I"
+  },
+  {
+    "Key": "reduce_service_t1_desc",
+    "Value": "全部结算服务消费增加 {0}%"
+  },
+  {
+    "Key": "reduce_service_t2",
+    "Value": "定居点消费 II"
+  },
+  {
+    "Key": "reduce_service_t2_desc",
+    "Value": "全部结算服务消费增加 {0}%"
+  },
+  {
+    "Key": "reduce_service_t3",
+    "Value": "定居点消费 III"
+  },
+  {
+    "Key": "reduce_service_t3_desc",
+    "Value": "全部结算服务消费增加 {0}%"
+  },
+  {
+    "Key": "reduce_service_t4",
+    "Value": "定居点消费 IV"
+  },
+  {
+    "Key": "reduce_service_t4_desc",
+    "Value": "全部结算服务消费增加 {0}%"
+  },
+  {
+    "Key": "reduce_service_t5",
+    "Value": "定居点消费 V"
+  },
+  {
+    "Key": "reduce_service_t5_desc",
+    "Value": "全部结算服务消费增加 {0}%"
+  },
+  {
+    "Key": "solar_power_t1",
+    "Value": "太阳能发电 I"
+  },
+  {
+    "Key": "solar_power_t1_desc",
+    "Value": "太阳能发电量增加 {0}%"
+  },
+  {
+    "Key": "solar_power_t2",
+    "Value": "太阳能发电 II"
+  },
+  {
+    "Key": "solar_power_t2_desc",
+    "Value": "太阳能发电量增加 {0}%"
+  },
+  {
+    "Key": "solar_power_t3",
+    "Value": "太阳能发电 III"
+  },
+  {
+    "Key": "solar_power_t3_desc",
+    "Value": "太阳能发电量增加 {0}%"
+  },
+  {
+    "Key": "solar_power_t4",
+    "Value": "太阳能发电 IV"
+  },
+  {
+    "Key": "solar_power_t4_desc",
+    "Value": "太阳能发电量增加 {0}%"
+  },
+  {
+    "Key": "solar_power_t5",
+    "Value": "太阳能发电 V"
+  },
+  {
+    "Key": "solar_power_t5_desc",
+    "Value": "太阳能发电量增加 {0}%"
+  },
+  {
+    "Key": "unity_points_t1",
+    "Value": "凝聚力增强 I"
+  },
+  {
+    "Key": "unity_points_t1_desc",
+    "Value": "凝聚力增加 {0} 点。"
+  },
+  {
+    "Key": "unity_points_t2",
+    "Value": "凝聚力增强 II"
+  },
+  {
+    "Key": "unity_points_t2_desc",
+    "Value": "凝聚力增加 {0} 点。"
+  },
+  {
+    "Key": "unity_points_t3",
+    "Value": "凝聚力增强 III"
+  },
+  {
+    "Key": "unity_points_t3_desc",
+    "Value": "凝聚力增加 {0} 点。"
+  },
+  {
+    "Key": "unity_points_t4",
+    "Value": "凝聚力增强 IV"
+  },
+  {
+    "Key": "unity_points_t4_desc",
+    "Value": "凝聚力增加 {0} 点。"
+  },
+  {
+    "Key": "unity_points_t5",
+    "Value": "凝聚力增强 V"
+  },
+  {
+    "Key": "unity_points_t5_desc",
+    "Value": "凝聚力增加 {0} 点。"
+  },
+  {
+    "Key": "maintenance_reduction_t1",
+    "Value": "维护减少 I"
+  },
+  {
+    "Key": "maintenance_reduction_t1_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t2",
+    "Value": "维护减少 II"
+  },
+  {
+    "Key": "maintenance_reduction_t2_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t3",
+    "Value": "维护减少 III"
+  },
+  {
+    "Key": "maintenance_reduction_t3_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t4",
+    "Value": "维护减少 IV"
+  },
+  {
+    "Key": "maintenance_reduction_t4_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t1_cheat",
+    "Value": "维护减少 I"
+  },
+  {
+    "Key": "maintenance_reduction_t1_cheat_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t2_cheat",
+    "Value": "维护减少 II"
+  },
+  {
+    "Key": "maintenance_reduction_t2_cheat_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t3_cheat",
+    "Value": "维护减少 III"
+  },
+  {
+    "Key": "maintenance_reduction_t3_cheat_desc",
+    "Value": "维护降低 {0}%"
+  },
+  {
+    "Key": "maintenance_reduction_t4_cheat",
+    "Value": "维护减少 IV"
+  },
+  {
+    "Key": "maintenance_reduction_t4_cheat_desc",
+    "Value": "维护降低 {0}%"
+  }
+]
