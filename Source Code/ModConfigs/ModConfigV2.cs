@@ -41,7 +41,7 @@ namespace CoI.Mod.Better.ModConfigs
 
         public void Print()
         {
-            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): read ConfigV2 data");
+            MyDebug.Info("Mod Config V2");
             foreach (FieldInfo field in ReflectionUtility.GetAllFields(typeof(ModConfigV2)))
             {
                 object result = field.GetValue(this);

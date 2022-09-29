@@ -57,76 +57,12 @@ namespace CoI.Mod.Better
 
 		public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
 		{
-			Debug.Log("BetterMod(V: " + MyVersion + ") mod was created!");
+			MyDebug.Info("Mod was created!");
 		}
-
-		public static void SetConfigValue(IConfig config, string fieldName, object value)
-		{
-			PropertyInfo property = config.GetType().GetProperty(fieldName, BindingFlags.Public | BindingFlags.Instance);
-			if (property != null)
-			{
-				property.SetValue(config, value);
-			}
-		}
-
+		
 		public void ChangeConfigs(Lyst<IConfig> configs)
 		{			
-			Debug.Log("BetterMod(V: " + MyVersion + ") Config loading..");
-			LoadModConfig();
-			
-			foreach (IConfig config in configs)
-			{
-				if (config is IStartingFactoryConfig)
-				{
-					if (Config.StartSettings.OverrideStartSettings)
-					{
-						//startConfig.InitialTrucks = Config.StartSettings.InitialTrucks;
-						SetConfigValue(config, "InitialTrucks", Config.StartSettings.InitialTrucks);
-
-						//startConfig.InitialExcavators = Config.StartSettings.InitialExcavators;
-						SetConfigValue(config, "InitialExcavators", Config.StartSettings.InitialExcavators);
-
-						//startConfig.InitialTreeHarvesters = Config.StartSettings.InitialTreeHarvesters;
-						SetConfigValue(config, "InitialTreeHarvesters", Config.StartSettings.InitialTreeHarvesters);
-						
-						
-						Debug.LogWarning("BetterMod(V: " + MyVersion + ") >> Override Initial Config");
-					}
-				}
-				
-				if (config is CoreModConfig coreConfig)
-				{
-					if (Config.StartSettings.OverrideStartSettings)
-					{
-						coreConfig.InitialVehiclesCap = Config.StartSettings.InitialVehiclesCap + 5;
-						coreConfig.StartingPopulation = Config.StartSettings.StartingPopulation;
-						coreConfig.ShouldUnlockAllProtosOnInit = Config.StartSettings.UnlockAll;
-					}
-					if (Config.GameSettings.OverrideGameConfig)
-					{
-						coreConfig.BaseRoundsToEscape = Config.GameSettings.BattleRoundsToEscape;
-						coreConfig.IsGodModeEnabled = Config.GameSettings.IsGodMode;
-						coreConfig.IsInstaBuildEnabled = Config.GameSettings.IsInstaBuild;
-						coreConfig.BaseRoundsToEscape = Config.GameSettings.BattleRoundsToEscape;
-						coreConfig.FreeElectricityPerTick = Config.GameSettings.FreeElectricity.Kw();
-					}
-				}
-				if (config is BaseModConfig baseConfig)
-				{
-					baseConfig.DisableFuelConsumption = Config.GameSettings.DisableFuelConsumption;
-				}
-				
-				
-				Debug.Log("BetterMod(V: " + BetterMod.MyVersion + "): " + config.GetType().Name);
-				foreach (PropertyInfo field in ReflectionUtility.GetAllProperty(config.GetType()))
-				{
-					if (field == null)
-						continue;
-
-					var fieldValue = field.GetValue(config);
-					Debug.Log(" - " + field.Name + ": " + (fieldValue ?? "Null").ToString());
-				}
-			}
+			ConfigManager.Load(configs);
 		}
 
 		public void RegisterPrototypes(ProtoRegistrator registrator)
@@ -136,14 +72,14 @@ namespace CoI.Mod.Better
 				Debug.LogWarning("###############################################################");
 				Debug.LogWarning("####################### WARNING ###############################");
 				Debug.LogWarning("###############################################################");
-				Debug.LogWarning("BetterMod(V: " + MyVersion + ") >> This mod is not compatible with the current game version and can cause problems!!!");
-				Debug.LogWarning("BetterMod(V: " + MyVersion + ") >> CurrentGameVersion: " + CurrentGameVersion.ToString());
-				Debug.LogWarning("BetterMod(V: " + MyVersion + ") >> CompatibilityVersion: " + CompatibilityVersion.ToString());
-				Debug.LogWarning("BetterMod(V: " + MyVersion + ") >> Check for updates: https://github.com/Wehmeyer100/CoI.Mod.Better/releases");
+				MyDebug.Warning("This mod is not compatible with the current game version and can cause problems!!!");
+				MyDebug.Warning("CurrentGameVersion: " + CurrentGameVersion.ToString());
+				MyDebug.Warning("CompatibilityVersion: " + CompatibilityVersion.ToString());
+				MyDebug.Warning("Check for updates: https://github.com/Wehmeyer100/CoI.Mod.Better/releases");
 				Debug.LogWarning("###############################################################");
 			}
 
-			Debug.Log("BetterMod(V: " + MyVersion + ") Directories ..");
+			MyDebug.Info("Directories ..");
 			Debug.Log(" - MOD_ROOT_DIR_PATH: " + ModRootDirPath);
 			Debug.Log(" - MOD_DIR_PATH: " + ModDirPath);
 			Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
@@ -152,7 +88,7 @@ namespace CoI.Mod.Better
 			// Init LangManager
 			LangManager.Instance.Load();
 
-			Debug.Log("BetterMod(V: " + MyVersion + ") RegisterPrototypes..");
+			MyDebug.Info("RegisterPrototypes..");
 			// Use data class registration to register other protos such as machines, recipes, etc.
 			registrator.RegisterData<MyToolbars>();
 			registrator.RegisterData<MyVehicleCapIncrease>();
@@ -167,29 +103,13 @@ namespace CoI.Mod.Better
 			registrator.RegisterData<PowerGenerators>();
 			registrator.RegisterData<Customs>();
 			registrator.RegisterData<SteamStorages>();
-		}
-
-		private static void LoadModConfig()
-		{
-			JsonSerializerSettings settings = new JsonSerializerSettings()
+			
+			// https://github.com/Wehmeyer100/CoI.Mod.Better/issues/22
+			int offsetY = 50;
+			foreach (ResearchNodeProto result in registrator.PrototypesDb.All<ResearchNodeProto>()) 
 			{
-				Formatting = Formatting.Indented,
-				MaxDepth = 500,
-				MissingMemberHandling = MissingMemberHandling.Ignore,
-				NullValueHandling = NullValueHandling.Ignore,
-				ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-			};
-
-			string configFile = ModDirPath + "/globalconfig" + CurrentConfigVersion + ".json";
-
-			if (File.Exists(configFile))
-			{
-				string content = File.ReadAllText(configFile, Encoding.UTF8);
-				Config = JsonConvert.DeserializeObject<ModConfigV2>(content, settings);
+				result.GridPosition += new Vector2i(0, offsetY);
 			}
-
-			File.WriteAllText(configFile, JsonConvert.SerializeObject(Config, settings));
-			Config.Print();
 		}
 
 		public void RegisterDependencies(DependencyResolverBuilder depBuilder, ProtosDb protosDb, bool gameWasLoaded)

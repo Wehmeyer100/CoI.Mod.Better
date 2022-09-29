@@ -62,7 +62,7 @@ namespace CoI.Mod.Better.lang
         public void Load()
         {
             string dirPath = Path.Combine(BetterMod.LangDirPath, CurrentLang);
-            string[] foundFiles = Directory.GetFiles(dirPath, "*.json", SearchOption.AllDirectories);
+            string[] foundFiles = Directory.GetFiles(dirPath, "*." + BetterMod.JsonExt, SearchOption.AllDirectories);
 
             foreach (string file_path in foundFiles)
             {
