@@ -71,7 +71,7 @@ namespace CoI.Mod.Better.Custom.Data
                 TransferLimit = new TransferLimitData { Count = loadData.TransferLimit.Value, Duration = loadData.TransferLimitDuration.Seconds.RawValue };
             }
 
-            PrefabPath = loadData.Graphics.PrefabPaths.First;
+            PrefabPath = loadData.Graphics.PrefabPath;
             if (loadData.Graphics.IconIsCustom)
             {
                 CustomIconPath = loadData.Graphics.IconPath;

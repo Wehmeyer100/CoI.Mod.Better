@@ -199,6 +199,7 @@ namespace CoI.Mod.Better.Buildings
                 Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> VoidProducer >> GenerateCountableProduct(id: " + recipeID + ") >> Output: " + product.Id);
             }
         }
+        
         private void GenerateLooseProduct(ProtoRegistrator registrator, VoidProducerData data, string typeName)
         {
             foreach ((string fieldName, ProductProto product) in ProductUtility.GetLooseProducts(registrator))
@@ -224,13 +225,21 @@ namespace CoI.Mod.Better.Buildings
 
         }
 
-        private void GenerateRecipes(ProtoRegistrator registrator, VoidProducerData data, RecipeProto.ID recipeID, ProductProto inputProduct)
+        private void GenerateRecipes(ProtoRegistrator registrator, VoidProducerData data, RecipeProto.ID recipeID, ProductProto inputProduct, bool isEmpty = false)
         {
-            registrator.RecipeProtoBuilder
+            var result = registrator.RecipeProtoBuilder
                 .Start("Produce " + inputProduct.Strings.Name, recipeID, data.Machine)
-                .SetDuration(data.currentDuration)
-                .AddOutput("X", inputProduct, data.currentInputAmount.Quantity())
-                .BuildAndAdd();
+                .SetDuration(data.currentDuration);
+
+            if (isEmpty)
+            {
+                result.EnableEmptyRecipe();
+            }
+            else
+            {
+                result.AddOutput("X", inputProduct, data.currentInputAmount.Quantity());
+            }
+            result.BuildAndAdd();
         }
 
         #endregion
