@@ -45,7 +45,7 @@ namespace CoI.Mod.Better
 		public const int CurrentConfigVersion = 5;
 
 		public const int    UIStepSize = 4;
-		public const string MyVersion  = "0.1.9.5";
+		public const string MyVersion  = "0.1.9.6";
 
 
 		public const string JsonExt = ".json";
