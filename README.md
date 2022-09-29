@@ -65,7 +65,7 @@ Then start the game and enjoy!
 # FAQ
 
 1. May I rename the folder or file ? 
-    No, CoI would otherwise have problems and find the mod.
+    No, CoI would otherwise have problems and no find the mod.
 
 2. Why is the mod not loaded?
     There are several reasons.
