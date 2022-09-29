@@ -103,18 +103,23 @@ namespace CoI.Mod.Better
 			registrator.RegisterData<PowerGenerators>();
 			registrator.RegisterData<Customs>();
 			registrator.RegisterData<SteamStorages>();
-			
+
+			FixResearchWindow(registrator);
+		}
+
+		public void RegisterDependencies(DependencyResolverBuilder depBuilder, ProtosDb protosDb, bool gameWasLoaded)
+		{
+
+		}
+
+		private void FixResearchWindow(ProtoRegistrator registrator)
+		{
 			// https://github.com/Wehmeyer100/CoI.Mod.Better/issues/22
 			int offsetY = 50;
 			foreach (ResearchNodeProto result in registrator.PrototypesDb.All<ResearchNodeProto>()) 
 			{
 				result.GridPosition += new Vector2i(0, offsetY);
 			}
-		}
-
-		public void RegisterDependencies(DependencyResolverBuilder depBuilder, ProtosDb protosDb, bool gameWasLoaded)
-		{
-
 		}
 	}
 }
