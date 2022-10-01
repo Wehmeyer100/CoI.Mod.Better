@@ -18,7 +18,7 @@ namespace CoI.Mod.Better.Buildings
     internal class MineTower : IModData
     {
         private float towerAreaMultiplier = 1f;
-        private const int defaultTowerRange = 128;
+        private const int defaultTowerRange = 192;
 
 
         public void RegisterData(ProtoRegistrator registrator)
@@ -50,9 +50,11 @@ namespace CoI.Mod.Better.Buildings
                 GenerateMineTower(registrator, protoID, Name, (int)(defaultTowerRange * towerAreaMultiplier));
                 GenerateMineTower(registrator, MyIDs.Buildings.MineTowerNormal, Name+": Vanilla", defaultTowerRange);
             }
-
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, Name + " x1.5", (int)(defaultTowerRange * (towerAreaMultiplier * 1.5f)));
-            GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, Name + " x2", (int)(defaultTowerRange * (towerAreaMultiplier * 2)));
+            if (BetterMod.Config.Tower.ExtentedTowers)
+            {
+                GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT2, Name + " x1.5", (int)(defaultTowerRange * (towerAreaMultiplier * 1.5f)));
+                GenerateMineTower(registrator, MyIDs.Buildings.MineTowerT3, Name + " x2", (int)(defaultTowerRange * (towerAreaMultiplier * 2)));
+            }
         }
 
         private void GenerateMineTower(ProtoRegistrator registrator, StaticEntityProto.ID protoID, string Name, int towerRange)
