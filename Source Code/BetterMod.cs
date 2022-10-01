@@ -51,9 +51,9 @@ namespace CoI.Mod.Better
 		public const string JsonExt = ".json";
 
 		public static readonly GameVersion CurrentGameVersion   = new GameVersion();
-		public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "12", "");
+		public static readonly GameVersion CompatibilityVersion = new GameVersion("Early Access", "0", "4", "12", "e");
 
-		public static bool IsCompatibility => CurrentGameVersion.Equals(CompatibilityVersion, true);
+		public static bool IsCompatibility => CurrentGameVersion.Equals(CompatibilityVersion, false);
 
 		public void Initialize(DependencyResolver resolver, bool gameWasLoaded)
 		{
