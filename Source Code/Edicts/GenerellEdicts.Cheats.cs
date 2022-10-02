@@ -1,74 +1,62 @@
-﻿using CoI.Mod.Better.Extensions;
-using CoI.Mod.Better.Utilities;
-using Mafi;
-using Mafi.Base;
-using Mafi.Collections.ImmutableCollections;
-using Mafi.Core;
+﻿using CoI.Mod.Better.MyIDs;
+using CoI.Mod.Better.Shared;
 using Mafi.Core.Mods;
-using Mafi.Core.Population.Edicts;
-using Mafi.Core.Prototypes;
 using Mafi.Core.Research;
-using Mafi.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using static CoI.Mod.Better.Utilities.ResearchProtoUtility;
+using static CoI.Mod.Better.Shared.Utilities.ResearchProtoUtility;
 
 namespace CoI.Mod.Better.Edicts
 {
-    internal partial class GenerelEdicts : IModData
-    {
+	internal partial class GenerelEdicts : IModData
+	{
+		private static void Cheats(ProtoRegistrator registrator)
+		{
+			// Add parent to my research CHEAT
+			ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_CHEAT);
 
-        private static void Cheats(ProtoRegistrator registrator)
-        {
-            // Add parent to my research CHEAT
-            ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_CHEAT);
+			int cheatCost = BetterMod.Config.Default.UnlockAllCheatsResearches ? 0 : BetterMod.Config.Default.CheatResearchCosts;
 
-            // Generate Cheat Research
-            ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, "Generell Edict Cheat I", BetterMod.Config.Default.CheatResearchCosts, true, new ResearchNodeUIData(master_research, true, BetterMod.UIStepSize * 2, -BetterMod.UIStepSize), 
-                MyIDs.Eticts.Generell.UnityPointsT1_CHEAT, 
-                MyIDs.Eticts.Generell.ReduceServiceT1_CHEAT, 
-                MyIDs.Eticts.Generell.FarmMultiplierT1_CHEAT, 
-                MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT, 
-                MyIDs.Eticts.Generell.RecyclingRatioDiffT1_CHEAT, 
-                MyIDs.Eticts.Generell.SolarPowerT1_CHEAT);
+			// Generate Cheat Research
+			ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, "Generell Edict Cheat I", cheatCost, new ResearchNodeUIData(master_research, true, Constants.UIStepSize * 2, -Constants.UIStepSize),
+				Eticts.Generell.UnityPointsT1_CHEAT,
+				Eticts.Generell.ReduceServiceT1_CHEAT,
+				Eticts.Generell.FarmMultiplierT1_CHEAT,
+				Eticts.Generell.FarmWaterConsumMultiplierT1_CHEAT,
+				Eticts.Generell.RecyclingRatioDiffT1_CHEAT,
+				Eticts.Generell.SolarPowerT1_CHEAT);
 
-            ResearchNodeProto research_t2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T2, "Generell Edict Cheat II", BetterMod.Config.Default.CheatResearchCosts, true, research_t1, true, 
-                MyIDs.Eticts.Generell.UnityPointsT2_CHEAT, 
-                MyIDs.Eticts.Generell.ReduceServiceT2_CHEAT, 
-                MyIDs.Eticts.Generell.FarmMultiplierT2_CHEAT,
-                MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT, 
-                MyIDs.Eticts.Generell.RecyclingRatioDiffT2_CHEAT,
-                MyIDs.Eticts.Generell.SolarPowerT2_CHEAT);
+			ResearchNodeProto research_t2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T2, "Generell Edict Cheat II", cheatCost, research_t1, true,
+				Eticts.Generell.UnityPointsT2_CHEAT,
+				Eticts.Generell.ReduceServiceT2_CHEAT,
+				Eticts.Generell.FarmMultiplierT2_CHEAT,
+				Eticts.Generell.FarmWaterConsumMultiplierT2_CHEAT,
+				Eticts.Generell.RecyclingRatioDiffT2_CHEAT,
+				Eticts.Generell.SolarPowerT2_CHEAT);
 
-            ResearchNodeProto research_t3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T3, "Generell Edict Cheat III", BetterMod.Config.Default.CheatResearchCosts, true, research_t2, true, 
-                MyIDs.Eticts.Generell.UnityPointsT3_CHEAT, 
-                MyIDs.Eticts.Generell.ReduceServiceT3_CHEAT, 
-                MyIDs.Eticts.Generell.FarmMultiplierT3_CHEAT, 
-                MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT, 
-                MyIDs.Eticts.Generell.RecyclingRatioDiffT3_CHEAT,
-                MyIDs.Eticts.Generell.SolarPowerT3_CHEAT);
+			ResearchNodeProto research_t3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T3, "Generell Edict Cheat III", cheatCost, research_t2, true,
+				Eticts.Generell.UnityPointsT3_CHEAT,
+				Eticts.Generell.ReduceServiceT3_CHEAT,
+				Eticts.Generell.FarmMultiplierT3_CHEAT,
+				Eticts.Generell.FarmWaterConsumMultiplierT3_CHEAT,
+				Eticts.Generell.RecyclingRatioDiffT3_CHEAT,
+				Eticts.Generell.SolarPowerT3_CHEAT);
 
-            ResearchNodeProto research_t4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T4, "Generell Edict Cheat IV", BetterMod.Config.Default.CheatResearchCosts, true, research_t3, true, 
-                MyIDs.Eticts.Generell.UnityPointsT4_CHEAT, 
-                MyIDs.Eticts.Generell.ReduceServiceT4_CHEAT, 
-                MyIDs.Eticts.Generell.FarmMultiplierT4_CHEAT, 
-                MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT, 
-                MyIDs.Eticts.Generell.RecyclingRatioDiffT4_CHEAT,
-                MyIDs.Eticts.Generell.SolarPowerT4_CHEAT);
+			ResearchNodeProto research_t4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T4, "Generell Edict Cheat IV", cheatCost, research_t3, true,
+				Eticts.Generell.UnityPointsT4_CHEAT,
+				Eticts.Generell.ReduceServiceT4_CHEAT,
+				Eticts.Generell.FarmMultiplierT4_CHEAT,
+				Eticts.Generell.FarmWaterConsumMultiplierT4_CHEAT,
+				Eticts.Generell.RecyclingRatioDiffT4_CHEAT,
+				Eticts.Generell.SolarPowerT4_CHEAT);
 
-            GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T5, "Generell Edict Cheat V", BetterMod.Config.Default.CheatResearchCosts, true, research_t4, true, 
-                MyIDs.Eticts.Generell.UnityPointsT5_CHEAT, 
-                MyIDs.Eticts.Generell.ReduceServiceT5_CHEAT, 
-                MyIDs.Eticts.Generell.FarmMultiplierT5_CHEAT, 
-                MyIDs.Eticts.Generell.FarmWaterConsumMultiplierT5_CHEAT, 
-                MyIDs.Eticts.Generell.RecyclingRatioDiffT5_CHEAT,
-                MyIDs.Eticts.Generell.SolarPowerT5_CHEAT);
+			GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T5, "Generell Edict Cheat V", cheatCost, research_t4, true,
+				Eticts.Generell.UnityPointsT5_CHEAT,
+				Eticts.Generell.ReduceServiceT5_CHEAT,
+				Eticts.Generell.FarmMultiplierT5_CHEAT,
+				Eticts.Generell.FarmWaterConsumMultiplierT5_CHEAT,
+				Eticts.Generell.RecyclingRatioDiffT5_CHEAT,
+				Eticts.Generell.SolarPowerT5_CHEAT);
 
-            Debug.Log("BetterMod(V: " + BetterMod.MyVersion + ") >> GenerelEdicts >> Generell edict cheats created!");
-        }
-    }
+			BetterDebug.Info("GenerelEdicts >> Generell edict cheats created!");
+		}
+	}
 }
