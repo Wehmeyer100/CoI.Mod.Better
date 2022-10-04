@@ -1,5 +1,6 @@
 ﻿using CoI.Mod.Better.MyIDs;
 using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi.Base;
 using Mafi.Core.Mods;
 using Mafi.Core.Population.Edicts;
@@ -36,12 +37,15 @@ namespace CoI.Mod.Better.Edicts
 		private void GenerateResearch(ProtoRegistrator registrator)
 		{
 			ResearchNodeProto masterResearch = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(Ids.Research.CaptainsOffice);
+			
+			// Generate LocStr
+			string Name = LangManager.Instance.Get("generell_edict");
 
-			ResearchNodeProto researchT1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT1, "Generell Edict I", BetterMod.Config.GenerellEdicts.ResearchCostT1, new ResearchNodeUIData(masterResearch, false, Constants.UIStepSize, Constants.UIStepSize * 2));
-			ResearchNodeProto researchT2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT2, "Generell Edict II", BetterMod.Config.GenerellEdicts.ResearchCostT2, researchT1, false);
-			ResearchNodeProto researchT3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT3, "Generell Edict III", BetterMod.Config.GenerellEdicts.ResearchCostT3, researchT2, false);
-			ResearchNodeProto researchT4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT4, "Generell Edict IV", BetterMod.Config.GenerellEdicts.ResearchCostT4, researchT3, false);
-			GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT5, "Generell Edict V", BetterMod.Config.GenerellEdicts.ResearchCostT5, researchT4, false);
+			ResearchNodeProto researchT1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT1, Name +" I", BetterMod.Config.GenerellEdicts.ResearchCostT1, new ResearchNodeUIData(masterResearch, false, Constants.UIStepSize, Constants.UIStepSize * 2));
+			ResearchNodeProto researchT2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT2, Name +" II", BetterMod.Config.GenerellEdicts.ResearchCostT2, researchT1, false);
+			ResearchNodeProto researchT3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT3, Name +" III", BetterMod.Config.GenerellEdicts.ResearchCostT3, researchT2, false);
+			ResearchNodeProto researchT4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT4, Name +" IV", BetterMod.Config.GenerellEdicts.ResearchCostT4, researchT3, false);
+			GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchT5, Name +" V", BetterMod.Config.GenerellEdicts.ResearchCostT5, researchT4, false);
 
 			BetterDebug.Info("GenerelEdicts >> Generell Edict created!");
 

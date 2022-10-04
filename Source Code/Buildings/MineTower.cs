@@ -1,5 +1,5 @@
-﻿using CoI.Mod.Better.lang;
-using CoI.Mod.Better.Shared;
+﻿using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Mine;

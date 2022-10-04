@@ -1,5 +1,6 @@
 ﻿using CoI.Mod.Better.MyIDs;
 using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi.Core.Mods;
 using Mafi.Core.Research;
 using static CoI.Mod.Better.Shared.Utilities.ResearchProtoUtility;
@@ -14,9 +15,12 @@ namespace CoI.Mod.Better.Edicts
 			ResearchNodeProto master_research = registrator.PrototypesDb.GetOrThrow<ResearchNodeProto>(MyIDs.Research.VehicleCapIncreaseID_CHEAT);
 
 			int cheatCost = BetterMod.Config.Default.UnlockAllCheatsResearches ? 0 : BetterMod.Config.Default.CheatResearchCosts;
+			
+			// Generate LocStr
+			string name = LangManager.Instance.Get("generell_edict_cheat");
 
 			// Generate Cheat Research
-			ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, "Generell Edict Cheat I", cheatCost, new ResearchNodeUIData(master_research, true, Constants.UIStepSize * 2, -Constants.UIStepSize),
+			ResearchNodeProto research_t1 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T1, name+ " I", cheatCost, new ResearchNodeUIData(master_research, true, Constants.UIStepSize * 2, -Constants.UIStepSize),
 				Eticts.Generell.UnityPointsT1_CHEAT,
 				Eticts.Generell.ReduceServiceT1_CHEAT,
 				Eticts.Generell.FarmMultiplierT1_CHEAT,
@@ -24,7 +28,7 @@ namespace CoI.Mod.Better.Edicts
 				Eticts.Generell.RecyclingRatioDiffT1_CHEAT,
 				Eticts.Generell.SolarPowerT1_CHEAT);
 
-			ResearchNodeProto research_t2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T2, "Generell Edict Cheat II", cheatCost, research_t1, true,
+			ResearchNodeProto research_t2 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T2, name+ " II", cheatCost, research_t1, true,
 				Eticts.Generell.UnityPointsT2_CHEAT,
 				Eticts.Generell.ReduceServiceT2_CHEAT,
 				Eticts.Generell.FarmMultiplierT2_CHEAT,
@@ -32,7 +36,7 @@ namespace CoI.Mod.Better.Edicts
 				Eticts.Generell.RecyclingRatioDiffT2_CHEAT,
 				Eticts.Generell.SolarPowerT2_CHEAT);
 
-			ResearchNodeProto research_t3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T3, "Generell Edict Cheat III", cheatCost, research_t2, true,
+			ResearchNodeProto research_t3 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T3, name+ " III", cheatCost, research_t2, true,
 				Eticts.Generell.UnityPointsT3_CHEAT,
 				Eticts.Generell.ReduceServiceT3_CHEAT,
 				Eticts.Generell.FarmMultiplierT3_CHEAT,
@@ -40,7 +44,7 @@ namespace CoI.Mod.Better.Edicts
 				Eticts.Generell.RecyclingRatioDiffT3_CHEAT,
 				Eticts.Generell.SolarPowerT3_CHEAT);
 
-			ResearchNodeProto research_t4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T4, "Generell Edict Cheat IV", cheatCost, research_t3, true,
+			ResearchNodeProto research_t4 = GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T4, name+ " IV", cheatCost, research_t3, true,
 				Eticts.Generell.UnityPointsT4_CHEAT,
 				Eticts.Generell.ReduceServiceT4_CHEAT,
 				Eticts.Generell.FarmMultiplierT4_CHEAT,
@@ -48,7 +52,7 @@ namespace CoI.Mod.Better.Edicts
 				Eticts.Generell.RecyclingRatioDiffT4_CHEAT,
 				Eticts.Generell.SolarPowerT4_CHEAT);
 
-			GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T5, "Generell Edict Cheat V", cheatCost, research_t4, true,
+			GenerateResearchEdict(registrator, MyIDs.Research.GenerellEdictsResearchCheat_T5, name+ " V", cheatCost, research_t4, true,
 				Eticts.Generell.UnityPointsT5_CHEAT,
 				Eticts.Generell.ReduceServiceT5_CHEAT,
 				Eticts.Generell.FarmMultiplierT5_CHEAT,

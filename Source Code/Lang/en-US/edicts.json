@@ -302,5 +302,21 @@
   {
     "Key": "maintenance_reduction_t4_cheat_desc",
     "Value": "Maintenance reduced by {0}%"
+  },
+  {
+    "Key": "generell_edict",
+    "Value": "Generell Edict"
+  },
+  {
+    "Key": "generell_edict_cheat",
+    "Value": "Generell Edict Cheat"
+  },
+  {
+    "Key": "vehicle_edict_plus",
+    "Value": "Vehicle Edict Plus"
+  },
+  {
+    "Key": "vehicle_edict_plus_cheat",
+    "Value": "Vehicle Edict Plus Cheat"
   }
 ]

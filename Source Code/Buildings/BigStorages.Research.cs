@@ -1,5 +1,5 @@
-﻿using CoI.Mod.Better.lang;
-using CoI.Mod.Better.Shared;
+﻿using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi.Core.Mods;
 using Mafi.Core.Research;
 using static CoI.Mod.Better.Shared.Utilities.ResearchProtoUtility;

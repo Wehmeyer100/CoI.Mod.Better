@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CoI.Mod.Better.lang;
 using CoI.Mod.Better.MyIDs;
 using CoI.Mod.Better.Shared;
 using CoI.Mod.Better.Shared.Extensions;
+using CoI.Mod.Better.Shared.Lang;
 using CoI.Mod.Better.Shared.Utilities;
 using Mafi;
 using Mafi.Base;

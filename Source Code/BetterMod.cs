@@ -2,10 +2,10 @@
 using CoI.Mod.Better.Buildings;
 using CoI.Mod.Better.Custom;
 using CoI.Mod.Better.Edicts;
-using CoI.Mod.Better.lang;
 using CoI.Mod.Better.ModConfigs;
 using CoI.Mod.Better.Research;
 using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using CoI.Mod.Better.Toolbars;
 using Mafi;
 using Mafi.Collections;
@@ -23,7 +23,6 @@ namespace CoI.Mod.Better
 
 		public static readonly string ModName        = "CoI.Mod.Better";
 		public static string CustomsDirPath => Path.Combine(Constants.ModDirPath, "Customs");
-		public static string LangDirPath    => Path.Combine(Constants.ModDirPath, "Lang");
 
 		public string Name => "BetterMod";
 
@@ -54,7 +53,6 @@ namespace CoI.Mod.Better
 		{
 			BetterShared.PrintInit();
 			Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
-			Debug.Log(" - LANG_DIR_PATH: " + LangDirPath);
 
 			// Init LangManager
 			LangManager.Instance.Load();
@@ -72,8 +70,8 @@ namespace CoI.Mod.Better
 			registrator.RegisterData<VoidProducer>();
 			registrator.RegisterData<DieselGenerator>();
 			registrator.RegisterData<PowerGenerators>();
-			registrator.RegisterData<Customs>();
 			registrator.RegisterData<SteamStorages>();
+			registrator.RegisterData<Customs>();
 
 			FixResearchWindow(registrator);
 		}

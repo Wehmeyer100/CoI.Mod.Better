@@ -27,5 +27,7 @@ namespace CoI.Mod.Better.ModConfigs
 
 		public VoidDieselConfig VoidDiesel = new VoidDieselConfig();
 		public VoidPowerConfig  VoidPower  = new VoidPowerConfig();
+		
+		public CustomConfig Custom = new CustomConfig();
 	}
 }

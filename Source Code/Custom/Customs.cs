@@ -29,7 +29,7 @@ namespace CoI.Mod.Better.Custom
 
 		public void RegisterData(ProtoRegistrator registrator)
 		{
-			if (!BetterMod.Config.Systems.Customs || true) return;
+			if (!BetterMod.Config.Systems.Customs) return;
 
 			LoadFiles(registrator);
 			ExternalCustoms(registrator);
@@ -208,7 +208,7 @@ namespace CoI.Mod.Better.Custom
 
 			CustomData testData = new CustomData();
 
-			List<StorageProto> storageProtoResults = AllVanillaBuildings<StorageProto>(registrator);
+			List<StorageProto> storageProtoResults = BetterMod.Config.Custom.LoadOnlyVanilla ? AllVanillaBuildings<StorageProto>(registrator)  : AllProtos<StorageProto>(registrator);
 
 			foreach (StorageProto storageProto in storageProtoResults)
 			{
@@ -217,7 +217,7 @@ namespace CoI.Mod.Better.Custom
 				testData.Add(storageData);
 			}
 
-			List<ToolbarCategoryProto> results = AllVanillaToolbars(registrator);
+			List<ToolbarCategoryProto> results = BetterMod.Config.Custom.LoadOnlyVanilla ? AllVanillaToolbars(registrator) :AllProtos<ToolbarCategoryProto>(registrator);
 			foreach (ToolbarCategoryProto storageProto in results)
 			{
 				ToolbarData toolbarData = new ToolbarData();
@@ -236,10 +236,21 @@ namespace CoI.Mod.Better.Custom
 			File.WriteAllText(file_path, result, Encoding.UTF8);
 		}
 
+		private List<Prototype> AllProtos<Prototype>(ProtoRegistrator registrator) where Prototype : Proto
+		{
+			List<Prototype> results = new List<Prototype>();
+			foreach (Prototype proto in registrator.PrototypesDb.All<Prototype>())
+			{
+				results.Add(proto);
+				BetterDebug.Info("Customs >> AllProtos<" + typeof(Prototype) + "> >> name: " + proto.Strings.Name + " | id: " + proto.Id);
+			}
+			return results;
+		}
+
 
 		private List<Prototype> AllVanillaBuildings<Prototype>(ProtoRegistrator registrator) where Prototype : Proto
 		{
-			var results = new List<Prototype>();
+			List<Prototype> results = new List<Prototype>();
 			IEnumerable<FieldInfo> result = ReflectionUtility.GetAllFields(typeof(Ids.Buildings));
 
 			foreach (FieldInfo field in result)

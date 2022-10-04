@@ -44,21 +44,24 @@ namespace CoI.Mod.Better.Custom.Data
 				Debug.Log("StorageData >> Into >> name: " + Name + " >> Toolbar cannot generate, ProtoID is not set!");
 				return Option<ToolbarCategoryProto>.None;
 			}
+			
+			
+			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
 
 			Proto.ID protoID = new Proto.ID(ProtoID);
 			Option<ToolbarCategoryProto> overrideProto = registrator.PrototypesDb.Get<ToolbarCategoryProto>(protoID);
-			if (!overrideProtoID && overrideProto.HasValue)
+			if (!_overrideProtoID && overrideProto.HasValue)
 			{
 				Debug.Log("TooblarData >> Into >> name: " + Name + " | id: " + protoID + " >> Toolbar cannot generate, ProtoID already exists!");
 				return Option<ToolbarCategoryProto>.None;
 			}
-			if (overrideProtoID && !overrideProto.HasValue)
+			if (_overrideProtoID && !overrideProto.HasValue)
 			{
 				Debug.Log("TooblarData >> Into >> name: " + Name + " | id: " + protoID + " >> Toolbar cannot override, ProtoID is not exists!");
 				return Option<ToolbarCategoryProto>.None;
 			}
 
-			if (overrideProtoID)
+			if (_overrideProtoID)
 			{
 				OverrideData(overrideProto);
 			}
@@ -78,7 +81,7 @@ namespace CoI.Mod.Better.Custom.Data
 			//Loc.Str(id.Value + "__name", name, "name" + translationComment), (descShort != null) ? Loc.Str(id.Value + "__desc", descShort, "short description" + translationComment) : LocStr.Empty
 
 			Proto.Str strings;
-			if (overrideProtoID)
+			if (_overrideProtoID)
 			{
 				strings = new Proto.Str(LocalizationManager.LoadOrCreateLocalizedString0(Name, Name), LocStr.Empty);
 			}
@@ -144,7 +147,8 @@ namespace CoI.Mod.Better.Custom.Data
 				return;
 			}
 
-			if (overrideProtoID)
+			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
+			if (_overrideProtoID)
 			{
 				registrator.PrototypesDb.RemoveOrThrow(new Proto.ID(ProtoID));
 			}

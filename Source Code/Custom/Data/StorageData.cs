@@ -123,15 +123,16 @@ namespace CoI.Mod.Better.Custom.Data
 				Debug.Log("StorageData >> Into >> name: " + Name + " >> Storage cannot generate, ProtoID is not valid! >> There must be no blank characters.");
 				return Option<StorageProtoBuilder.State>.None;
 			}
+			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
 
 			StaticEntityProto.ID protoID = new StaticEntityProto.ID(ProtoID);
 			Option<StorageProto> overrideStorageProto = registrator.PrototypesDb.Get<StorageProto>(protoID);
-			if (!overrideProtoID && overrideStorageProto.HasValue)
+			if (!_overrideProtoID && overrideStorageProto.HasValue)
 			{
 				Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot generate, ProtoID already exists!");
 				return Option<StorageProtoBuilder.State>.None;
 			}
-			else if (overrideProtoID && !overrideStorageProto.HasValue)
+			else if (_overrideProtoID && !overrideStorageProto.HasValue)
 			{
 				Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot override, ProtoID is not exists!");
 				return Option<StorageProtoBuilder.State>.None;
@@ -140,7 +141,7 @@ namespace CoI.Mod.Better.Custom.Data
 			LocStr nameStr = LocalizationManager.LoadOrCreateLocalizedString0(Name, Name);
 			LocStr descriptionStr = LocalizationManager.LoadOrCreateLocalizedString0(Description, Description);
 
-			if (overrideProtoID && overrideStorageProto.HasValue)
+			if (_overrideProtoID && overrideStorageProto.HasValue)
 			{
 				OverrideData(registrator, overrideStorageProto);
 
@@ -199,11 +200,11 @@ namespace CoI.Mod.Better.Custom.Data
 			//.SetCost(Costs.Buildings.StorageLoose)
 			if (StorageType == StorageType.Radioactive)
 			{
-				creator.SetProductsFilter(RadioactiveProductFilter);
+				creator.SetProductsFilter(Shared.Utilities.ProductUtility.RadioactiveProductFilter);
 			}
 			else
 			{
-				creator.SetProductsFilter(ProductFilter);
+				creator.SetProductsFilter(Shared.Utilities.ProductUtility.ProductFilter);
 			}
 
 			if (Costs != null && Costs != default)
@@ -343,8 +344,9 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				return;
 			}
-
-			if (overrideProtoID)
+			
+			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
+			if (_overrideProtoID)
 			{
 				registrator.PrototypesDb.RemoveOrThrow(new StaticEntityProto.ID(ProtoID));
 			}
@@ -362,17 +364,6 @@ namespace CoI.Mod.Better.Custom.Data
 					creator.Value.BuildAsLooseAndAdd();
 					break;
 			}
-		}
-
-
-		private static bool ProductFilter(ProductProto x)
-		{
-			return x.IsStorable ? x.Radioactivity == 0 : false;
-		}
-
-		private static bool RadioactiveProductFilter(ProductProto x)
-		{
-			return x.IsStorable ? x.Radioactivity > 0 : false;
 		}
 	}
 }

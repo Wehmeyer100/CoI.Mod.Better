@@ -1,6 +1,6 @@
 ﻿using System;
-using CoI.Mod.Better.lang;
 using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi;
 using Mafi.Core;
 using Mafi.Core.GameLoop;

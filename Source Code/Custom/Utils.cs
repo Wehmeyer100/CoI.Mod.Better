@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoI.Mod.Better.Custom.Types;
+using CoI.Mod.Better.Shared;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Prototypes;
-using UnityEngine;
 
 namespace CoI.Mod.Better.Custom
 {
@@ -196,7 +196,7 @@ namespace CoI.Mod.Better.Custom
 			}
 			else
 			{
-				Debug.Log("Data >> SetLayout >> Layout with more 11 entries is not supported!");
+				BetterDebug.Info("Data >> SetLayout >> Layout with more 11 entries is not supported!");
 				throw new NotSupportedException("Data >> SetLayout >> Layout with more 11 entries is not supported!");
 			}
 			return creator;
