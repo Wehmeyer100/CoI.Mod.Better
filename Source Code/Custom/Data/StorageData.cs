@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using CoI.Mod.Better.Custom.Types;
+using CoI.Mod.Better.Shared;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
@@ -9,17 +12,32 @@ using Mafi.Core.Entities.Static;
 using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Mods;
 using Mafi.Core.Products;
+using Mafi.Core.Prototypes;
 using Mafi.Localization;
 using UnityEngine;
 
 namespace CoI.Mod.Better.Custom.Data
 {
 	[Serializable]
-	public class StorageData
+	public enum FilterType
 	{
-		public bool   overrideProtoID;
-		public string ProtoID;
+		ProductFilter            = 0,
+		RadioactiveProductFilter = 1,
+		SteamFilter              = 2,
+		Custom                   = 3
+	}	
+	
+	[Serializable]
+	public enum RadioactiveCustomFilter
+	{
+		Ignore = 0,
+		Yes = 1,
+		No = 2
+	}	
 
+	[Serializable]
+	public class StorageData : AData<StorageProto>
+	{
 		public string Name;
 		public string Description;
 
@@ -32,6 +50,11 @@ namespace CoI.Mod.Better.Custom.Data
 		public StorageType       StorageType;
 		public TransferLimitData TransferLimit;
 
+		public FilterType              Filter;
+		public List<string>            CustomFilterProducts    = new List<string>();
+		public bool                    CustomFilterStorable    = true;
+		public RadioactiveCustomFilter CustomFilterRadioactive = RadioactiveCustomFilter.Ignore;
+			
 		public string PrefabPath;
 		public string CustomIconPath;
 
@@ -40,7 +63,7 @@ namespace CoI.Mod.Better.Custom.Data
 		public PileGfxParamsData           PileGfxParams;
 
 
-		public void From(ProtoRegistrator registrator, StorageProto loadData)
+		public override void From(StorageProto loadData)
 		{
 			ProtoID = loadData.Id.ToString();
 
@@ -64,7 +87,7 @@ namespace CoI.Mod.Better.Custom.Data
 				TransferLimit = new TransferLimitData()
 				{
 					Unlimited = true,
-                };
+				};
 			}
 			else
 			{
@@ -72,7 +95,7 @@ namespace CoI.Mod.Better.Custom.Data
 				{
 					Count = loadData.TransferLimit.Value,
 					Duration = loadData.TransferLimitDuration.Seconds.RawValue,
-                };
+				};
 			}
 
 			PrefabPath = loadData.Graphics.PrefabPath;
@@ -86,26 +109,20 @@ namespace CoI.Mod.Better.Custom.Data
 				CustomIconPath = null;
 			}
 
-			ProductProto productSpentFuel = registrator.PrototypesDb.GetOrThrow<ProductProto>(Ids.Products.SpentFuel);
-
 			Layout = loadData.Layout.SourceLayoutStr.Split('\n').ToList();
-			if (loadData.Graphics is LooseStorageProto.Gfx)
+			if (loadData.Graphics is LooseStorageProto.Gfx looseGfx)
 			{
 				StorageType = StorageType.Loose;
-
-				LooseStorageProto.Gfx looseGfx = (LooseStorageProto.Gfx)loadData.Graphics;
 				PileGfxParams = new PileGfxParamsData();
 				PileGfxParams.From(looseGfx);
 			}
-			else if (loadData.Graphics is FluidStorageProto.Gfx)
+			else if (loadData.Graphics is FluidStorageProto.Gfx fluidGfx)
 			{
 				StorageType = StorageType.Fluid;
-
-				FluidStorageProto.Gfx fluidGfx = (FluidStorageProto.Gfx)loadData.Graphics;
 				FluidIndicatorGfxParams = new FluidIndicatorGfxParamsData();
 				FluidIndicatorGfxParams.From(fluidGfx);
 			}
-			else if (loadData.IsProductSupported(productSpentFuel))
+			else if (loadData.EntityType == typeof(NuclearWasteStorage))
 			{
 				StorageType = StorageType.Radioactive;
 			}
@@ -113,35 +130,38 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				StorageType = StorageType.Flat;
 			}
+
+			PropertyInfo result = loadData.GetType().GetProperty("m_protoFilter", BindingFlags.Instance | BindingFlags.NonPublic);
+			if (result == null)
+			{
+				BetterDebug.Warning("No filter");
+			}
+			Func<ProductProto, bool> value = (Func<ProductProto, bool>)result.GetValue(loadData);
+			if (value.Method.DeclaringType == typeof(ProductProto))
+			{
+				
+			}
 		}
 
-		public Option<StorageProtoBuilder.State> Into(ProtoRegistrator registrator)
+		public override Option<StorageProto> Into(ProtoRegistrator registrator)
 		{
-			ProtoID.CheckNotNullOrEmpty();
-			if (ProtoID.Contains(" "))
-			{
-				Debug.Log("StorageData >> Into >> name: " + Name + " >> Storage cannot generate, ProtoID is not valid! >> There must be no blank characters.");
-				return Option<StorageProtoBuilder.State>.None;
-			}
-			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
+			throw new NotSupportedException();
+		}
 
-			StaticEntityProto.ID protoID = new StaticEntityProto.ID(ProtoID);
-			Option<StorageProto> overrideStorageProto = registrator.PrototypesDb.Get<StorageProto>(protoID);
-			if (!_overrideProtoID && overrideStorageProto.HasValue)
+		private Option<StorageProtoBuilder.State> IntoInternal(ProtoRegistrator registrator)
+		{
+			if (!CheckProtoID())
 			{
-				Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot generate, ProtoID already exists!");
 				return Option<StorageProtoBuilder.State>.None;
 			}
-			else if (_overrideProtoID && !overrideStorageProto.HasValue)
-			{
-				Debug.Log("StorageData >> Into >> name: " + Name + " | id: " + protoID + " >> Storage cannot override, ProtoID is not exists!");
-				return Option<StorageProtoBuilder.State>.None;
-			}
+
+			Option<StorageProto> overrideStorageProto = GetOverrideProto(registrator);
 
 			LocStr nameStr = LocalizationManager.LoadOrCreateLocalizedString0(Name, Name);
 			LocStr descriptionStr = LocalizationManager.LoadOrCreateLocalizedString0(Description, Description);
 
-			if (_overrideProtoID && overrideStorageProto.HasValue)
+
+			if (IsOverrideProtoID() && overrideStorageProto.HasValue)
 			{
 				OverrideData(registrator, overrideStorageProto);
 
@@ -160,10 +180,19 @@ namespace CoI.Mod.Better.Custom.Data
 				Layout.Count.CheckGreater(0);
 			}
 
+			if (LangManager.Instance.Has(ProtoID + "__name"))
+			{
+				nameStr = Loc.Str(ProtoID + "__name", LangManager.Instance.Get(ProtoID + "__name"), "");
+			}
+
+			if (LangManager.Instance.Has(ProtoID + "__desc"))
+			{
+				descriptionStr = Loc.Str(ProtoID + "__desc", LangManager.Instance.Get(ProtoID + "__desc"), "");
+			}
 
 			StorageProtoBuilder.State creator = registrator.StorageProtoBuilder
-				.Start(nameStr.ToString(), protoID)
-				.Description(descriptionStr.ToString())
+				.Start(nameStr.ToString(), new StaticEntityProto.ID(ProtoID))
+				.Description(descriptionStr)
 				.SetCapacity(Capacity)
 				.SetPrefabPath(PrefabPath);
 
@@ -197,14 +226,22 @@ namespace CoI.Mod.Better.Custom.Data
 				creator.SetCustomIconPath(CustomIconPath);
 			}
 
-			//.SetCost(Costs.Buildings.StorageLoose)
-			if (StorageType == StorageType.Radioactive)
+			if (Filter == FilterType.RadioactiveProductFilter)
 			{
 				creator.SetProductsFilter(Shared.Utilities.ProductUtility.RadioactiveProductFilter);
 			}
-			else
+			else if (Filter == FilterType.ProductFilter)
 			{
 				creator.SetProductsFilter(Shared.Utilities.ProductUtility.ProductFilter);
+			}
+			else if (Filter == FilterType.SteamFilter)
+			{
+				creator.SetProductsFilter(Shared.Utilities.ProductUtility.SteamFilter);
+			}
+
+			else if (Filter == FilterType.Custom)
+			{
+				creator.SetProductsFilter(customFilter);
 			}
 
 			if (Costs != null && Costs != default)
@@ -229,7 +266,7 @@ namespace CoI.Mod.Better.Custom.Data
 				CustomLayoutToken[] customTokens = new CustomLayoutToken[2]
 				{
 					new CustomLayoutToken("-0]", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, -h)), new CustomLayoutToken("-0|", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, -h)),
-                };
+				};
 				Utils.SetLayout(ref creator, new EntityLayoutParams(null, useNewLayoutSyntax: true, customTokens), Layout);
 			}
 			else
@@ -237,13 +274,27 @@ namespace CoI.Mod.Better.Custom.Data
 				Utils.SetLayout(ref creator, Layout);
 			}
 
-			return creator;
+			return Option<StorageProtoBuilder.State>.Some(creator);
 		}
-
+		
+		private bool customFilter(ProductProto x)
+		{
+			return CustomFilterProducts.Any(p =>  
+				p == x.Id.ToString() && 
+				(CustomFilterStorable && x.IsStorable) && 
+				(CustomFilterRadioactive == RadioactiveCustomFilter.Ignore || 
+					(
+						(CustomFilterRadioactive == RadioactiveCustomFilter.Yes && x.Radioactivity > 0) || 
+						(CustomFilterRadioactive == RadioactiveCustomFilter.No && x.Radioactivity == 0)
+					)
+				)
+			);
+		}
+		
 		private void OverrideData(ProtoRegistrator registrator, Option<StorageProto> overrideStorageProto)
 		{
 			StorageData overrideData = new StorageData();
-			overrideData.From(registrator, overrideStorageProto.Value);
+			overrideData.From(overrideStorageProto.Value);
 			if (Name == null || Name.IsEmpty())
 			{
 				Name = overrideData.Name;
@@ -337,16 +388,15 @@ namespace CoI.Mod.Better.Custom.Data
 			}
 		}
 
-		public void Build(ProtoRegistrator registrator)
+		public override void Build(ProtoRegistrator registrator)
 		{
-			Option<StorageProtoBuilder.State> creator = Into(registrator);
+			Option<StorageProtoBuilder.State> creator = IntoInternal(registrator);
 			if (!creator.HasValue)
 			{
 				return;
 			}
-			
-			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
-			if (_overrideProtoID)
+
+			if (IsOverrideProtoID())
 			{
 				registrator.PrototypesDb.RemoveOrThrow(new StaticEntityProto.ID(ProtoID));
 			}

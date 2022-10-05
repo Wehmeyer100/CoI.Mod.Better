@@ -1,4 +1,5 @@
 ﻿using System;
+using CoI.Mod.Better.Shared.Lang;
 using Mafi;
 using Mafi.Core.Entities.Static.Layout;
 using Mafi.Core.Mods;
@@ -9,11 +10,8 @@ using UnityEngine;
 namespace CoI.Mod.Better.Custom.Data
 {
 	[Serializable]
-	public class ToolbarData
+	public class ToolbarData : AData<ToolbarCategoryProto>
 	{
-		public bool   overrideProtoID;
-		public string ProtoID;
-
 		public string Name;
 		public int    Order;
 
@@ -21,47 +19,23 @@ namespace CoI.Mod.Better.Custom.Data
 		public bool   isTransportBuildAllowed = true;
 		public string ShortcutID;
 
-		public void From(ToolbarCategoryProto toolbarCategoryProto)
+		public override void From(ToolbarCategoryProto toolbarCategoryProto)
 		{
 			ProtoID = toolbarCategoryProto.Id.ToString();
 			Name = toolbarCategoryProto.Strings.Name.Id;
 			Order = (int)toolbarCategoryProto.Order;
 			IconPath = toolbarCategoryProto.IconPath;
 			isTransportBuildAllowed = toolbarCategoryProto.IsTransportBuildAllowed;
+			
 			ShortcutID = toolbarCategoryProto.ShortcutId;
-
-			if (ShortcutID == "")
-			{
-				ShortcutID = null;
-			}
+			ShortcutID = ShortcutID.IsEmpty() ? null : ShortcutID;
 		}
 
-		public Option<ToolbarCategoryProto> Into(ProtoRegistrator registrator)
+		public override Option<ToolbarCategoryProto> Into(ProtoRegistrator registrator)
 		{
-			ProtoID.CheckNotNullOrEmpty();
-			if (ProtoID == null || ProtoID.IsEmpty())
-			{
-				Debug.Log("StorageData >> Into >> name: " + Name + " >> Toolbar cannot generate, ProtoID is not set!");
-				return Option<ToolbarCategoryProto>.None;
-			}
-			
-			
-			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
+			Option<ToolbarCategoryProto> overrideProto =  GetOverrideProto(registrator);
 
-			Proto.ID protoID = new Proto.ID(ProtoID);
-			Option<ToolbarCategoryProto> overrideProto = registrator.PrototypesDb.Get<ToolbarCategoryProto>(protoID);
-			if (!_overrideProtoID && overrideProto.HasValue)
-			{
-				Debug.Log("TooblarData >> Into >> name: " + Name + " | id: " + protoID + " >> Toolbar cannot generate, ProtoID already exists!");
-				return Option<ToolbarCategoryProto>.None;
-			}
-			if (_overrideProtoID && !overrideProto.HasValue)
-			{
-				Debug.Log("TooblarData >> Into >> name: " + Name + " | id: " + protoID + " >> Toolbar cannot override, ProtoID is not exists!");
-				return Option<ToolbarCategoryProto>.None;
-			}
-
-			if (_overrideProtoID)
+			if (IsOverrideProtoID())
 			{
 				OverrideData(overrideProto);
 			}
@@ -71,31 +45,14 @@ namespace CoI.Mod.Better.Custom.Data
 				IconPath.CheckNotNullOrEmpty();
 				Order.CheckNotNegative();
 			}
-
-
-			if (ShortcutID == null)
-			{
-				ShortcutID = "";
-			}
-
-			//Loc.Str(id.Value + "__name", name, "name" + translationComment), (descShort != null) ? Loc.Str(id.Value + "__desc", descShort, "short description" + translationComment) : LocStr.Empty
-
-			Proto.Str strings;
-			if (_overrideProtoID)
-			{
-				strings = new Proto.Str(LocalizationManager.LoadOrCreateLocalizedString0(Name, Name), LocStr.Empty);
-			}
-			else
-			{
-				strings = new Proto.Str(Loc.Str(protoID + "__name", protoID.ToString(), ""), LocStr.Empty);
-			}
+			
 			return Option<ToolbarCategoryProto>.Some(new ToolbarCategoryProto(
-				protoID,
-				strings,
+				new Proto.ID(ProtoID),
+				GetStrings(registrator, Name),
 				Order,
 				IconPath,
 				isTransportBuildAllowed,
-				shortcutId: ShortcutID
+				shortcutId:  ShortcutID ?? ""
 			));
 		}
 
@@ -104,7 +61,7 @@ namespace CoI.Mod.Better.Custom.Data
 			ToolbarData overrideData = new ToolbarData();
 			overrideData.From(overrideProto.Value);
 
-			if (Name == null || Name.IsEmpty())
+			if (Name.IsNullOrEmpty())
 			{
 				Name = overrideData.Name;
 			}
@@ -113,7 +70,7 @@ namespace CoI.Mod.Better.Custom.Data
 				Name.CheckNotNullOrEmpty();
 			}
 
-			if (IconPath == null || IconPath.IsEmpty())
+			if (IconPath.IsNullOrEmpty())
 			{
 				IconPath = overrideData.IconPath;
 			}
@@ -131,28 +88,12 @@ namespace CoI.Mod.Better.Custom.Data
 				Order.CheckNotNegative();
 			}
 
-			if ((ShortcutID == null || ShortcutID.IsEmpty()) && overrideData.ShortcutID != null && !overrideData.ShortcutID.IsEmpty())
+			if (ShortcutID.IsNullOrEmpty() && !overrideData.ShortcutID.IsNullOrEmpty())
 			{
 				ShortcutID = overrideData.ShortcutID;
 			}
-
+			
 			isTransportBuildAllowed = overrideData.isTransportBuildAllowed;
-		}
-
-		public void Build(ProtoRegistrator registrator)
-		{
-			Option<ToolbarCategoryProto> intoData = Into(registrator);
-			if (!intoData.HasValue)
-			{
-				return;
-			}
-
-			var _overrideProtoID = BetterMod.Config.Custom.OverrideAll || overrideProtoID;
-			if (_overrideProtoID)
-			{
-				registrator.PrototypesDb.RemoveOrThrow(new Proto.ID(ProtoID));
-			}
-			registrator.PrototypesDb.Add(intoData.Value);
 		}
 	}
 }

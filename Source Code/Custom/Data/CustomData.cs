@@ -29,6 +29,10 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				storageData.Build(registrator);
 			}
+			foreach (ToolbarData data in Toolbars)
+			{
+				data.Build(registrator);
+			}
 		}
 	}
 }

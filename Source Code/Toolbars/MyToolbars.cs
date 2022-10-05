@@ -1,5 +1,5 @@
 ﻿using CoI.Mod.Better.MyIDs;
-using Col.Mod.Better.Shared.Utilities;
+using CoI.Mod.Better.Shared.Utilities;
 using Mafi.Core.Mods;
 
 namespace CoI.Mod.Better.Toolbars

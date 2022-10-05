@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using CoI.Mod.Better.Custom.Data;
@@ -23,13 +24,21 @@ namespace CoI.Mod.Better.Custom
 		private readonly List<CustomData> customsData = new List<CustomData>
 		{
 			new CustomData(),
-        };
-		public List<Func<ProtoRegistrator, List<object>>> OnLoadCustoms = new List<Func<ProtoRegistrator, List<object>>>();
-		public List<Func<ProtoRegistrator, List<string>>> OnLoadFiles   = new List<Func<ProtoRegistrator, List<string>>>();
+		};
+		//public List<Func<ProtoRegistrator, List<object>>> OnLoadCustoms = new List<Func<ProtoRegistrator, List<object>>>();
+		//public List<Func<ProtoRegistrator, List<string>>> OnLoadFiles   = new List<Func<ProtoRegistrator, List<string>>>();
+
+		public delegate List<string> EventLoadFiles();
+
+		public event EventLoadFiles OnLoadFiles;
+
+		public delegate List<object> EventLoadCustoms();
+
+		public event EventLoadCustoms OnLoadCustoms;
 
 		public void RegisterData(ProtoRegistrator registrator)
 		{
-			if (!BetterMod.Config.Systems.Customs) return;
+			if (!BetterMod.Config.Systems.Customs || true) return;
 
 			LoadFiles(registrator);
 			ExternalCustoms(registrator);
@@ -45,37 +54,40 @@ namespace CoI.Mod.Better.Custom
 			var foundedFiles = new List<(string, Type)>();
 
 			LoadData<CustomData>("", ref foundedFiles, false);
-			LoadData<StorageData>("Storages", ref foundedFiles, true);
-			LoadData<ToolbarData>("Toolbars", ref foundedFiles, true);
+			LoadData<StorageData>("Storages", ref foundedFiles);
+			LoadData<ToolbarData>("Toolbars", ref foundedFiles);
 
-			foreach (Func<ProtoRegistrator, List<string>> call in OnLoadFiles)
+			if(OnLoadFiles != null)
 			{
-				List<string> results = call?.Invoke(registrator);
-				foreach (string file_path in results)
+				foreach (Delegate call in OnLoadFiles.GetInvocationList())
 				{
-					if (file_path == null || file_path.IsEmpty())
-						continue;
+					if (call == null) continue;
 
-					if (File.Exists(file_path))
+					List<string> results = (List<string>)call.DynamicInvoke(registrator);
+					foreach (string file_path in results)
 					{
-						string ext = Path.GetExtension(file_path);
-						if (ext == Constants.JsonExt)
+						if (file_path == null || file_path.IsEmpty())
+							continue;
+
+						if (File.Exists(file_path))
 						{
-							foundedFiles.Add((file_path, typeof(CustomData)));
+							string ext = Path.GetExtension(file_path);
+							if (ext == Constants.JsonExt)
+							{
+								foundedFiles.Add((file_path, typeof(CustomData)));
+							}
+							else
+							{
+								BetterDebug.Info("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles has the wrong extension! Must .json!");
+							}
 						}
 						else
 						{
-							BetterDebug.Info("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles has the wrong extension! Must .json!");
+							BetterDebug.Info("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles cannot find!");
 						}
-					}
-					else
-					{
-						BetterDebug.Info("Customs >> Loading file(file: " + file_path + ") >> Custom file by OnLoadFiles cannot find!");
 					}
 				}
 			}
-
-
 
 			foreach ((string file_path, Type type) in foundedFiles)
 			{
@@ -88,9 +100,12 @@ namespace CoI.Mod.Better.Custom
 						{
 							Formatting = Formatting.Indented,
 							NullValueHandling = NullValueHandling.Ignore,
-                        });
-						readData.FilePath = file_path;
-						customsData.Add(readData);
+						});
+						if (readData != null)
+						{
+							readData.FilePath = file_path;
+							customsData.Add(readData);
+						}
 					}
 					else
 					{
@@ -100,7 +115,7 @@ namespace CoI.Mod.Better.Custom
 							{
 								Formatting = Formatting.Indented,
 								NullValueHandling = NullValueHandling.Ignore,
-                            });
+							});
 							customsData[0].Add(data);
 						}
 						else if (type == typeof(ToolbarData))
@@ -109,7 +124,7 @@ namespace CoI.Mod.Better.Custom
 							{
 								Formatting = Formatting.Indented,
 								NullValueHandling = NullValueHandling.Ignore,
-                            });
+							});
 							customsData[0].Add(data);
 						}
 					}
@@ -124,13 +139,14 @@ namespace CoI.Mod.Better.Custom
 
 		private void ExternalCustoms(ProtoRegistrator registrator)
 		{
-			foreach (Func<ProtoRegistrator, List<object>> call in OnLoadCustoms)
+			if(OnLoadCustoms == null) return;
+			
+			foreach (Delegate call in OnLoadCustoms.GetInvocationList())
 			{
-				List<object> result = call?.Invoke(registrator);
+				List<object> result = (List<object>)call.DynamicInvoke(registrator);
 				foreach (object data in result)
 				{
-					if (data == null || data == default)
-						continue;
+					if (data == null) continue;
 
 					if (data is CustomData castData)
 					{
@@ -151,7 +167,7 @@ namespace CoI.Mod.Better.Custom
 			}
 		}
 
-		private void LoadData<T>(string directory, ref List<(string, Type)> foundedFiles, bool recusive) where T : class
+		private void LoadData<T>(string directory, ref List<(string, Type)> foundedFiles, bool AllDirectories = true) where T : class
 		{
 			string dir_path = Path.Combine(BetterMod.CustomsDirPath, directory);
 
@@ -160,22 +176,10 @@ namespace CoI.Mod.Better.Custom
 				return;
 			}
 
-			if (recusive)
-			{
-				foreach (string dir in Directory.GetDirectories(dir_path))
-				{
-					LoadData<T>(dir, ref foundedFiles, recusive);
-				}
-			}
-
-			string[] allFiles = Directory.GetFiles(dir_path);
+			string[] allFiles = Directory.GetFiles(dir_path, "*" + Constants.JsonExt, AllDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 			foreach (string file_path in allFiles)
 			{
-				string ext = Path.GetExtension(file_path);
-				if (ext == Constants.JsonExt)
-				{
-					foundedFiles.Add((file_path, typeof(T)));
-				}
+				foundedFiles.Add((file_path, typeof(T)));
 			}
 		}
 
@@ -203,21 +207,20 @@ namespace CoI.Mod.Better.Custom
 				MissingMemberHandling = MissingMemberHandling.Ignore,
 				NullValueHandling = NullValueHandling.Ignore,
 				ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
-            };
+			};
 			settings.Converters.Add(new StringEnumConverter());
 
 			CustomData testData = new CustomData();
 
-			List<StorageProto> storageProtoResults = BetterMod.Config.Custom.LoadOnlyVanilla ? AllVanillaBuildings<StorageProto>(registrator)  : AllProtos<StorageProto>(registrator);
-
+			List<StorageProto> storageProtoResults = BetterMod.Config.Custom.LoadOnlyVanilla ? ProtoUtility.AllVanillaBuildings<StorageProto>(registrator, true) : ProtoUtility.AllProtos<StorageProto>(registrator, true);
 			foreach (StorageProto storageProto in storageProtoResults)
 			{
 				StorageData storageData = new StorageData();
-				storageData.From(registrator, storageProto);
+				storageData.From(storageProto);
 				testData.Add(storageData);
 			}
 
-			List<ToolbarCategoryProto> results = BetterMod.Config.Custom.LoadOnlyVanilla ? AllVanillaToolbars(registrator) :AllProtos<ToolbarCategoryProto>(registrator);
+			List<ToolbarCategoryProto> results = BetterMod.Config.Custom.LoadOnlyVanilla ? ProtoUtility.AllVanillaToolbars(registrator, true) : ProtoUtility.AllProtos<ToolbarCategoryProto>(registrator, true);
 			foreach (ToolbarCategoryProto storageProto in results)
 			{
 				ToolbarData toolbarData = new ToolbarData();
@@ -234,67 +237,6 @@ namespace CoI.Mod.Better.Custom
 				File.Delete(file_path);
 			}
 			File.WriteAllText(file_path, result, Encoding.UTF8);
-		}
-
-		private List<Prototype> AllProtos<Prototype>(ProtoRegistrator registrator) where Prototype : Proto
-		{
-			List<Prototype> results = new List<Prototype>();
-			foreach (Prototype proto in registrator.PrototypesDb.All<Prototype>())
-			{
-				results.Add(proto);
-				BetterDebug.Info("Customs >> AllProtos<" + typeof(Prototype) + "> >> name: " + proto.Strings.Name + " | id: " + proto.Id);
-			}
-			return results;
-		}
-
-
-		private List<Prototype> AllVanillaBuildings<Prototype>(ProtoRegistrator registrator) where Prototype : Proto
-		{
-			List<Prototype> results = new List<Prototype>();
-			IEnumerable<FieldInfo> result = ReflectionUtility.GetAllFields(typeof(Ids.Buildings));
-
-			foreach (FieldInfo field in result)
-			{
-				string fieldName = field.Name;
-				object value = field.GetValue(null);
-				if (field.IsStatic && value != null && value is StaticEntityProto.ID)
-				{
-					StaticEntityProto.ID fieldValueProtoID = (StaticEntityProto.ID)value;
-					Option<Prototype> resultProduct = registrator.PrototypesDb.Get<Prototype>(fieldValueProtoID);
-
-					if (resultProduct.HasValue)
-					{
-						results.Add(resultProduct.Value);
-						BetterDebug.Info("Customs >> AllVanillaBuildings<" + typeof(Prototype) + "> >> name: " + resultProduct.Value.Strings.Name + " | id: " + resultProduct.Value.Id);
-					}
-				}
-			}
-			return results;
-		}
-
-
-		private List<ToolbarCategoryProto> AllVanillaToolbars(ProtoRegistrator registrator)
-		{
-			var results = new List<ToolbarCategoryProto>();
-			IEnumerable<FieldInfo> result = ReflectionUtility.GetAllFields(typeof(Ids.ToolbarCategories));
-
-			foreach (FieldInfo field in result)
-			{
-				string fieldName = field.Name;
-				object value = field.GetValue(null);
-				if (field.IsStatic && value != null && value is Proto.ID)
-				{
-					Proto.ID fieldValueProtoID = (Proto.ID)value;
-					Option<ToolbarCategoryProto> resultProduct = registrator.PrototypesDb.Get<ToolbarCategoryProto>(fieldValueProtoID);
-
-					if (resultProduct.HasValue)
-					{
-						results.Add(resultProduct.Value);
-						BetterDebug.Info("Customs >> AllVanillaToolbars<" + typeof(ToolbarCategoryProto) + "> >> name: " + resultProduct.Value.Strings.Name + " | id: " + resultProduct.Value.Id);
-					}
-				}
-			}
-			return results;
 		}
 	}
 }
