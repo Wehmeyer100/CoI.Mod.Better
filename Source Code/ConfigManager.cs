@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using CoI.Mod.Better.ModConfigs;
 using CoI.Mod.Better.Shared;
 using CoI.Mod.Better.Shared.Utilities;
@@ -21,14 +22,22 @@ namespace CoI.Mod.Better
 			BetterDebug.Info("Mafi config loading..");
 			foreach (IConfig config in configs)
 			{
-				LoadChanges(config);
-				PrintConfig(config);
+				try
+				{
+					LoadChanges(config);
+					PrintConfig(config);
+				}
+				catch (Exception e)
+				{
+					BetterDebug.Info(config.GetType().Name);
+					BetterDebug.Warning("Error by loading game config: " + e.Message);
+				}
 			}
 		}
 
 		private static void LoadModConfig()
 		{
-			BetterMod.Config = Shared.Config.ConfigManager.LoadOrCreate<BetterModConfig>("globalconfig5.json", true);
+			BetterMod.Config = Shared.Config.ConfigManager.LoadOrCreate<BetterModConfig>("config.json", true);
 		}
 
 		private static void LoadChanges(IConfig config)
@@ -65,10 +74,6 @@ namespace CoI.Mod.Better
 					coreConfig.FreeElectricityPerTick = BetterMod.Config.GameSettings.FreeElectricity.Kw();
 				}
 			}
-			if (config is BaseModConfig baseConfig)
-			{
-				baseConfig.DisableFuelConsumption = BetterMod.Config.GameSettings.DisableFuelConsumption;
-			}
 		}
 
 		private static void SetConfigValue(IConfig config, string fieldName, object value)
@@ -83,6 +88,10 @@ namespace CoI.Mod.Better
 		private static void PrintConfig(IConfig config)
 		{
 			BetterDebug.Info(config.GetType().Name);
+			if (config == null)
+			{
+				return;
+			}
 			foreach (PropertyInfo field in ReflectionUtility.GetAllProperty(config.GetType()))
 			{
 				if (field == null)

@@ -25,9 +25,7 @@ namespace CoI.Mod.Better.Custom
 		{
 			new CustomData(),
 		};
-		//public List<Func<ProtoRegistrator, List<object>>> OnLoadCustoms = new List<Func<ProtoRegistrator, List<object>>>();
-		//public List<Func<ProtoRegistrator, List<string>>> OnLoadFiles   = new List<Func<ProtoRegistrator, List<string>>>();
-
+		
 		public delegate List<string> EventLoadFiles();
 
 		public event EventLoadFiles OnLoadFiles;
@@ -38,7 +36,7 @@ namespace CoI.Mod.Better.Custom
 
 		public void RegisterData(ProtoRegistrator registrator)
 		{
-			if (!BetterMod.Config.Systems.Customs || true) return;
+			if (!BetterMod.Config.Systems.Customs) return;
 
 			LoadFiles(registrator);
 			ExternalCustoms(registrator);

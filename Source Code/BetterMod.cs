@@ -71,7 +71,7 @@ namespace CoI.Mod.Better
 			registrator.RegisterData<DieselGenerator>();
 			registrator.RegisterData<PowerGenerators>();
 			registrator.RegisterData<SteamStorages>();
-			registrator.RegisterData<Customs>();
+			//registrator.RegisterData<Customs>();
 
 			FixResearchWindow(registrator);
 		}

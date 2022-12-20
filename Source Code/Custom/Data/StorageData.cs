@@ -25,15 +25,15 @@ namespace CoI.Mod.Better.Custom.Data
 		RadioactiveProductFilter = 1,
 		SteamFilter              = 2,
 		Custom                   = 3
-	}	
-	
+	}
+
 	[Serializable]
 	public enum RadioactiveCustomFilter
 	{
 		Ignore = 0,
-		Yes = 1,
-		No = 2
-	}	
+		Yes    = 1,
+		No     = 2
+	}
 
 	[Serializable]
 	public class StorageData : AData<StorageProto>
@@ -54,7 +54,7 @@ namespace CoI.Mod.Better.Custom.Data
 		public List<string>            CustomFilterProducts    = new List<string>();
 		public bool                    CustomFilterStorable    = true;
 		public RadioactiveCustomFilter CustomFilterRadioactive = RadioactiveCustomFilter.Ignore;
-			
+
 		public string PrefabPath;
 		public string CustomIconPath;
 
@@ -110,36 +110,34 @@ namespace CoI.Mod.Better.Custom.Data
 			}
 
 			Layout = loadData.Layout.SourceLayoutStr.Split('\n').ToList();
+			Filter = FilterType.ProductFilter;
 			if (loadData.Graphics is LooseStorageProto.Gfx looseGfx)
 			{
 				StorageType = StorageType.Loose;
+
 				PileGfxParams = new PileGfxParamsData();
 				PileGfxParams.From(looseGfx);
 			}
 			else if (loadData.Graphics is FluidStorageProto.Gfx fluidGfx)
 			{
 				StorageType = StorageType.Fluid;
+
 				FluidIndicatorGfxParams = new FluidIndicatorGfxParamsData();
 				FluidIndicatorGfxParams.From(fluidGfx);
+
+				if (loadData.Id == MyIDs.Buildings.StorageSteamT1 || loadData.Id == MyIDs.Buildings.StorageSteamT2 || loadData.Id == MyIDs.Buildings.StorageSteamT3 || loadData.Id == MyIDs.Buildings.StorageSteamT4)
+				{
+					Filter = FilterType.SteamFilter;
+				}
 			}
 			else if (loadData.EntityType == typeof(NuclearWasteStorage))
 			{
 				StorageType = StorageType.Radioactive;
+				Filter = FilterType.RadioactiveProductFilter;
 			}
 			else
 			{
 				StorageType = StorageType.Flat;
-			}
-
-			PropertyInfo result = loadData.GetType().GetProperty("m_protoFilter", BindingFlags.Instance | BindingFlags.NonPublic);
-			if (result == null)
-			{
-				BetterDebug.Warning("No filter");
-			}
-			Func<ProductProto, bool> value = (Func<ProductProto, bool>)result.GetValue(loadData);
-			if (value.Method.DeclaringType == typeof(ProductProto))
-			{
-				
 			}
 		}
 
@@ -175,8 +173,6 @@ namespace CoI.Mod.Better.Custom.Data
 				PrefabPath.CheckNotNullOrEmpty();
 				Capacity.CheckGreater(0);
 				TransferLimit.CheckNotNull();
-				TransferLimit.Count.CheckGreater(0);
-				TransferLimit.Duration.CheckGreater(0);
 				Layout.Count.CheckGreater(0);
 			}
 
@@ -238,7 +234,6 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				creator.SetProductsFilter(Shared.Utilities.ProductUtility.SteamFilter);
 			}
-
 			else if (Filter == FilterType.Custom)
 			{
 				creator.SetProductsFilter(customFilter);
@@ -249,14 +244,17 @@ namespace CoI.Mod.Better.Custom.Data
 				creator.SetCost(Costs.Into(), Costs.CostsDisabled);
 			}
 
-			Option<StorageProto> result_nextTier = registrator.PrototypesDb.Get<StorageProto>(new StaticEntityProto.ID(NextTier));
-			if (result_nextTier.HasValue)
+			if (!NextTier.IsNullOrEmpty())
 			{
-				creator.SetNextTier(result_nextTier.Value);
-			}
-			else
-			{
-				Debug.Log("StorageData >> Into >> NextTier cannot found!");
+				Option<StorageProto> result_nextTier = registrator.PrototypesDb.Get<StorageProto>(new StaticEntityProto.ID(NextTier));
+				if (result_nextTier.HasValue)
+				{
+					creator.SetNextTier(result_nextTier.Value);
+				}
+				else
+				{
+					Debug.Log("StorageData >> Into >> NextTier cannot found!");
+				}
 			}
 
 			Utils.SetCategory(ref creator, Category);
@@ -276,21 +274,21 @@ namespace CoI.Mod.Better.Custom.Data
 
 			return Option<StorageProtoBuilder.State>.Some(creator);
 		}
-		
+
 		private bool customFilter(ProductProto x)
 		{
-			return CustomFilterProducts.Any(p =>  
-				p == x.Id.ToString() && 
-				(CustomFilterStorable && x.IsStorable) && 
-				(CustomFilterRadioactive == RadioactiveCustomFilter.Ignore || 
+			return CustomFilterProducts.Any(p =>
+				p == x.Id.ToString() &&
+				(CustomFilterStorable && x.IsStorable) &&
+				(CustomFilterRadioactive == RadioactiveCustomFilter.Ignore ||
 					(
-						(CustomFilterRadioactive == RadioactiveCustomFilter.Yes && x.Radioactivity > 0) || 
+						(CustomFilterRadioactive == RadioactiveCustomFilter.Yes && x.Radioactivity > 0) ||
 						(CustomFilterRadioactive == RadioactiveCustomFilter.No && x.Radioactivity == 0)
 					)
 				)
 			);
 		}
-		
+
 		private void OverrideData(ProtoRegistrator registrator, Option<StorageProto> overrideStorageProto)
 		{
 			StorageData overrideData = new StorageData();
@@ -405,12 +403,15 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				case StorageType.Radioactive:
 				case StorageType.Flat:
+					BetterDebug.Info("Custom generate flat/Radioactive storage >> id: " + ProtoID);
 					creator.Value.BuildAndAdd(CountableProductProto.ProductType);
 					break;
 				case StorageType.Fluid:
+					BetterDebug.Info("Custom generate fluid storage >> id: " + ProtoID);
 					creator.Value.BuildAsFluidAndAdd();
 					break;
 				case StorageType.Loose:
+					BetterDebug.Info("Custom generate loose storage >> id: " + ProtoID);
 					creator.Value.BuildAsLooseAndAdd();
 					break;
 			}

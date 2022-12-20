@@ -1,6 +1,9 @@
-﻿using CoI.Mod.Better.MyIDs;
+﻿using System;
+using CoI.Mod.Better.MyIDs;
+using CoI.Mod.Better.Shared;
 using CoI.Mod.Better.Shared.Utilities;
 using Mafi.Core.Mods;
+using UnityEngine;
 
 namespace CoI.Mod.Better.Toolbars
 {

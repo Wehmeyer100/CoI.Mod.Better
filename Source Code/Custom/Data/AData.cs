@@ -31,6 +31,7 @@ namespace CoI.Mod.Better.Custom.Data
 			{
 				registrator.PrototypesDb.RemoveOrThrow(new Proto.ID(ProtoID));
 			}
+			BetterDebug.Info("Custom generate new prototype >> id: " + ProtoID);
 			registrator.PrototypesDb.Add(intoData.Value);
 		}
 		
