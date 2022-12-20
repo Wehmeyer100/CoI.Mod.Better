@@ -68,22 +68,22 @@
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Mafi">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Base">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Core">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.ModsAuthoringSupport">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Unity">
-            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
+          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
             <HintPath>..\Plugins\Newtonsoft.Json.dll</HintPath>
