@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using CoI.Mod.Better.ModConfigs;
 using CoI.Mod.Better.Shared;
@@ -14,6 +15,8 @@ namespace CoI.Mod.Better
 {
 	public class ConfigManager
 	{
+		public static bool isConfigLoaded = false;
+		
 		public static void Load(Lyst<IConfig> configs)
 		{
 			BetterDebug.Info("Config loading..");
@@ -33,10 +36,18 @@ namespace CoI.Mod.Better
 					BetterDebug.Warning("Error by loading game config: " + e.Message);
 				}
 			}
+			isConfigLoaded = true;
 		}
 
 		private static void LoadModConfig()
 		{
+			var old_file = Shared.Config.ConfigManager.GetFilePath(ModInfo.Directory,"globalconfig5.json");
+			if (File.Exists(old_file))
+			{
+				var new_file = Shared.Config.ConfigManager.GetFilePath(ModInfo.Directory,"config.json");
+				File.Move(old_file, new_file);
+			}
+
 			BetterMod.Config = Shared.Config.ConfigManager.LoadOrCreate<BetterModConfig>("config.json", true);
 		}
 

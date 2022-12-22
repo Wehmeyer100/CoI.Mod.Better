@@ -51,6 +51,11 @@ namespace CoI.Mod.Better
 
 		public void RegisterPrototypes(ProtoRegistrator registrator)
 		{
+			if (!ConfigManager.isConfigLoaded)
+			{
+				ConfigManager.Load(registrator.Configs.ToLyst());
+			}
+
 			BetterShared.PrintInit();
 			Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
 
