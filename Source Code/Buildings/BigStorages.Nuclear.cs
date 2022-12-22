@@ -46,7 +46,7 @@ namespace CoI.Mod.Better.Buildings
 				productsFilter: ProductUtility.RadioactiveProductFilter,
 				productType: CountableProductProto.ProductType,
 				capacity: capacity_nuclear.Quantity(),
-				costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),
+				costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator, false),
 				nextTier: Option.None,
 				graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default(RelTile3f), Option<string>.Some(iconPath), default(ColorRgba), hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(category)),
 				emissionIntensity: 5,

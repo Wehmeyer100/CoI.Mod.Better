@@ -34,7 +34,7 @@ namespace CoI.Mod.Better
 		{
 			ModInfo.Name = ModName;
 			ModInfo.Directory = ModName;
-			ModInfo.Version = "0.2.1";
+			ModInfo.Version = "0.2.2";
 			ModInfo.TargetVersion = Constants.TargetSharedGameVersion;
 			ModInfo.GithubUrl = "https://github.com/Wehmeyer100/CoI.Mod.Better/releases";
 		}
@@ -51,6 +51,11 @@ namespace CoI.Mod.Better
 
 		public void RegisterPrototypes(ProtoRegistrator registrator)
 		{
+			if (!ConfigManager.isConfigLoaded)
+			{
+				ConfigManager.Load(registrator.Configs.ToLyst());
+			}
+
 			BetterShared.PrintInit();
 			Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
 
