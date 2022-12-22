@@ -50,7 +50,7 @@ Edicts:
 - Solar power: 25%, 50%, 100%, 200%, 300%
 
 # Install
-Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.1.9
+Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.2.2
 
 1. Open your documents folder. Here you should find the "Captain Of Industry" folder. 
 
