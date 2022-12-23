@@ -56,7 +56,7 @@ Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0
 
 2. Is the "Mods" folder present? If not, just create a new one with the name "Mods".
 
-3. Copy the folder "CoI.Mod.Better" and paste it into the "Documents\CaptainOfIndustry\Mods" folder. The folder name must be exact "CoI.Mod.Better"!
+3. Copy the folder "CoI.Mod.Better"(Unzip CoI.Mod.Better.zip) and paste it into the "Documents\Captain Of Industry\Mods" folder. The folder name must be exact "CoI.Mod.Better"!
 
 4. Start a new game!
 
