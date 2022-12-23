@@ -85,8 +85,8 @@ Then start the game and enjoy!
     2. In the research tree there should be new research options at the top.
 
 # Config
-
-	see you soon!
+- Systems: Only for new games!
+- see you soon!
 
 # 
 I wish you a lot of fun!
