@@ -85,7 +85,12 @@ Then start the game and enjoy!
     2. In the research tree there should be new research options at the top.
 
 # Config
-- Systems: Only for new games!
+- Systems: 
+```
+Systems can be changed only for new games. It is always possible to activate a system, but it is not possible to deactivate it. This is not supported by the game.
+
+In other words, if something new is added, it cannot be removed in the savegame. However, this only applies to buildings, resources, research, ethics for captain's office or similar.
+```
 - see you soon!
 
 # 
