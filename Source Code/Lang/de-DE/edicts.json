@@ -1,5 +1,17 @@
 ﻿[
   {
+    "Key": "generell_edict_cheat",
+    "Value": "Generell Edict Cheat"
+  },
+  {
+    "Key": "vehicle_edict_plus",
+    "Value": "Vehicle Edict Plus"
+  },
+  {
+    "Key": "vehicle_edict_plus_cheat",
+    "Value": "Vehicle Edict Plus Cheat"
+  },
+  {
     "Key": "farm_multiplier_t1",
     "Value": "Farm yield multiplier I"
   },
@@ -273,7 +285,7 @@
   },
   {
     "Key": "maintenance_reduction_t1_cheat",
-    "Value": "Maintenance Reduce I"
+    "Value": "Maintenance Reduce I Cheat"
   },
   {
     "Key": "maintenance_reduction_t1_cheat_desc",
@@ -281,7 +293,7 @@
   },
   {
     "Key": "maintenance_reduction_t2_cheat",
-    "Value": "Maintenance Reduce II"
+    "Value": "Maintenance Reduce II Cheat"
   },
   {
     "Key": "maintenance_reduction_t2_cheat_desc",
@@ -289,7 +301,7 @@
   },
   {
     "Key": "maintenance_reduction_t3_cheat",
-    "Value": "Maintenance Reduce III"
+    "Value": "Maintenance Reduce III Cheat"
   },
   {
     "Key": "maintenance_reduction_t3_cheat_desc",
@@ -297,10 +309,10 @@
   },
   {
     "Key": "maintenance_reduction_t4_cheat",
-    "Value": "Maintenance Reduce IV"
+    "Value": "Maintenance Reduce IV Cheat"
   },
   {
     "Key": "maintenance_reduction_t4_cheat_desc",
     "Value": "Maintenance reduced by {0}%"
-  }
+  },
 ]

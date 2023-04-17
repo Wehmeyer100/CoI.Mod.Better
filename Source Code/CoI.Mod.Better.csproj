@@ -70,6 +70,9 @@
         <Reference Include="Assembly-CSharp">
           <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
+        <Reference Include="Col.Mod.Better.Shared">
+          <HintPath>..\..\..\Captain of Industry\Mods\CoI.Mod.Better\Col.Mod.Better.Shared.dll</HintPath>
+        </Reference>
         <Reference Include="Mafi">
           <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
         </Reference>
@@ -86,10 +89,7 @@
           <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
-            <HintPath>..\Plugins\Newtonsoft.Json.dll</HintPath>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>..\Plugins\Col.Mod.Better.Shared.dll</HintPath>
+          <HintPath>..\..\..\Captain of Industry\Mods\CoI.Mod.Better\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="System">
             <CopyLocal>False</CopyLocal>

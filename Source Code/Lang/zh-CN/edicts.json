@@ -1,5 +1,17 @@
 ﻿[
   {
+    "Key": "generell_edict_cheat",
+    "Value": "Generell Edict Cheat"
+  },
+  {
+    "Key": "vehicle_edict_plus",
+    "Value": "Vehicle Edict Plus"
+  },
+  {
+    "Key": "vehicle_edict_plus_cheat",
+    "Value": "Vehicle Edict Plus Cheat"
+  },
+  {
     "Key": "farm_multiplier_t1",
     "Value": "农场收益倍率 I"
   },

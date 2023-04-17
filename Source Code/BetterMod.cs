@@ -34,7 +34,7 @@ namespace CoI.Mod.Better
 		{
 			ModInfo.Name = ModName;
 			ModInfo.Directory = ModName;
-			ModInfo.Version = "0.2.3";
+			ModInfo.Version = "0.2.4";
 			ModInfo.TargetVersion = Constants.TargetSharedGameVersion;
 			ModInfo.GithubUrl = "https://github.com/Wehmeyer100/CoI.Mod.Better/releases";
 		}
