@@ -58,7 +58,7 @@ Edicts:
 # Install
 Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.3.0
 
-1. Open your "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\" folder. Here you should find the "Captain Of Industry" folder. 
+1. Open your "C:\Users\\#COMPUTER_USERNAME#\AppData\Roaming\" folder. Here you should find the "Captain Of Industry" folder. 
 
 2. Is the "Mods" folder present? If not, just create a new one with the name "Mods".
 
@@ -76,12 +76,12 @@ Then start the game and enjoy!
 2. Why is the mod not loaded?
     There are several reasons.
     1. in the settings menu the option Mods was not activated.
-    2. is the file/mod path correct? It must look like this: "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\CoI.Mod.Better\CoI.Mod.Better.dll".
+    2. is the file/mod path correct? It must look like this: "C:\Users\\#COMPUTER_USERNAME#\AppData\Roaming\CoI.Mod.Better\CoI.Mod.Better.dll".
 
 3. How do I see that the mod is active?
     Here, too, there are several possibilities.
     
-    Log Folder: "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\Captain Of Industry\Logs"
+    Log Folder: "C:\Users\\#COMPUTER_USERNAME#\AppData\Roaming\Captain Of Industry\Logs"
     
     1. You look in the last log and in the log should be the following to find: 
      
