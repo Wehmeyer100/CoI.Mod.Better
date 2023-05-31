@@ -41,13 +41,6 @@ namespace CoI.Mod.Better
 
 		private static void LoadModConfig()
 		{
-			var old_file = Shared.Config.ConfigManager.GetFilePath(ModInfo.Directory,"globalconfig5.json");
-			if (File.Exists(old_file))
-			{
-				var new_file = Shared.Config.ConfigManager.GetFilePath(ModInfo.Directory,"config.json");
-				File.Move(old_file, new_file);
-			}
-
 			BetterMod.Config = Shared.Config.ConfigManager.LoadOrCreate<BetterModConfig>("config.json", true);
 		}
 
@@ -82,7 +75,7 @@ namespace CoI.Mod.Better
 					coreConfig.IsGodModeEnabled = BetterMod.Config.GameSettings.IsGodMode;
 					coreConfig.IsInstaBuildEnabled = BetterMod.Config.GameSettings.IsInstaBuild;
 					coreConfig.BaseRoundsToEscape = BetterMod.Config.GameSettings.BattleRoundsToEscape;
-					coreConfig.FreeElectricityPerTick = BetterMod.Config.GameSettings.FreeElectricity.Kw();
+					//coreConfig.FreeElectricityPerTick = BetterMod.Config.GameSettings.FreeElectricity.Kw();
 				}
 			}
 		}

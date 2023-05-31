@@ -1,6 +1,9 @@
-﻿using CoI.Mod.Better.Shared;
+﻿using System;
+using System.Collections.Generic;
+using CoI.Mod.Better.Shared;
 using CoI.Mod.Better.Shared.Lang;
 using CoI.Mod.Better.Shared.Utilities;
+using Mafi;
 using Mafi.Base;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
@@ -43,7 +46,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
 				.SetCapacity(capacity_T1)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [5][5][5][5][5]   ", " ~ >5A[5][5][5]X5> ~ ", "   [5][5][5][5][5]   ", " ~ >5B[5][5][5]Y5> ~ ", "   [5][5][5][5][5]   ")
+				.SetLayout("   [5][5][5][5][5]   ", "A~>[5][5][5][5][5]>~X", "   [5][5][5][5][5]   ", "B~>[5][5][5][5][5]>~Y", "   [5][5][5][5][5]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/LooseT1.prefab")
 				.SetPileGfxParams("Pile_Soft", "Pile_Soft", new LoosePileTextureParams(1.4f));
 
@@ -82,7 +85,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetCost(Costs.Buildings.StorageLooseT2)
 				.SetCapacity(capacity_T2)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [6][6][6][6][6]   ", " ~ >6A[6][6][6]X6> ~ ", "   [6][6][6][6][6]   ", " ~ >6B[6][6][6]Y6> ~ ", "   [6][6][6][6][6]   ")
+				.SetLayout("   [6][6][6][6][6]   ", "A~>[6][6][6][6][6]>~X", "   [6][6][6][6][6]   ", "B~>[6][6][6][6][6]>~Y", "   [6][6][6][6][6]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/LooseT2.prefab")
 				.SetPileGfxParams("Pile_Soft", "Pile_Soft", new LoosePileTextureParams(0.3f));
 
@@ -123,7 +126,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
 				.SetCapacity(capacity_T3)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("      [6][6][6][6][6][6][6][6]      ", " ~ >6A[6][6][6][6][6][6][6][6]X6> ~ ", "   [6][6][6][6][6][6][6][6][6][6]   ", " ~ >6B[6][6][6][6][6][6][6][6]Y6> ~ ", "   [7][7][7][7][6][6][6][6][6][6]   ", "   [7][7][7][7][6][6][6][6][6][6]   ", " ~ >6C[6][6][6][6][6][6][6][6]Z6> ~ ", "   [6][6][6][6][6][6][6][6][6][6]   ", " ~ >6D[6][6][6][6][6][6][6][6]W6> ~ ", "      [6][6][6][6][6][6][6][6]      ")
+				.SetLayout("      [6][6][6][6][6][6][6][6]      ", "A~>[6][6][6][6][6][6][6][6][6][6]>~X", "   [6][6][6][6][6][6][6][6][6][6]   ", "B~>[6][6][6][6][6][6][6][6][6][6]>~Y", "   [7][7][7][7][6][6][6][6][6][6]   ", "   [7][7][7][7][6][6][6][6][6][6]   ", "C~>[6][6][6][6][6][6][6][6][6][6]>~Z", "   [6][6][6][6][6][6][6][6][6][6]   ", "D~>[6][6][6][6][6][6][6][6][6][6]>~W", "      [6][6][6][6][6][6][6][6]      ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/LooseT3.prefab")
 				.SetPileGfxParams("Pile_Soft", "Pile_Soft", new LoosePileTextureParams(0.2f));
 
@@ -154,6 +157,36 @@ namespace CoI.Mod.Better.Buildings
 			// Generate LocStr
 			string Name = LangManager.Instance.Get("loose_storage");
 			string desc = LangManager.Instance.Get("loose_storage_desc", capacity_T4.ToString());
+			
+			CustomLayoutToken[] customTokens = new CustomLayoutToken[1]
+			{
+				new CustomLayoutToken("[0!", (Func<EntityLayoutParams, int, LayoutTokenSpec>) ((p, h) =>
+				{
+					int heightToExcl = h + 1;
+					int? terrainSurfaceHeight = new int?(0);
+					Proto.ID? nullable = new Proto.ID?(p.HardenedFloorSurfaceId);
+					int? minTerrainHeight = new int?();
+					int? maxTerrainHeight = new int?();
+					Fix32? vehicleHeight = new Fix32?();
+					Proto.ID? terrainMaterialId = new Proto.ID?();
+					Proto.ID? surfaceId = nullable;
+					return new LayoutTokenSpec(heightToExcl: heightToExcl, terrainSurfaceHeight: terrainSurfaceHeight, minTerrainHeight: minTerrainHeight, maxTerrainHeight: maxTerrainHeight, vehicleHeight: vehicleHeight, terrainMaterialId: terrainMaterialId, surfaceId: surfaceId);
+				}))
+			};
+			
+			string[] strArray = new string[10]
+			{
+				"      [9][9][9][9][9][9][9][9]      ",
+				"A~>[9][9][9][9][9][9][9][9][9][9]>~X",
+				"   [9][9][9][9][9][9][9][9][9][9]   ",
+				"B~>[9][9][9][9][9][9][9][9][9][9]>~Y",
+				"   [9![9![9![9![9][9][9][9][9][9]   ",
+				"   [9![9![9![9![9][9][9][9][9][9]   ",
+				"C~>[9][9][9][9][9][9][9][9][9][9]>~Z",
+				"   [9][9][9][9][9][9][9][9][9][9]   ",
+				"D~>[9][9][9][9][9][9][9][9][9][9]>~W",
+				"      [9][9][9][9][9][9][9][9]      "
+			};
 
 			// Add new to Database
 			StorageProtoBuilder.State creator = registrator.StorageProtoBuilder.Start(Name + " IV", protoID)
@@ -161,16 +194,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetCost(Costs.Buildings.StorageLooseT4)
 				.SetCapacity(capacity_T4)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout(new EntityLayoutParams(null, false, new CustomLayoutToken[1]
-				{
-					new CustomLayoutToken("[0!", delegate(EntityLayoutParams p, int h)
-					{
-						int heightToExcl = h + 1;
-						int? terrainSurfaceHeight = 0;
-						Proto.ID? surfaceId = p.HardenedFloorSurfaceId;
-						return new LayoutTokenSpec(0, heightToExcl, LayoutTileConstraint.None, terrainSurfaceHeight, null, null, null, null, surfaceId);
-					}),
-				}), "      [9][9][9][9][9][9][9][9]      ", " ~ >9A[9][9][9][9][9][9][9][9]X9> ~ ", "   [9][9][9][9][9][9][9][9][9][9]   ", " ~ >9B[9][9][9][9][9][9][9][9]Y9> ~ ", "   [9![9![9![9![9][9][9][9][9][9]   ", "   [9![9![9![9![9][9][9][9][9][9]   ", " ~ >9C[9][9][9][9][9][9][9][9]Z9> ~ ", "   [9][9][9][9][9][9][9][9][9][9]   ", " ~ >9D[9][9][9][9][9][9][9][9]W9> ~ ", "      [9][9][9][9][9][9][9][9]      ")
+				.SetLayout(new EntityLayoutParams(customTokens: (IEnumerable<CustomLayoutToken>) customTokens), strArray)
 				.SetPrefabPath("Assets/Base/Buildings/Storages/LooseT4.prefab")
 				.SetPileGfxParams("Pile_Soft", "Pile_Soft", new LoosePileTextureParams(0.2f));
 
@@ -180,7 +204,7 @@ namespace CoI.Mod.Better.Buildings
 			}
 			creator = SetCategory(creator);
 			Utilities.ProductUtility.SetTransferLimitByT(creator, 4).BuildAsLooseAndAdd();
-			BetterDebug.Info("BigStorages >> LooseStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+			BetterDebug.Info("BigStorages >> LooseStoragesT4 (override:" + BetterMod.Config.Storage.OverrideVanilla.ToString() + ") >> created!");
 		}
 
         #endregion

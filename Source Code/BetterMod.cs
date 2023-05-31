@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using CoI.Mod.Better.Buildings;
-using CoI.Mod.Better.Custom;
 using CoI.Mod.Better.Edicts;
 using CoI.Mod.Better.ModConfigs;
 using CoI.Mod.Better.Research;
@@ -34,7 +33,7 @@ namespace CoI.Mod.Better
 		{
 			ModInfo.Name = ModName;
 			ModInfo.Directory = ModName;
-			ModInfo.Version = "0.2.4";
+			ModInfo.Version = "0.3.0";
 			ModInfo.TargetVersion = Constants.TargetSharedGameVersion;
 			ModInfo.GithubUrl = "https://github.com/Wehmeyer100/CoI.Mod.Better/releases";
 		}
@@ -57,7 +56,7 @@ namespace CoI.Mod.Better
 			}
 
 			BetterShared.PrintInit();
-			Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
+			//Debug.Log(" - CUSTOMS_DIR_PATH: " + CustomsDirPath);
 
 			// Init LangManager
 			LangManager.Instance.Load();

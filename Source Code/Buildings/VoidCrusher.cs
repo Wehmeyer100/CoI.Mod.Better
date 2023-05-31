@@ -66,7 +66,7 @@ namespace CoI.Mod.Better.Buildings
 
 			// Generate Research T1
 			string Name = LangManager.Instance.Get("void_crusher_machine");
-			ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, Name, Machines.VoidCrusher, Ids.Research.ConcreteProduction, Constants.UIStepSize * 2, (int)-(Constants.UIStepSize * 1.5f), new ResearchCostsTpl(3));
+			ResearchNodeProto research_t0 = GenerateResearch(registrator, MyIDs.Research.VoidCrusher, Name, Machines.VoidCrusher, Ids.Research.ConcreteAdvanced, Constants.UIStepSize * 2, (int)-(Constants.UIStepSize * 1.5f), new ResearchCostsTpl(3));
 
 
 			BetterDebug.Info("Void Crusher >> Generate Researchs done.");
@@ -146,7 +146,7 @@ namespace CoI.Mod.Better.Buildings
 				150,
 				10,
 				ToolbarCategories.MachinesMetallurgy,
-				" # >3A[4][3][3][3]X3> ~ "
+				"A#>[3][3][3][3][3][3][3][3]>~X"
 			);
 
 			// Generate Products Recipes for the Machine
@@ -187,7 +187,7 @@ namespace CoI.Mod.Better.Buildings
 				BetterMod.Config.VoidDestroy.PowerConsume,
 				BetterMod.Config.VoidDestroy.Emission,
 				ToolbarCategories.MachinesMetallurgy,
-				"#3 >3A[4][3][3][3][3]   "
+				"A#>[3][3][3][3][3][3][3][3]   "
 			);
 
 			// Generate Products Recipes for the Machine
@@ -214,7 +214,7 @@ namespace CoI.Mod.Better.Buildings
 				BetterMod.Config.VoidDestroy.PowerConsume,
 				BetterMod.Config.VoidDestroy.Emission,
 				ToolbarCategories.MachinesMetallurgy,
-				" # >3A[4][3][3][3]X3> ~ "
+				"A#>[3][3][3][3][3][3][3][3]>~X"
 			);
 
 			// Generate Products Recipes for the Machine
@@ -243,7 +243,7 @@ namespace CoI.Mod.Better.Buildings
 				BetterMod.Config.VoidDestroy.PowerConsume,
 				BetterMod.Config.VoidDestroy.Emission,
 				ToolbarCategories.MachinesMetallurgy,
-				"~3 >3A[4][3][3][3][3]   "
+				"A~>[3][3][3][3][3][3][3][3]   "
 			);
 
 			// Generate Products Recipes for the Machine
@@ -269,7 +269,7 @@ namespace CoI.Mod.Better.Buildings
 				BetterMod.Config.VoidDestroy.PowerConsume,
 				BetterMod.Config.VoidDestroy.Emission,
 				ToolbarCategories.MachinesMetallurgy,
-				"@3 >3A[4][3][3][3][3]   "
+				"A@>[3][3][3][3][3][3][3][3]   "
 			);
 
 			// Generate Products Recipes for the Machine
@@ -292,13 +292,14 @@ namespace CoI.Mod.Better.Buildings
 				.SetElectricityConsumption(Electricity.FromKw(powerConsume))
 				.SetCategories(categorie)
 				.SetLayout(
-					"   [3][4][3][3][3][3]   ",
-					middleLayout,
-					"   [3][4][3][3][3][3]   ",
-					"   [2][3][2][2]         ")
-				.SetPrefabPath("Assets/Base/Machines/MetalWorks/Mill.prefab")
-				.SetAnimationParams(AnimationParams.Loop())
-				.SetMachineSound("Assets/Base/Machines/MetalWorks/Mill/Mill_Sound.prefab")
+					"   [3][3][3][3][3][3][3][3]   ", 
+					"   [3][3][3][3][3][3][3][3]   ", 
+					middleLayout,  // "A~>[3][3][3][3][3][3][3][3]>@Y"
+					"   [3][3][3][3][3][3][3][3]   ", 
+					"   [3][3][3][3][3][3][3][3]   ")
+				.SetPrefabPath("Assets/Base/Machines/Food/Mill.prefab")
+				.SetAnimationParams(AnimationParams.Loop(Percent.FromRaw(60)))
+				.SetMachineSound("Assets/Base/Machines/Food/Mill/MillSound.prefab")
 				.SetEmissionWhenWorking(BetterMod.Config.VoidDestroy.Emission)
 				.SetCustomIconPath(EntityProtoUtility.GetIconPath<MachineProto>(registrator, Ids.Machines.Crusher))
 				.SetAsLockedOnInit()

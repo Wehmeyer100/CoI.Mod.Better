@@ -57,6 +57,7 @@ namespace CoI.Mod.Better.Edicts
 				cheat ? GenerelEdicts.CategoryCheats : GenerelEdicts.Category,
 				monthlyUpointsCost.Upoints(),
 				ImmutableArray.Create(Make.Kvp(IdsCore.PropertyIds.TrucksCapacityMultiplier, Capacity.Percent())),
+				"",
 				previousTier,
 				new EdictProto.Gfx(Mafi.Base.Assets.Base.Icons.Edicts.TrucksCapacity_svg))
 			);

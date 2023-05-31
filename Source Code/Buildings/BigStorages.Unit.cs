@@ -41,7 +41,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
 				.SetCapacity(capacity_T1)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [4][4][4][4][4]   ", " # >4A[4][4][4]X4> # ", "   [4][4][4][4][4]   ", " # >4B[4][4][4]Y4> # ", "   [4][4][4][4][4]   ")
+				.SetLayout("   [4][4][4][4][4]   ", "A#>[4][4][4][4][4]>#X", "   [4][4][4][4][4]   ", "B#>[4][4][4][4][4]>#Y", "   [4][4][4][4][4]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/UnitT1.prefab");
 
 			if (!BetterMod.Config.Storage.OverrideVanilla)
@@ -67,7 +67,7 @@ namespace CoI.Mod.Better.Buildings
 			{
 				protoID = MyIDs.Buildings.StorageUnitT2;
 			}
-
+//
 			// Generate LocStr
 			string Name = LangManager.Instance.Get("unit_storage");
 			string desc = LangManager.Instance.Get("unit_storage_desc", capacity_T2.ToString());
@@ -78,7 +78,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetCost(Costs.Buildings.StorageUnitT2)
 				.SetCapacity(capacity_T2)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [5][5][5][5][5]   ", " # >5A[5][5][5]X5> # ", "   [5][5][5][5][5]   ", " # >5B[5][5][5]Y5> # ", "   [5][5][5][5][5]   ")
+				.SetLayout("   [5][5][5][5][5]   ", "A#>[5][5][5][5][5]>#X", "   [5][5][5][5][5]   ", "B#>[5][5][5][5][5]>#Y", "   [5][5][5][5][5]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/UnitT2.prefab");
 
 			if (!BetterMod.Config.Storage.OverrideVanilla)
@@ -118,7 +118,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetNextTier(registrator.PrototypesDb.GetOrThrow<StorageProto>(protoNextTier))
 				.SetCapacity(capacity_T3)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [6][6][6][6][6][6][6][6][6][6]   ", " # >6A[6][6][6][6][6][6][6][6]X6> # ", "   [6][6][6][6][6][6][6][6][6][6]   ", " # >6B[6][6][6][6][6][6][6][6]Y6> # ", "   [6][6][6][6][6][6][6][6][6][6]   ", "   [6][6][6][6][6][6][6][6][6][6]   ", " # >6C[6][6][6][6][6][6][6][6]Z6> # ", "   [6][6][6][6][6][6][6][6][6][6]   ", " # >6D[6][6][6][6][6][6][6][6]W6> # ", "   [6][6][6][6][6][6][6][6][6][6]   ")
+				.SetLayout("   [6][6][6][6][6][6][6][6][6][6]   ", "A#>[6][6][6][6][6][6][6][6][6][6]>#X", "   [6][6][6][6][6][6][6][6][6][6]   ", "B#>[6][6][6][6][6][6][6][6][6][6]>#Y", "   [6][6][6][6][6][6][6][6][6][6]   ", "   [6][6][6][6][6][6][6][6][6][6]   ", "C#>[6][6][6][6][6][6][6][6][6][6]>#Z", "   [6][6][6][6][6][6][6][6][6][6]   ", "D#>[6][6][6][6][6][6][6][6][6][6]>#W", "   [6][6][6][6][6][6][6][6][6][6]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/UnitT3.prefab");
 
 
@@ -156,7 +156,7 @@ namespace CoI.Mod.Better.Buildings
 				.SetCost(Costs.Buildings.StorageUnitT4)
 				.SetCapacity(capacity_T4)
 				.SetProductsFilter(ProductUtility.ProductFilter)
-				.SetLayout("   [8][8][8][8][8][8][8][8][8][8]   ", " # >8A[8][8][8][8][8][8][8][8]X8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8B[8][8][8][8][8][8][8][8]Y8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8C[8][8][8][8][8][8][8][8]Z8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ", " # >8D[8][8][8][8][8][8][8][8]W8> # ", "   [8][8][8][8][8][8][8][8][8][8]   ")
+				.SetLayout("   [8][8][8][8][8][8][8][8][8][8]   ", "A#>[8][8][8][8][8][8][8][8][8][8]>#X", "   [8][8][8][8][8][8][8][8][8][8]   ", "B#>[8][8][8][8][8][8][8][8][8][8]>#Y", "   [8][8][8][8][8][8][8][8][8][8]   ", "   [8][8][8][8][8][8][8][8][8][8]   ", "C#>[8][8][8][8][8][8][8][8][8][8]>#Z", "   [8][8][8][8][8][8][8][8][8][8]   ", "D#>[8][8][8][8][8][8][8][8][8][8]>#W", "   [8][8][8][8][8][8][8][8][8][8]   ")
 				.SetPrefabPath("Assets/Base/Buildings/Storages/UnitT4.prefab");
 
 			if (!BetterMod.Config.Storage.OverrideVanilla)

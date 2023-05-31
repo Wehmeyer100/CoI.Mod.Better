@@ -76,9 +76,9 @@ namespace CoI.Mod.Better.Custom.Data
 			Category = new CategoryToolbarData();
 			Category.From(loadData.Graphics);
 
-			if (loadData.NextTier.HasValue)
+			if (loadData.nextTier.HasValue)
 			{
-				NextTier = loadData.NextTier.Value.Id.ToString();
+				NextTier = new UpgradeData<StorageProto>(this, loadData.nextTier.Value.Id).ToString();
 			}
 
 			Capacity = loadData.Capacity.Value;

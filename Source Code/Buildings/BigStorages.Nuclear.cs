@@ -1,8 +1,11 @@
-﻿using CoI.Mod.Better.MyIDs;
+﻿using System;
+using System.Collections.Generic;
+using CoI.Mod.Better.MyIDs;
 using CoI.Mod.Better.Shared;
 using CoI.Mod.Better.Shared.Utilities;
 using Mafi;
 using Mafi.Base;
+using Mafi.Collections.ImmutableCollections;
 using Mafi.Core.Buildings.Storages;
 using Mafi.Core.Entities.Static;
 using Mafi.Core.Entities.Static.Layout;
@@ -35,9 +38,12 @@ namespace CoI.Mod.Better.Buildings
 			// Generate new proto
 			CustomLayoutToken[] customTokens = new CustomLayoutToken[2]
 			{
-				new CustomLayoutToken("-0]", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, -h)), new CustomLayoutToken("-0|", (EntityLayoutParams p, int h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, -h)),
+				new CustomLayoutToken("-0]",  ((p, h) => new LayoutTokenSpec(-h, 4, LayoutTileConstraint.Ground, new int?(-h)))),
+				new CustomLayoutToken("-0|",  ((p, h) => new LayoutTokenSpec(-h, 6, LayoutTileConstraint.Ground, new int?(-h))))
             };
-			EntityLayout layout = registrator.LayoutParser.ParseLayoutOrThrow(new EntityLayoutParams(null, useNewLayoutSyntax: true, customTokens), "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "A#>[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "X#<[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]");
+			EntityLayout layout = registrator.LayoutParser.ParseLayoutOrThrow(
+				new EntityLayoutParams(customTokens: customTokens), 
+				"   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4]-3]-3]-3]-3]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4][4][4]-3]-3][4]", "   [4]-4]-4]-4]-4]-4][4][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4]-3]-3]-3]-3][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "A#>[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "X#<[4][6][6]-3|-3|-3|-3|-3]-2]-2][4][4][4][4][4][4]", "   [4][6][6][6][6][6][6][4][4][4][4][4][4][4][4][4]", "   [4][4][4][4][4][4][4][4][4][4][4][4][4][4][4][4]");
 
 			NuclearWasteStorageProto overrideStorage = new NuclearWasteStorageProto(
 				id: protoID,
@@ -46,17 +52,18 @@ namespace CoI.Mod.Better.Buildings
 				productsFilter: ProductUtility.RadioactiveProductFilter,
 				productType: CountableProductProto.ProductType,
 				capacity: capacity_nuclear.Quantity(),
-				costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator, false),
+				retiredWasteCapacity: capacity_retired_waste_capacity.Quantity(),
+				costs: Costs.Buildings.NuclearWasteStorage.MapToEntityCosts(registrator),
 				nextTier: Option.None,
-				graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", default(RelTile3f), Option<string>.Some(iconPath), default(ColorRgba), hideBlockedPortsIcon: false, null, registrator.GetCategoriesProtos(category)),
+				graphics: new LayoutEntityProto.Gfx("Assets/Base/Buildings/WasteStorage.prefab", customIconPath: Option.Some(iconPath), categories: new ImmutableArray<ToolbarCategoryProto>?(registrator.GetCategoriesProtos(category))),
 				emissionIntensity: 5,
-				powerConsumed: 30.Kw());
+				powerConsumedForProductsExchange: 120.Kw());
 
 
 			// Add new to Database
 			registrator.PrototypesDb.Add(overrideStorage, true);
-
-			BetterDebug.Info("NuclearWasteStorage (override:" + BetterMod.Config.Storage.OverrideVanilla + ") >> created!");
+			
+			BetterDebug.Info("NuclearWasteStorage (override:" + BetterMod.Config.Storage.OverrideVanilla.ToString() + ") >> created!");
 		}
 	}
 }

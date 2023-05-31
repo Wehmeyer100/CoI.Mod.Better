@@ -85,16 +85,10 @@ namespace CoI.Mod.Better.Buildings
 				.SetElectricityConsumption(Electricity.FromKw(powerConsume))
 				.SetCategories(categorie)
 				.SetLayout(
-					"[2][7][7][2]   ",
-					"[2][7][7][2]   ",
-					"[2][7][7][2]   ",
-					middleLayout,
-					"   [2][2][2]   ",
-					"   [2][2][2]   "
+					"   [3][3][3]   ", "   [3][3][3]   ", middleLayout, "   [3][3][3]   ", "   [3][3][3]   ", "   [3][3][3]   " // "A#>[4][4][4]>~X"
 				)
-				.SetPrefabPath("Assets/Base/Machines/Pump/LandWaterPump.prefab")
+				.SetPrefabPath("Assets/Base/Machines/Waste/Shredder.prefab")
 				.SetAnimationParams(AnimationParams.Loop())
-				.SetMachineSound("Assets/Base/Machines/Pump/LandWaterPump/LandWaterPump_Sound.prefab")
 				.SetCustomIconPath(EntityProtoUtility.GetIconPath<MachineProto>(registrator, icon))
 				.BuildAndAdd();
 		}
@@ -117,7 +111,7 @@ namespace CoI.Mod.Better.Buildings
 				Costs.Machines.SmokeStack,
 				BetterMod.Config.VoidProducer.PowerConsume,
 				ToolbarCategories.MachinesMetallurgy,
-				"[2][4][4]X2> # ",
+				"   [4][4][4]>#X",
 				Ids.Machines.MicrochipMachine
 			);
 
@@ -142,7 +136,7 @@ namespace CoI.Mod.Better.Buildings
 				Costs.Machines.SmokeStack,
 				BetterMod.Config.VoidProducer.PowerConsume,
 				ToolbarCategories.MachinesMetallurgy,
-				"[2][4][4]X2> ~ ",
+				"   [4][4][4]>~X",
 				Ids.Machines.ArcFurnace
 			);
 
@@ -167,7 +161,7 @@ namespace CoI.Mod.Better.Buildings
 				Costs.Machines.SmokeStack,
 				BetterMod.Config.VoidProducer.PowerConsume,
 				ToolbarCategories.MachinesMetallurgy,
-				"[2][4][4]X2> @ ",
+				"   [4][4][4]>@X",
 				Ids.Machines.LandWaterPump
 			);
 

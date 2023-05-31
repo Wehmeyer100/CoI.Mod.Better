@@ -28,7 +28,7 @@ namespace CoI.Mod.Better.ModConfigs.Configs
 		public int FluidCapacityMultiplier = 2; // vanilla * 2
 		public int SteamCapacityMultiplier = 2; // FluidCapacity * 2
 
-		public int CapacityNuclearWaste           = 12000; // vanilla * 3
-		public int NuclearWasteCapacityMultiplier = 2; // = Vanilla * 2
+		public int NuclearCapacity         = 4800; // vanilla * 3
+		public int NuclearRetiredWasteCapacity    = 540; // vanilla * 3
 	}
 }

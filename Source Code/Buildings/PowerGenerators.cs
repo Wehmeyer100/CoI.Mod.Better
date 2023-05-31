@@ -64,7 +64,7 @@ namespace CoI.Mod.Better.Buildings
 				new ElectricityGeneratorFromMechPowerProto(
 					protoID,
 					Proto.CreateStr(protoID, LangManager.Instance.Get("power_generator") + " " + kw_amount.Format(), LangManager.Instance.Get("power_generator_desc")),
-					registrator.LayoutParser.ParseLayoutOrThrow("   [2][2]   ", "   [3][3]   ", " | >3PQ3> | ", "   [3][3]   ", "   [2][2]   "),
+					registrator.LayoutParser.ParseLayoutOrThrow("   [2][2]   ", "   [3][3]   ", "P|>[3][3]>|Q", "   [3][3]   ", "   [2][2]   "),
 					Costs.Machines.PowerGeneratorT1.MapToEntityCosts(registrator),
 					registrator.PrototypesDb.GetOrThrow<ProductProto>(IdsCore.Products.MechanicalPower),
 					kwMech_amount,

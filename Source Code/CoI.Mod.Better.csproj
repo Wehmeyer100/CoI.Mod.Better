@@ -7,6 +7,7 @@
         <Platforms>AnyCPU;x64;x86</Platforms>
         <Authors>Luxgor | K. Wehmeyer</Authors>
         <RunPostBuildEvent>Always</RunPostBuildEvent>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -68,28 +69,25 @@
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="Col.Mod.Better.Shared">
-          <HintPath>..\..\..\Captain of Industry\Mods\CoI.Mod.Better\Col.Mod.Better.Shared.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Mafi">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Base">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Base.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Core">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Core.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.ModsAuthoringSupport">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.ModsAuthoringSupport.dll</HintPath>
         </Reference>
         <Reference Include="Mafi.Unity">
-          <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
+            <HintPath>$(COI_ROOT)\Captain of Industry_Data\Managed\Mafi.Unity.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\..\Captain of Industry\Mods\CoI.Mod.Better\Newtonsoft.Json.dll</HintPath>
+            <HintPath>..\Plugins\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="System">
             <CopyLocal>False</CopyLocal>
@@ -133,6 +131,7 @@
         <None Update="Lang\en-US\edicts.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Remove="Custom\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -186,5 +185,17 @@
             <CopyLocal>True</CopyLocal>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\CoI.Mod.Better.Shared\src\CoI.Mod.Better.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Custom\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Remove="Custom\**" />
     </ItemGroup>
 </Project>
