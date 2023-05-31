@@ -6,8 +6,8 @@ Savegame Comptability: You need to start a new game for your save!
 
 # !! INFO !!
 Mafi Game change saves and mods directories:
-- Saves: C:\Users\#PC_USERNAME#\AppData\Roaming\Captain of Industry\Saves\
-- Mods: C:\Users\#PC_USERNAME#\AppData\Roaming\Captain of Industry\Mods\
+- Saves: C:\Users\\#COMPUTER_USERNAME#\AppData\Roaming\Captain of Industry\Saves\
+- Mods: C:\Users\\#COMPUTER_USERNAME#\AppData\Roaming\Captain of Industry\Mods\
 
 
 # Current overview of the functions:
