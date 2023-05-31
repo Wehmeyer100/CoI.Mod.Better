@@ -1,6 +1,6 @@
 # CoI.Mod.Better
 
-Game Version(Comptability): 0.4.13
+Game Version(Comptability): 0.5.0 (Beta Mod version)
 
 Savegame Comptability: You need to start a new game!
 
