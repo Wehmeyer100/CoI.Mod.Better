@@ -4,7 +4,7 @@ Game Version(Comptability): 0.5.0 (Beta Mod version)
 
 Savegame Comptability: You need to start a new game for your save!
 
-# !!INFO!!
+# !! INFO !!
 Mafi Game change saves and mods directories:
 - Saves: C:\Users\#PC_USERNAME#\AppData\Roaming\Captain of Industry\Saves\
 - Mods: C:\Users\#PC_USERNAME#\AppData\Roaming\Captain of Industry\Mods\
