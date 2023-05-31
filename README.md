@@ -1,6 +1,6 @@
 # CoI.Mod.Better
 
-Game Version(Comptability): 0.4.13
+Game Version(Comptability): 0.5.0 (Beta Mod version)
 
 Savegame Comptability: You need to start a new game!
 
@@ -52,11 +52,11 @@ Edicts:
 # Install
 Download this file: https://github.com/Wehmeyer100/CoI.Mod.Better/releases/tag/0.2.2
 
-1. Open your documents folder. Here you should find the "Captain Of Industry" folder. 
+1. Open your "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\" folder. Here you should find the "Captain Of Industry" folder. 
 
 2. Is the "Mods" folder present? If not, just create a new one with the name "Mods".
 
-3. Copy the folder "CoI.Mod.Better"(Unzip CoI.Mod.Better.zip) and paste it into the "Documents\Captain Of Industry\Mods" folder. The folder name must be exact "CoI.Mod.Better"!
+3. Copy the folder "CoI.Mod.Better"(Unzip CoI.Mod.Better.zip) and paste it into the "Captain Of Industry\Mods" folder. The folder name must be exact "CoI.Mod.Better"!
 
 4. Start a new game!
 
@@ -70,12 +70,12 @@ Then start the game and enjoy!
 2. Why is the mod not loaded?
     There are several reasons.
     1. in the settings menu the option Mods was not activated.
-    2. is the file/mod path correct? It must look like this: "Documents\Captain Of Industry\Mods\CoI.Mod.Better\CoI.Mod.Better.dll".
+    2. is the file/mod path correct? It must look like this: "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\CoI.Mod.Better\CoI.Mod.Better.dll".
 
 3. How do I see that the mod is active?
     Here, too, there are several possibilities.
     
-    Log Folder: "Documents\Captain Of Industry\Logs"
+    Log Folder: "C:\Users\#COMPUTER_USERNAME#\AppData\Roaming\Captain Of Industry\Logs"
     
     1. You look in the last log and in the log should be the following to find: 
      
@@ -83,15 +83,6 @@ Then start the game and enjoy!
 		CoI.Mod.Better (CoI.Mod.Better.BetterMod) <--- If this is displayed, the mod has been loaded.
         
     2. In the research tree there should be new research options at the top.
-
-# Config
-- Systems: 
-```
-Systems can be changed only for new games. It is always possible to activate a system, but it is not possible to deactivate it. This is not supported by the game.
-
-In other words, if something new is added, it cannot be removed in the savegame. However, this only applies to buildings, resources, research, ethics for captain's office or similar.
-```
-- see you soon!
 
 # 
 I wish you a lot of fun!
